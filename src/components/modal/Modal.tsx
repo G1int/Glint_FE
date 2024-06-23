@@ -1,7 +1,7 @@
-import * as S from "./Modal.styled";
-import { Button } from "components/buttons";
-import useModal from "hooks/useModal";
+import { useModal } from "hooks";
+import { Button } from "components";
 import { ModalPortal } from "./potal";
+import * as S from "./Modal.styled";
 
 const Modal = () => {
   const { handleCloseModal, modalDataState } = useModal();
