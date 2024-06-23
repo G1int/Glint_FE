@@ -1,5 +1,6 @@
 import React from "react";
 
+import { Input } from "components";
 import { useToast } from "hooks";
 
 const Home = () => {
@@ -10,10 +11,11 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <>
       home
       <button onClick={() => addToast(toastContext)}>toast 테스트</button>
-    </div>
+      <Input handleChange={() => console.log("hi")} />
+    </>
   );
 };
 

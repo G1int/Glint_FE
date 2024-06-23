@@ -1,16 +1,9 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { css } from "@emotion/react";
 
-export const Input = styled.input`
-  border: 1px solid cadetblue;
-`;
-
-export const icon = css`
-  width: 16px;
-  height: 16px;
-  transform: rotate(90deg);
-
-  & > path {
-    fill: blue;
-  }
+export const Input = styled.input<{ hasError?: boolean }>`
+  ${({ hasError }) => css`
+    border: 0;
+    border-bottom: 1px solid ${hasError ? "red" : "black"};
+  `}
 `;
