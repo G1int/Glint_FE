@@ -1,16 +1,21 @@
-import { modalState } from "atoms/common";
 import { useRecoilState } from "recoil";
+
+import { modalState } from "atoms";
 
 interface ModalType {
   title: string;
-  content: React.ReactNode | string;
+  content: React.ReactNode;
 }
 
 const useModal = () => {
   const [modalDataState, setModalDataState] = useRecoilState(modalState);
 
   const handleOpenModal = ({ title, content }: ModalType) => {
-    setModalDataState({ isOpen: true, content: content, title: title });
+    setModalDataState({
+      isOpen: true,
+      content: content,
+      title: title,
+    });
   };
 
   const handleCloseModal = () => {
