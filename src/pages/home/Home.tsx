@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div>
       home
-      <Input />
+      <Input handleChange={() => console.log("hi")} />
     </div>
   );
 };
