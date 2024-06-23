@@ -1,1 +1,1 @@
-export * from "./comon";
+export * from "./common";
