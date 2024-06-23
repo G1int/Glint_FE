@@ -18,8 +18,8 @@ export const ModalContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   border-radius: 1rem;
-  border: 1px solid #ffffff;
-  background-color: #ffffff;
+  border: 1px solid #ffffff; //NOTE: 컬러는 디자인 시스템에 따라 변경 예정
+  background-color: #ffffff; //NOTE: 컬러는 디자인 시스템에 따라 변경 예정
   position: absolute;
   top: 50%;
   left: 50%;
@@ -33,16 +33,16 @@ export const ModalHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.5rem;
-  border-bottom: 1px solid #dee2e6;
-  font-size: 18px;
+  padding: 15px;
+  border-bottom: 1px solid #dee2e6; //NOTE: 컬러는 디자인 시스템에 따라 변경 예정
+  font-size: 2rem;
 `;
 
 export const ModalBody = styled.div`
   display: flex;
   align-items: center;
-  padding: 1.5rem;
-  font-size: 16px;
+  padding: 15px;
+  font-size: 1.5rem;
 `;
 
 export const ModalFooter = styled.div`
@@ -51,7 +51,7 @@ export const ModalFooter = styled.div`
   flex-shrink: 0;
   align-items: center;
   justify-content: flex-end;
-  padding: 1rem;
-  border-top: 1px solid #dee3e6;
-  gap: 0.5rem;
+  padding: 10px;
+  border-top: 1px solid #dee3e6; //NOTE: 컬러는 디자인 시스템에 따라 변경 예정
+  gap: 5px;
 `;
