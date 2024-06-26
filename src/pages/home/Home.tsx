@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, Input, Modal } from "components";
+import { Badge, Button, Input, Modal } from "components";
 import { useModal, useToast } from "hooks";
 
 const Home = () => {
@@ -24,6 +24,12 @@ const Home = () => {
       >
         Open
       </Button>
+      <Badge size="sm" disabled>
+        Badge
+      </Badge>
+      <Badge size="sm" color={"red"}>
+        Click Badge
+      </Badge>
       <Modal />
     </>
   );
