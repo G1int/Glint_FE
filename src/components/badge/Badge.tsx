@@ -5,21 +5,22 @@ interface BadgeProps {
   children?: React.ReactNode;
   size?: "sm" | "lg";
   onClick?: () => void;
-  clickable?: boolean;
+  isClickable?: boolean;
   disabled?: boolean;
   color?: string;
 }
 
 const Badge = ({ children, size, disabled, color }: BadgeProps) => {
-  const [clickable, setClickable] = useState(false);
+  const [isClickable, setIsClickable] = useState(false);
 
   const handleClick = () => {
-    setClickable(!clickable);
+    setIsClickable(!isClickable);
   };
+
   return (
     <S.Badge
       size={size}
-      clickable={clickable}
+      isClickable={isClickable}
       onClick={handleClick}
       disabled={disabled}
       color={color}

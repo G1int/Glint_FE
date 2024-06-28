@@ -3,11 +3,11 @@ import styled from "@emotion/styled";
 
 export const Badge = styled.div<{
   size?: "sm" | "lg";
-  clickable?: boolean;
+  isClickable?: boolean;
   disabled?: boolean;
   color?: string;
 }>`
-  ${({ size, clickable, disabled, color }) => css`
+  ${({ size, isClickable, disabled, color }) => css`
     display: inline-block;
     padding: ${size === "sm"
       ? "5px 10px"
@@ -15,8 +15,8 @@ export const Badge = styled.div<{
       ? "15px 30px"
       : "10px 20px"};
     font-size: ${size === "sm" ? "1rem" : size == "lg" ? "2rem" : "1.5rem"};
-    border: 1.5px solid ${clickable && !disabled && color ? color : "#ced4da"}; // NOTE: 디자인 시스템에 따라 달라질 예정
-    color: ${clickable && !disabled && color
+    border: 1.5px solid ${isClickable && !disabled && color ? color : "#ced4da"}; // NOTE: 디자인 시스템에 따라 달라질 예정
+    color: ${isClickable && !disabled && color
       ? color
       : "grey"}; // NOTE: 디자인 시스템에 따라 달라질 예정
     border-radius: 16px;
