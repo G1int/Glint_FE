@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Button, Input, Modal } from "components";
+import { Button, Input, Modal, Toggle } from "components";
 import { useModal, useToast } from "hooks";
 
 const Home = () => {
@@ -24,6 +24,7 @@ const Home = () => {
       >
         Open
       </Button>
+      <Toggle />
       <Modal />
     </>
   );
