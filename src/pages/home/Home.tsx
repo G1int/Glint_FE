@@ -24,9 +24,7 @@ const Home = () => {
       >
         Open
       </Button>
-      <Toggle size="sm" />
       <Toggle />
-      <Toggle size="lg" />
       <Modal />
     </>
   );
