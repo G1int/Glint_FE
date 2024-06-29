@@ -1,19 +1,13 @@
 import { atom } from "recoil";
 
-import type { Toast } from "types";
-
-interface ModalState {
-  isOpen: boolean;
-  title: string;
-  content: React.ReactNode;
-}
+import { type Modal, type Toast } from "types";
 
 export const toastState = atom<Toast[]>({
   key: "toastState",
   default: [],
 });
 
-export const modalState = atom<ModalState>({
+export const modalState = atom<Modal>({
   key: "modalState",
   default: {
     isOpen: false,
