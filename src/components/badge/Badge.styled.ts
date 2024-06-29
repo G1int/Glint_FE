@@ -7,7 +7,7 @@ export const Badge = styled.div<{
   disabled?: boolean;
   color?: string;
 }>`
-  ${({ size, isClickable, disabled, color }) => css`
+  ${({ color, size, isClickable, disabled }) => css`
     display: inline-block;
     padding: ${size === "sm"
       ? "5px 10px"
