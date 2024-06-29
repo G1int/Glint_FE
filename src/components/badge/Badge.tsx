@@ -1,4 +1,3 @@
-import { useState } from "react";
 import * as S from "./Badge.styled";
 
 interface BadgeProps {
@@ -10,11 +9,18 @@ interface BadgeProps {
   color?: string;
 }
 
-const Badge = ({ children, size, disabled, color }: BadgeProps) => {
-  const [isClickable, setIsClickable] = useState(false);
-
+const Badge = ({
+  children,
+  size,
+  color,
+  disabled,
+  onClick,
+  isClickable,
+}: BadgeProps) => {
   const handleClick = () => {
-    setIsClickable(!isClickable);
+    if (isClickable && onClick) {
+      onClick();
+    }
   };
 
   return (

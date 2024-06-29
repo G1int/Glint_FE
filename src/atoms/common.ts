@@ -1,6 +1,5 @@
 import { atom } from "recoil";
-
-import { type Modal, type Toast } from "types";
+import { Modal, Toast, Badge } from "types";
 
 export const toastState = atom<Toast[]>({
   key: "toastState",
@@ -14,4 +13,14 @@ export const modalState = atom<Modal>({
     title: "",
     content: "",
   },
+});
+
+export const badgeState = atom<Badge[]>({
+  key: "badgeState",
+  default: [],
+});
+
+export const selectedBadgeState = atom<Badge[]>({
+  key: "selectedBadgeState",
+  default: [],
 });
