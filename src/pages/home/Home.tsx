@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react";
 
-import { Badge, Button, Input, Modal } from "components";
+import { Badge, Button, Input, Modal, Toggle } from "components";
 import { useBadge, useModal, useToast } from "hooks";
 import { badgeState } from "atoms";
 import { useSetRecoilState } from "recoil";
@@ -58,6 +58,7 @@ const Home = () => {
           {badge.label}
         </Badge>
       ))}
+      <Toggle />
       <Modal />
     </>
   );

@@ -4,3 +4,4 @@ export * from "./toast";
 export * from "./modal";
 export * from "./buttons";
 export * from "./badge";
+export * from "./toggle";
