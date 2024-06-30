@@ -24,7 +24,6 @@ const Profile = ({
   info,
   handleChangeProfile,
 }: ProfileProps) => {
-  console.log(isChangeProfile);
   return (
     <S.Profile>
       <S.ImgContent>
@@ -45,8 +44,8 @@ const Profile = ({
       <S.InfoWrapper>
         {keywords?.length && (
           <S.KeywordContent>
-            {keywords.map((keyword) => (
-              <span>{keyword}</span>
+            {keywords.map((keyword, idx) => (
+              <span key={idx}>{keyword}</span>
             ))}
           </S.KeywordContent>
         )}
