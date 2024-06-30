@@ -29,7 +29,7 @@ export const ImgContent = styled.div`
   display: flex;
 `;
 
-export const IconContent = styled.div<{
+export const IconContent = styled.button<{
   isChangeProfile?: boolean;
   isRoomManager?: boolean;
 }>`

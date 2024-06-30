@@ -11,6 +11,7 @@ interface ProfileProps {
   isRoomManager?: boolean;
   keywords?: string[];
   info: { location: string; company: string; job: string };
+  handleChangeProfile?: () => void;
 }
 
 const Profile = ({
@@ -21,7 +22,9 @@ const Profile = ({
   isRoomManager,
   keywords,
   info,
+  handleChangeProfile,
 }: ProfileProps) => {
+  console.log(isChangeProfile);
   return (
     <S.Profile>
       <S.ImgContent>
@@ -30,6 +33,8 @@ const Profile = ({
           <S.IconContent
             isChangeProfile={isChangeProfile}
             isRoomManager={isRoomManager}
+            disabled={!isChangeProfile}
+            onClick={handleChangeProfile}
           >
             {/* TODO: 임시 아이콘으로 디자인 이후 수정 필요 */}
             {isChangeProfile && <CameraIcon />}
