@@ -1,20 +1,14 @@
 import { atom } from "recoil";
-import { Modal, Toast, Badge } from "types";
+import { Toast, Badge } from "types";
 
 export const toastState = atom<Toast[]>({
   key: "toastState",
   default: [],
 });
 
-export const modalState = atom<Modal>({
+export const modalState = atom<React.ReactNode[] | []>({
   key: "modalState",
-  default: {
-    isOpen: false,
-    title: "",
-    content: "",
-    confirmLabel: "",
-    cancelLabel: "",
-  },
+  default: [],
 });
 
 export const badgeState = atom<Badge[]>({

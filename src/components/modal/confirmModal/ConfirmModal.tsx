@@ -3,23 +3,30 @@ import * as S from "./ConfirmModal.styled";
 import { Button } from "components/buttons";
 import { BaseModal } from "../baseModal";
 
-const ConfirmModal = () => {
-  const { handleCloseModal, modalDataState } = useModal();
+interface ConfirmModalProps {
+  content?: React.ReactNode;
+  confirmLabel?: string;
+  cancelLabel?: string;
+  mode?: "center" | "bottom";
+}
+
+const ConfirmModal = ({
+  content,
+  cancelLabel,
+  confirmLabel,
+  mode,
+}: ConfirmModalProps) => {
+  const { handleCloseModal } = useModal();
 
   return (
-    <BaseModal>
-      {/* <S.ModalHeader>{modalDataState.title}</S.ModalHeader> */}
-      <S.ModalBody>{modalDataState.content}</S.ModalBody>
+    <BaseModal mode={mode}>
+      <S.ModalBody>{content}</S.ModalBody>
       <S.ModalFooter>
-        {modalDataState.cancelLabel && (
-          <Button onClick={() => handleCloseModal()}>
-            {modalDataState.cancelLabel}
-          </Button>
+        {cancelLabel && (
+          <Button onClick={() => handleCloseModal()}>{cancelLabel}</Button>
         )}
-        {modalDataState.confirmLabel && (
-          <Button onClick={() => handleCloseModal()}>
-            {modalDataState.confirmLabel}
-          </Button>
+        {confirmLabel && (
+          <Button onClick={() => handleCloseModal()}>{confirmLabel}</Button>
         )}
       </S.ModalFooter>
     </BaseModal>

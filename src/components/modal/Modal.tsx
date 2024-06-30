@@ -1,18 +1,13 @@
-import { useModal } from "hooks";
-import { BaseModal } from "components";
 import { ModalPortal } from "./potal";
+import { useRecoilState } from "recoil";
+import { modalState } from "atoms";
 
-interface ModalProps {
-  children: React.ReactNode;
-}
-const Modal = ({ children }: ModalProps) => {
-  const { modalDataState } = useModal();
-
-  if (!modalDataState.isOpen) return null;
+const Modal = () => {
+  const [modalDataState] = useRecoilState(modalState);
 
   return (
     <ModalPortal>
-      {modalDataState.isOpen && <BaseModal>{children}</BaseModal>}
+      {modalDataState && modalDataState.map((item) => <>{item}</>)}
     </ModalPortal>
   );
 };
