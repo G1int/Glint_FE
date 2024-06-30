@@ -12,6 +12,8 @@ export const modalState = atom<Modal>({
     isOpen: false,
     title: "",
     content: "",
+    confirmLabel: "",
+    cancelLabel: "",
   },
 });
 
