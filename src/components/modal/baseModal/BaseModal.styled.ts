@@ -25,6 +25,7 @@ export const ModalContainer = styled.dialog<{ mode?: "center" | "bottom" }>`
       ? "95%"
       : "342px"}; // TODO: 디자인 시스템에 따라 변경 예정
     height: auto;
+    max-height: calc(100% - 100px);
     text-align: center;
     transform: ${mode === "bottom"
       ? "translateX(-50%)"
