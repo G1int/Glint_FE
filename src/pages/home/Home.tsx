@@ -1,5 +1,3 @@
-import React from "react";
-
 import {
   Button,
   Carousel,
@@ -7,9 +5,11 @@ import {
   ConfirmModal,
   Profile,
   Toggle,
+  ProfileModal,
 } from "components";
 import { useModal, useToast } from "hooks";
 import Img from "assets/images/img_01.jpg"; //TODO:임시 저장 이미지
+import Img2 from "assets/images/IMG_4494.jpg"; // TODO: 임시 저장 이미지
 
 const Home = () => {
   const { addToast } = useToast();
@@ -43,45 +43,43 @@ const Home = () => {
   const info = { location: "서울", company: "회사", job: "직업" };
   const keywords = ["키", "특징", "특징"];
 
+  const handleOpenConfirmModal = () => {
+    handleOpenModal(
+      <ConfirmModal content={"test"} confirmLabel={"확인"} mode={"center"} />
+    );
+  };
+
+  const handleOpenConfirmCancelModal = () => {
+    handleOpenModal(
+      <ConfirmModal
+        content={"test"}
+        confirmLabel={"확인"}
+        cancelLabel={"취소"}
+        mode={"center"}
+      />
+    );
+  };
+
+  const handleOpenBottomModal = () => {
+    handleOpenModal(<ProfileModal img={Img2} />);
+  };
+
   return (
     <>
       <Carousel info={carouselData} />
       home
       <button onClick={() => addToast(toastContext)}>toast 테스트</button>
       <Input handleChange={() => console.log("hi")} />
-      <Button
-        size="sm"
-        onClick={() =>
-          handleOpenModal({
-            content: "현재 개발 중인 기능이에요.",
-            confirmLabel: "확인",
-            mode: "center",
-          })
-        }
-      >
+      <Button size="sm" onClick={handleOpenConfirmModal}>
         ConfirmModal
       </Button>
-      <Button
-        size="sm"
-        onClick={() =>
-          handleOpenModal({
-            content: "이 미팅 방에서 나가시겠어요?",
-            confirmLabel: "확인",
-            cancelLabel: "나가기",
-            mode: "center",
-          })
-        }
-      >
+      <Button size="sm" onClick={handleOpenConfirmCancelModal}>
         ConfirmCancelModal
       </Button>
-      <Button
-        size="sm"
-        onClick={() => handleOpenModal({ content: "", mode: "bottom" })}
-      >
+      <Button size="sm" onClick={handleOpenBottomModal}>
         자기소개
       </Button>
       <Toggle />
-      <ConfirmModal />
       <Profile
         name="이름"
         age="16"
