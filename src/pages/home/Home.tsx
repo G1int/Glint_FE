@@ -1,4 +1,4 @@
-import { Button, Carousel, Input, Modal, Toggle } from "components";
+import { Button, Carousel, ConfirmModal, Input, Toggle } from "components";
 import { useModal, useToast } from "hooks";
 
 const Home = () => {
@@ -39,13 +39,36 @@ const Home = () => {
       <Button
         size="sm"
         onClick={() =>
-          handleOpenModal({ title: "Modal Title", content: "content!" })
+          handleOpenModal({
+            content: "현재 개발 중인 기능이에요.",
+            confirmLabel: "확인",
+            mode: "center",
+          })
         }
       >
-        Open
+        ConfirmModal
+      </Button>
+      <Button
+        size="sm"
+        onClick={() =>
+          handleOpenModal({
+            content: "이 미팅 방에서 나가시겠어요?",
+            confirmLabel: "확인",
+            cancelLabel: "나가기",
+            mode: "center",
+          })
+        }
+      >
+        ConfirmCancelModal
+      </Button>
+      <Button
+        size="sm"
+        onClick={() => handleOpenModal({ content: "", mode: "bottom" })}
+      >
+        자기소개
       </Button>
       <Toggle />
-      <Modal />
+      <ConfirmModal />
     </>
   );
 };
