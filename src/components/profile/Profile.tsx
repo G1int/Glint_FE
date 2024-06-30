@@ -4,6 +4,7 @@ import { CameraIcon, HeartIcon } from "assets";
 import * as S from "./Profile.styled";
 
 interface ProfileProps {
+  className?: string;
   name: string;
   age: string;
   img: string;
@@ -15,6 +16,7 @@ interface ProfileProps {
 }
 
 const Profile = ({
+  className,
   name,
   age,
   img,
@@ -25,7 +27,7 @@ const Profile = ({
   handleChangeProfile,
 }: ProfileProps) => {
   return (
-    <S.Profile>
+    <S.Profile className={className}>
       <S.ImgContent>
         <S.Img src={img} />
         {(isChangeProfile || isRoomManager) && (
