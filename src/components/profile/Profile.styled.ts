@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const Profile = styled.div`
@@ -28,17 +29,27 @@ export const ImgContent = styled.div`
   display: flex;
 `;
 
-export const IconContent = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background-color: yellow;
+export const IconContent = styled.div<{
+  isChangeProfile?: boolean;
+  isRoomManager?: boolean;
+}>`
+  ${({ isChangeProfile, isRoomManager }) => css`
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: ${isChangeProfile ? "white" : isRoomManager && "yellow"};
+
+    svg {
+      width: 16px; //TODO: 디자인 나오면 수정 필요
+      height: 16px;
+    }
+  `}
 `;
 
 export const KeywordContent = styled.div`

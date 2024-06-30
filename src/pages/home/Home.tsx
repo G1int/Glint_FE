@@ -30,7 +30,14 @@ const Home = () => {
       </Button>
       <Toggle />
       <Modal />
-      <Profile name="이름" age="16" img={Img} info={info} keywords={keywords} />
+      <Profile
+        name="이름"
+        age="16"
+        isChangeProfile
+        img={Img}
+        info={info}
+        keywords={keywords}
+      />
     </>
   );
 };

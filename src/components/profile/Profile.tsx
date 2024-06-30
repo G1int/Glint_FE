@@ -1,21 +1,41 @@
 import React from "react";
 
+import { CameraIcon, HeartIcon } from "assets";
 import * as S from "./Profile.styled";
 
 interface ProfileProps {
   name: string;
   age: string;
   img: string;
+  isChangeProfile?: boolean;
+  isRoomManager?: boolean;
   keywords?: string[];
   info: { location: string; company: string; job: string };
 }
 
-const Profile = ({ name, age, img, keywords, info }: ProfileProps) => {
+const Profile = ({
+  name,
+  age,
+  img,
+  isChangeProfile,
+  isRoomManager,
+  keywords,
+  info,
+}: ProfileProps) => {
   return (
     <S.Profile>
       <S.ImgContent>
         <S.Img src={img} />
-        <S.IconContent>icon</S.IconContent>
+        {(isChangeProfile || isRoomManager) && (
+          <S.IconContent
+            isChangeProfile={isChangeProfile}
+            isRoomManager={isRoomManager}
+          >
+            {/* TODO: 임시 아이콘으로 디자인 이후 수정 필요 */}
+            {isChangeProfile && <CameraIcon />}
+            {isRoomManager && <HeartIcon />}
+          </S.IconContent>
+        )}
       </S.ImgContent>
       <S.InfoWrapper>
         {keywords?.length && (
@@ -27,7 +47,7 @@ const Profile = ({ name, age, img, keywords, info }: ProfileProps) => {
         )}
         <S.MainInfoContent>
           <S.Name>{name}</S.Name>
-          <span>{age}</span>
+          <span>{age}세</span>
         </S.MainInfoContent>
         <S.InfoContent>
           <span>{info.location}</span>
