@@ -11,7 +11,14 @@ import {
 } from "components";
 import { useModal, useToast } from "hooks";
 import Img from "assets/images/img_01.jpg"; //TODO:임시 저장 이미지
-import { toastContext, carouselData, info, keywords } from "./HomeDummy";
+import {
+  toastContext,
+  carouselData,
+  info,
+  keywords,
+  tabs,
+  tabList,
+} from "./HomeDummy";
 
 const Home = () => {
   const { addToast } = useToast();
@@ -41,7 +48,7 @@ const Home = () => {
         info={info}
         keywords={keywords}
       />
-      <Tab />
+      <Tab tabs={tabs} tabList={tabList} />
     </>
   );
 };
