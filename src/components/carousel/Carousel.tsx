@@ -4,10 +4,11 @@ import { CarouselItem } from "./carouselItem";
 import * as S from "./Carousel.styled";
 
 interface CarouselProps {
+  className?: string;
   info: { title: string; content: string; img: string }[];
 }
 
-const Carousel = ({ info }: CarouselProps) => {
+const Carousel = ({ className, info }: CarouselProps) => {
   const [index, setIndex] = useState(0);
   const carouselRef = useRef<HTMLDivElement>(null);
 
@@ -24,7 +25,7 @@ const Carousel = ({ info }: CarouselProps) => {
   }, [index]);
 
   return (
-    <S.CarouselWrapper>
+    <S.CarouselWrapper className={className}>
       <S.CarouselContainer>
         {/* TODO: 디자인에서 버튼 확인 필요-> 웹에서는 추가가 필요하여 작성 */}
         <S.Button onClick={handleMoveTo(-1)}>이전</S.Button>

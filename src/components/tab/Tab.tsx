@@ -3,11 +3,12 @@ import React, { useState } from "react";
 import * as S from "./Tab.styled";
 
 interface TabProps {
+  className?: string;
   tabList: string[];
   tabs: { [key: string]: React.ReactNode };
 }
 
-const Tab = ({ tabList, tabs }: TabProps) => {
+const Tab = ({ className, tabList, tabs }: TabProps) => {
   const [currentTab, setCurrentTab] = useState(tabList[0] ?? "");
 
   const handleClickTab = (tab: string) => (): void => {
@@ -15,7 +16,7 @@ const Tab = ({ tabList, tabs }: TabProps) => {
   };
 
   return (
-    <S.Tab>
+    <S.Tab className={className}>
       <S.TabLabelWrapper>
         {tabList.map((tab) => (
           <S.TabButton
