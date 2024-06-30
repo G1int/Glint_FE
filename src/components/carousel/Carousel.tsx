@@ -12,7 +12,7 @@ const Carousel = ({ info }: CarouselProps) => {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const handleMoveTo = (move: 1 | -1) => (): void => {
-    if (index === 0 || index === info.length - 1) return;
+    if (index + move <= 0 || index >= info.length - 1) return;
 
     setIndex(index + move);
   };
@@ -30,8 +30,9 @@ const Carousel = ({ info }: CarouselProps) => {
         <S.Button onClick={handleMoveTo(-1)}>이전</S.Button>
         <S.CarouselItemWrapper>
           <S.CarouselItem ref={carouselRef}>
-            {info.map((item) => (
+            {info.map((item, idx) => (
               <CarouselItem
+                key={idx}
                 title={item.title}
                 content={item.content}
                 img={item.img}
@@ -43,7 +44,7 @@ const Carousel = ({ info }: CarouselProps) => {
       </S.CarouselContainer>
       <S.CurrentStateWrapper>
         {Array.from({ length: info.length }, (_, idx) => {
-          return <S.CurrentState index={index === idx} />;
+          return <S.CurrentState key={idx} index={index === idx} />;
         })}
       </S.CurrentStateWrapper>
     </S.CarouselWrapper>

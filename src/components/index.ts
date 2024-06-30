@@ -5,3 +5,4 @@ export * from "./modal";
 export * from "./router";
 export * from "./toast";
 export * from "./toggle";
+export * from "./profile";
