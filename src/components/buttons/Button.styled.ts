@@ -13,6 +13,7 @@ export const Button = styled.button<{ size?: "sm" | "lg" }>`
     background-color: #007bff;  //NOTE: 컬러는 디자인 시스템에 따라 변경 예정
     color: #ffffff; //NOTE: 컬러는 디자인 시스템에 따라 변경 예정
     transition: background-color 0.3s ease;
+    flex: 1;
 
     &;hover {
       background-color: #0056b3; //NOTE: 컬러는 디자인 시스템에 따라 변경 예정
