@@ -23,7 +23,7 @@ const ProfileModal = ({
   return (
     <BaseModal mode={"bottom"}>
       <S.ModalBody mode={img ? "img" : "text"}>
-        {img && info && (
+        {img && info && name && age && (
           <>
             <S.Img src={img} alt="profile img" />
             <S.MainInfoContent>
