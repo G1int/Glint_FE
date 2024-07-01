@@ -15,10 +15,10 @@ export const Badge = styled.div<{
       ? "15px 30px"
       : "10px 20px"};
     font-size: ${size === "sm" ? "1rem" : size == "lg" ? "2rem" : "1.5rem"};
-    border: 1.5px solid ${isClickable && !disabled && color ? color : "#ced4da"}; // NOTE: 디자인 시스템에 따라 달라질 예정
+    border: 1.5px solid ${isClickable && !disabled && color ? color : "#ced4da"}; // TODO: 디자인 시스템에 따라 달라질 예정
     color: ${isClickable && !disabled && color
       ? color
-      : "grey"}; // NOTE: 디자인 시스템에 따라 달라질 예정
+      : "grey"}; // TODO: 디자인 시스템에 따라 달라질 예정
     border-radius: 16px;
     text-align: center;
     white-space: nowrap;

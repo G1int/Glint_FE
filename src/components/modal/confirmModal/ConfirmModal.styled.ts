@@ -5,7 +5,7 @@ export const ModalHeader = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 15px;
-  // border-bottom: 1px solid #dee2e6; //NOTE: 컬러는 디자인 시스템에 따라 변경 예정
+  // border-bottom: 1px solid #dee2e6; //TODO: 컬러는 디자인 시스템에 따라 변경 예정
   font-size: 2rem;
 `;
 
@@ -23,6 +23,6 @@ export const ModalFooter = styled.div`
   align-items: center;
   justify-content: center;
   padding: 10px;
-  // border-top: 1px solid #dee3e6; //NOTE: 컬러는 디자인 시스템에 따라 변경 예정
+  // border-top: 1px solid #dee3e6; //TODO: 컬러는 디자인 시스템에 따라 변경 예정
   gap: 5px;
 `;

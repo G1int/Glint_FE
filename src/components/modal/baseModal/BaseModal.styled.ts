@@ -15,8 +15,8 @@ export const ModalContainer = styled.dialog<{ mode?: "center" | "bottom" }>`
     flex-direction: column;
     justify-content: center;
     border-radius: 1rem;
-    border: 1px solid #ffffff; //NOTE: 컬러는 디자인 시스템에 따라 변경 예정
-    background-color: #ffffff; //NOTE: 컬러는 디자인 시스템에 따라 변경 예정
+    border: 1px solid #ffffff; //TODO: 컬러는 디자인 시스템에 따라 변경 예정
+    background-color: #ffffff; //TODO: 컬러는 디자인 시스템에 따라 변경 예정
     position: ${mode === "bottom" ? "fixed" : "absolute"};
     top: ${mode === "bottom" ? "" : "50%"};
     bottom: ${mode === "bottom" && "10px"};
