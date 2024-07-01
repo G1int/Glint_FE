@@ -1,7 +1,6 @@
 import { useModal } from "hooks";
+import { BaseModal, Button } from "components";
 import * as S from "./ConfirmModal.styled";
-import { Button } from "components/buttons";
-import { BaseModal } from "../baseModal";
 
 interface ConfirmModalProps {
   content?: React.ReactNode;

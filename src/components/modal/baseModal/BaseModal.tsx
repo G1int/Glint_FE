@@ -1,6 +1,6 @@
+import { useRef } from "react";
 import { useModal } from "hooks";
 import * as S from "./BaseModal.styled";
-import { useRef } from "react";
 
 interface BaseModalProps {
   children?: React.ReactNode;

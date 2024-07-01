@@ -1,5 +1,4 @@
-import { Badge } from "components/badge";
-import { BaseModal } from "../baseModal";
+import { Badge, BaseModal } from "components";
 import * as S from "./ProfileModal.styled";
 
 interface ProfileModalProps {

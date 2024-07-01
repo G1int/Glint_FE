@@ -1,3 +1,4 @@
+import React from "react";
 import { ModalPortal } from "./potal";
 import { useRecoilState } from "recoil";
 import { modalState } from "atoms";
@@ -7,7 +8,10 @@ const Modal = () => {
 
   return (
     <ModalPortal>
-      {modalDataState && modalDataState.map((item) => <>{item}</>)}
+      {modalDataState &&
+        modalDataState.map((item, index) => (
+          <React.Fragment key={index}>{item}</React.Fragment>
+        ))}
     </ModalPortal>
   );
 };
