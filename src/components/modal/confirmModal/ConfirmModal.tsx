@@ -17,6 +17,11 @@ const ConfirmModal = ({
 }: ConfirmModalProps) => {
   const { handleCloseModal } = useModal();
 
+  const handleConfirmClick = () => {
+    console.log("confirm!");
+    handleCloseModal();
+  };
+
   return (
     <BaseModal mode={mode}>
       <S.ModalBody>{content}</S.ModalBody>
@@ -25,7 +30,7 @@ const ConfirmModal = ({
           <Button onClick={() => handleCloseModal()}>{cancelLabel}</Button>
         )}
         {confirmLabel && (
-          <Button onClick={() => handleCloseModal()}>{confirmLabel}</Button>
+          <Button onClick={handleConfirmClick}>{confirmLabel}</Button>
         )}
       </S.ModalFooter>
     </BaseModal>
