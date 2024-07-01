@@ -29,17 +29,17 @@ const Home = () => {
 
   const handleOpenConfirmModal = () => {
     handleOpenModal(
-      <ConfirmModal content={"test"} confirmLabel={"확인"} mode={"center"} />
+      <ConfirmModal content="test" confirmLabel="확인" mode="center" />
     );
   };
 
   const handleOpenConfirmCancelModal = () => {
     handleOpenModal(
       <ConfirmModal
-        content={"test"}
-        confirmLabel={"확인"}
-        cancelLabel={"취소"}
-        mode={"center"}
+        content="test"
+        confirmLabel="확인"
+        cancelLabel="취소"
+        mode="center"
       />
     );
   };
