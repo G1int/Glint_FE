@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { useModal } from "hooks";
 import * as S from "./BaseModal.styled";
 
@@ -8,17 +7,7 @@ interface BaseModalProps {
 }
 
 const BaseModal = ({ children, mode }: BaseModalProps) => {
-  const { modalDataState, handleCloseModal } = useModal();
-
-  const backgroundRef = useRef<HTMLDivElement>(null);
-
-  const handleClickBackground = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === backgroundRef.current) {
-      handleCloseModal();
-    } else if (backgroundRef.current?.querySelector("#modal-container")) {
-      return null;
-    }
-  };
+  const { modalDataState, backgroundRef, handleClickBackground } = useModal();
 
   if (modalDataState.length === 0) return null;
 
