@@ -35,4 +35,19 @@ const tabs: { [key: string]: React.ReactNode } = {
   tabLabel2: <div>두번째 탭</div>,
 };
 
-export { toastContext, carouselData, info, keywords, tabList, tabs };
+const introduceInfo = {
+  introduce:
+    "안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요",
+  basicInfo: ["170cm", "무교", "비흡연", "비음주"],
+  keywords: ["적극적", "ENTJ", "러닝"],
+};
+
+export {
+  toastContext,
+  carouselData,
+  info,
+  keywords,
+  tabList,
+  tabs,
+  introduceInfo,
+};

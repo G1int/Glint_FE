@@ -20,6 +20,7 @@ import {
   keywords,
   tabs,
   tabList,
+  introduceInfo,
 } from "./HomeDummy";
 
 const Home = () => {
@@ -44,7 +45,14 @@ const Home = () => {
   };
 
   const handleOpenBottomModal = () => {
-    handleOpenModal(<ProfileModal img={Img2} />);
+    handleOpenModal(
+      <ProfileModal img={Img2} name="홍길동" age="20" info={info} />
+    );
+  };
+  const handleOpenBottomModal2 = () => {
+    handleOpenModal(
+      <ProfileModal introduceInfo={introduceInfo} name="홍길동" age="20" />
+    );
   };
 
   return (
@@ -60,7 +68,10 @@ const Home = () => {
         ConfirmCancelModal
       </Button>
       <Button size="sm" onClick={handleOpenBottomModal}>
-        자기소개
+        Profile Image
+      </Button>
+      <Button size="sm" onClick={handleOpenBottomModal2}>
+        Profile Text
       </Button>
       <Toggle />
       <Profile
