@@ -1,20 +1,22 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const ModalBody = styled.div<{ mode?: "img" | "text" }>`
-  display: ${({ mode }) => (mode === "img" ? "flex" : "block")};
+export const ModalBody = styled.div`
+  display: block;
   align-items: center;
   justify-content: center;
-  padding: 10px;
   font-size: 2rem;
+  padding: 10px;
   height: 100%;
   overflow: hidden;
 `;
 
 export const Img = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: scale-down;
-  border-radius: 5px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+  align-self: center;
 `;
 
 // TODO: color, backgroud할지말지 등 css 디자인 시스템에 따라 수정
@@ -58,4 +60,22 @@ export const IntroduceContent = styled.div`
   line-height: normal;
   padding: 10px 10px 20px 10px;
   text-align: left;
+`;
+
+export const BottomModal = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 1rem;
+  border: 0px; //TODO: 디자인 시스템에 따라 변경 예정
+  background-color: #ffffff; //TODO: 컬러는 디자인 시스템에 따라 변경 예정
+  position: fixed;
+  top: auto;
+  bottom: 10px;
+  left: 50%;
+  height: 585px; // TODO: 디자인 시스템에 따라 변경 예정
+  width: 345px; // TODO: 디자인 시스템에 따라 변경 예정
+  max-height: calc(100% - 100px);
+  text-align: center;
+  transform: translateX(-50%);
 `;

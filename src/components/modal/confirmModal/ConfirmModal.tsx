@@ -6,14 +6,14 @@ interface ConfirmModalProps {
   content?: React.ReactNode;
   confirmLabel?: string;
   cancelLabel?: string;
-  mode?: "center" | "bottom";
+  className?: string;
 }
 
 const ConfirmModal = ({
   content,
   cancelLabel,
   confirmLabel,
-  mode,
+  className,
 }: ConfirmModalProps) => {
   const { handleCloseModal } = useModal();
 
@@ -23,7 +23,7 @@ const ConfirmModal = ({
   };
 
   return (
-    <BaseModal mode={mode}>
+    <BaseModal className={className}>
       <S.ModalBody>{content}</S.ModalBody>
       <S.ModalFooter>
         {cancelLabel && (

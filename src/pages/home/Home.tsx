@@ -28,19 +28,12 @@ const Home = () => {
   const { handleOpenModal } = useModal();
 
   const handleOpenConfirmModal = () => {
-    handleOpenModal(
-      <ConfirmModal content="test" confirmLabel="확인" mode="center" />
-    );
+    handleOpenModal(<ConfirmModal content="test" confirmLabel="확인" />);
   };
 
   const handleOpenConfirmCancelModal = () => {
     handleOpenModal(
-      <ConfirmModal
-        content="test"
-        confirmLabel="확인"
-        cancelLabel="취소"
-        mode="center"
-      />
+      <ConfirmModal content="test" confirmLabel="확인" cancelLabel="취소" />
     );
   };
 

@@ -1,4 +1,3 @@
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const ModalWrapper = styled.div`
@@ -9,26 +8,19 @@ export const ModalWrapper = styled.div`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-export const ModalContainer = styled.dialog<{ mode?: "center" | "bottom" }>`
-  ${({ mode }) => css`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border-radius: 1rem;
-    border: 1px solid #ffffff; //TODO: 컬러는 디자인 시스템에 따라 변경 예정
-    background-color: #ffffff; //TODO: 컬러는 디자인 시스템에 따라 변경 예정
-    position: ${mode === "bottom" ? "fixed" : "absolute"};
-    top: ${mode === "bottom" ? "" : "50%"};
-    bottom: ${mode === "bottom" && "10px"};
-    left: 50%;
-    width: ${mode === "bottom"
-      ? "95%"
-      : "342px"}; // TODO: 디자인 시스템에 따라 변경 예정
-    height: auto;
-    max-height: calc(100% - 100px);
-    text-align: center;
-    transform: ${mode === "bottom"
-      ? "translateX(-50%)"
-      : "translate(-50%, -50%)"};
-  `}
+export const ModalContainer = styled.dialog`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 1rem;
+  border: 0px; //TODO: 디자인 시스템에 따라 변경 예정
+  background-color: #ffffff; //TODO: 컬러는 디자인 시스템에 따라 변경 예정
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 345px; // TODO: 디자인 시스템에 따라 변경 예정
+  height: auto;
+  max-height: calc(100% - 100px);
+  text-align: center;
+  transform: translate(-50%, -50%);
 `;

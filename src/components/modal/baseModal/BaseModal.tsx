@@ -3,17 +3,17 @@ import * as S from "./BaseModal.styled";
 
 interface BaseModalProps {
   children?: React.ReactNode;
-  mode?: "center" | "bottom";
+  className?: string;
 }
 
-const BaseModal = ({ children, mode }: BaseModalProps) => {
+const BaseModal = ({ children, className }: BaseModalProps) => {
   const { modalDataState, backgroundRef, handleClickBackground } = useModal();
 
   if (modalDataState.length === 0) return null;
 
   return (
     <S.ModalWrapper ref={backgroundRef} onClick={handleClickBackground}>
-      <S.ModalContainer id="modal-container" mode={mode}>
+      <S.ModalContainer id="modal-container" className={className}>
         {children}
       </S.ModalContainer>
     </S.ModalWrapper>

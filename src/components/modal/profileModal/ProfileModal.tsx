@@ -2,6 +2,7 @@ import { Badge, BaseModal } from "components";
 import * as S from "./ProfileModal.styled";
 
 interface ProfileModalProps {
+  className?: string;
   img?: string;
   name?: string;
   age?: string;
@@ -14,6 +15,7 @@ interface ProfileModalProps {
 }
 
 const ProfileModal = ({
+  className,
   introduceInfo,
   img,
   name,
@@ -21,24 +23,24 @@ const ProfileModal = ({
   info,
 }: ProfileModalProps) => {
   return (
-    <BaseModal mode={"bottom"}>
-      <S.ModalBody mode={img ? "img" : "text"}>
-        {img && info && name && age && (
-          <>
-            <S.Img src={img} alt="profile img" />
-            <S.MainInfoContent>
-              <span>{name}</span>
-              <span>{age}세</span>
-            </S.MainInfoContent>
-            <S.InfoContent>
-              <span>{info.location}</span>
-              <span>{info.company}</span>
-              <span>{info.job}</span>
-            </S.InfoContent>
-          </>
-        )}
-        {introduceInfo && (
-          <>
+    <BaseModal className={className} css={S.BottomModal}>
+      {img && info && name && age && (
+        <>
+          <S.Img src={img} alt="profile img" />
+          <S.MainInfoContent>
+            <span>{name}</span>
+            <span>{age}세</span>
+          </S.MainInfoContent>
+          <S.InfoContent>
+            <span>{info.location}</span>
+            <span>{info.company}</span>
+            <span>{info.job}</span>
+          </S.InfoContent>
+        </>
+      )}
+      {introduceInfo && (
+        <>
+          <S.ModalBody>
             <S.Title>자기소개</S.Title>
             <S.IntroduceContent>{introduceInfo?.introduce}</S.IntroduceContent>
             <S.Title>기본정보</S.Title>
@@ -57,9 +59,9 @@ const ProfileModal = ({
                 </Badge>
               ))}
             </S.IntroduceContent>
-          </>
-        )}
-      </S.ModalBody>
+          </S.ModalBody>
+        </>
+      )}
     </BaseModal>
   );
 };
