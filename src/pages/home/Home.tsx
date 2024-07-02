@@ -3,13 +3,14 @@ import React from "react";
 import {
   Button,
   Carousel,
+  Dialog,
   Input,
   Modal,
   Profile,
   Tab,
   Toggle,
 } from "components";
-import { useModal, useToast } from "hooks";
+import { useDialog, useModal, useToast } from "hooks";
 import Img from "assets/images/img_01.jpg"; //TODO:임시 저장 이미지
 import {
   toastContext,
@@ -23,6 +24,7 @@ import {
 const Home = () => {
   const { addToast } = useToast();
   const { handleOpenModal } = useModal();
+  const { isOpen, buttonRef, dialogRef, handleOpenDialog } = useDialog();
 
   return (
     <>
@@ -49,6 +51,12 @@ const Home = () => {
         keywords={keywords}
       />
       <Tab tabs={tabs} tabList={tabList} />
+      <>
+        <button ref={buttonRef} onClick={handleOpenDialog}>
+          dialog
+        </button>
+        {isOpen && <Dialog ref={dialogRef} />}
+      </>
     </>
   );
 };
