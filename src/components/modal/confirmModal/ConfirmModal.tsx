@@ -1,4 +1,3 @@
-import { useModal } from "hooks";
 import { BaseModal, Button } from "components";
 import * as S from "./ConfirmModal.styled";
 
@@ -7,6 +6,8 @@ interface ConfirmModalProps {
   confirmLabel?: string;
   cancelLabel?: string;
   className?: string;
+  handleConfirmClick?: () => void;
+  handleCloseClick?: () => void;
 }
 
 const ConfirmModal = ({
@@ -14,20 +15,15 @@ const ConfirmModal = ({
   cancelLabel,
   confirmLabel,
   className,
+  handleConfirmClick,
+  handleCloseClick,
 }: ConfirmModalProps) => {
-  const { handleCloseModal } = useModal();
-
-  const handleConfirmClick = () => {
-    console.log("confirm!");
-    handleCloseModal();
-  };
-
   return (
     <BaseModal className={className}>
       <S.ModalBody>{content}</S.ModalBody>
       <S.ModalFooter>
         {cancelLabel && (
-          <Button onClick={() => handleCloseModal()}>{cancelLabel}</Button>
+          <Button onClick={handleCloseClick}>{cancelLabel}</Button>
         )}
         {confirmLabel && (
           <Button onClick={handleConfirmClick}>{confirmLabel}</Button>

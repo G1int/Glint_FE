@@ -25,15 +25,28 @@ import {
 
 const Home = () => {
   const { addToast } = useToast();
-  const { handleOpenModal } = useModal();
+  const { handleOpenModal, handleCloseModal } = useModal();
 
   const handleOpenConfirmModal = () => {
-    handleOpenModal(<ConfirmModal content="test" confirmLabel="확인" />);
+    handleOpenModal(
+      <ConfirmModal
+        content="test"
+        confirmLabel="확인"
+        handleConfirmClick={() => console.log("confirm!")}
+        handleCloseClick={handleCloseModal}
+      />
+    );
   };
 
   const handleOpenConfirmCancelModal = () => {
     handleOpenModal(
-      <ConfirmModal content="test" confirmLabel="확인" cancelLabel="취소" />
+      <ConfirmModal
+        content="test"
+        confirmLabel="확인"
+        cancelLabel="취소"
+        handleConfirmClick={() => console.log("confirm!")}
+        handleCloseClick={handleCloseModal}
+      />
     );
   };
 

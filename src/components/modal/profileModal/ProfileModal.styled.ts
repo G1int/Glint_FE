@@ -62,20 +62,11 @@ export const IntroduceContent = styled.div`
   text-align: left;
 `;
 
-export const BottomModal = css`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  border-radius: 1rem;
-  border: 0px; //TODO: 디자인 시스템에 따라 변경 예정
-  background-color: #ffffff; //TODO: 컬러는 디자인 시스템에 따라 변경 예정
+export const bottomModal = css`
   position: fixed;
   top: auto;
   bottom: 10px;
-  left: 50%;
   height: 585px; // TODO: 디자인 시스템에 따라 변경 예정
   width: 345px; // TODO: 디자인 시스템에 따라 변경 예정
-  max-height: calc(100% - 100px);
-  text-align: center;
   transform: translateX(-50%);
 `;
