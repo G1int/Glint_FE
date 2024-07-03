@@ -8,3 +8,4 @@ export * from "./router";
 export * from "./tab";
 export * from "./toast";
 export * from "./toggle";
+export * from "./badge";
