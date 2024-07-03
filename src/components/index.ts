@@ -1,5 +1,6 @@
 export * from "./buttons";
 export * from "./carousel";
+export * from "./dialog";
 export * from "./input";
 export * from "./modal";
 export * from "./profile";

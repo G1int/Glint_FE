@@ -3,6 +3,7 @@ import React from "react";
 import {
   Button,
   Carousel,
+  Dialog,
   Input,
   ConfirmModal,
   Profile,
@@ -10,7 +11,7 @@ import {
   ProfileModal,
   Tab,
 } from "components";
-import { useModal, useToast } from "hooks";
+import { useDialog, useModal, useToast } from "hooks";
 import Img from "assets/images/img_01.jpg"; //TODO:임시 저장 이미지
 import Img2 from "assets/images/IMG_4494.jpg"; // TODO: 임시 저장 이미지
 import {
@@ -60,6 +61,7 @@ const Home = () => {
       <ProfileModal introduceInfo={introduceInfo} name="홍길동" age="20" />
     );
   };
+  const { isOpen, buttonRef, dialogRef, handleOpenDialog } = useDialog();
 
   return (
     <>
@@ -89,6 +91,12 @@ const Home = () => {
         keywords={keywords}
       />
       <Tab tabs={tabs} tabList={tabList} />
+      <>
+        <button ref={buttonRef} onClick={handleOpenDialog}>
+          dialog
+        </button>
+        {isOpen && <Dialog ref={dialogRef} />}
+      </>
     </>
   );
 };
