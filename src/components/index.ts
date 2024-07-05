@@ -9,3 +9,4 @@ export * from "./tab";
 export * from "./toast";
 export * from "./toggle";
 export * from "./badge";
+export * from "./layout";
