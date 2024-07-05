@@ -12,7 +12,7 @@ import {
   Tab,
   Badge,
 } from "components";
-import { useDialog, useModal, useToast } from "hooks";
+import { useBadge, useDialog, useModal, useToast } from "hooks";
 import Img from "assets/images/img_01.jpg"; //TODO:임시 저장 이미지
 import Img2 from "assets/images/IMG_4494.jpg"; // TODO: 임시 저장 이미지
 import {
@@ -28,6 +28,9 @@ import {
 const Home = () => {
   const { addToast } = useToast();
   const { handleOpenModal, handleCloseModal } = useModal();
+  const { selectedBadges, handleClickBadge } = useBadge();
+
+  console.log(selectedBadges);
 
   const handleOpenConfirmModal = () => {
     handleOpenModal(
@@ -99,11 +102,9 @@ const Home = () => {
         {isOpen && <Dialog ref={dialogRef} />}
       </>
       <Badge label="test1" />
-      <Badge
-        label={"test1"}
-        isSelected={true}
-        handleClick={() => console.log("test")}
-      />
+      {["배열1", "배열2"].map((label, i) => (
+        <Badge key={i} label={label} handleClick={handleClickBadge} />
+      ))}
     </>
   );
 };

@@ -1,41 +1,20 @@
-import { badgeState, selectedBadgeState } from "atoms";
-import { useRecoilState } from "recoil";
-import { Badge } from "types";
+import { useState } from "react";
 
 const useBadge = () => {
-  const [badgeDataState, setBadgeDataState] = useRecoilState(badgeState);
-  const [selectedBadgeDataState, setSelectedBadgeDataState] =
-    useRecoilState(selectedBadgeState);
+  const [selectedBadges, setIsSelectedBadges] = useState<string[]>([]);
 
-  const handleClickBadge = (clickedBadge: Badge, color: string) => {
-    if (clickedBadge.isClickable) {
-      const index = selectedBadgeDataState.findIndex(
-        (badge) => badge.id === clickedBadge.id
-      );
+  const handleClickBadge = (e: React.MouseEvent) => {
+    const target = (e.target as HTMLButtonElement).innerText;
+    const findSameTarget = selectedBadges.find((item) => item === target);
 
-      if (index === -1) {
-        // 선택하지 않은 경우, 선택 목록에 추가
-        setSelectedBadgeDataState([...selectedBadgeDataState, clickedBadge]);
-      } else {
-        // 이미 선택한 경우, 선택 목록에서 제거
-        setSelectedBadgeDataState(
-          selectedBadgeDataState.filter((badge) => badge.id !== clickedBadge.id)
-        );
-      }
-
-      const updateBadges = badgeDataState.map((badge) =>
-        badge.id === clickedBadge.id
-          ? { ...badge, color: index === -1 ? color : "#ced4da" }
-          : badge
-      );
-      setBadgeDataState(updateBadges);
+    if (!findSameTarget) {
+      setIsSelectedBadges([...selectedBadges, target]);
     }
   };
 
   return {
-    badgeDataState,
+    selectedBadges,
     handleClickBadge,
-    selectedBadgeDataState,
   };
 };
 

@@ -5,7 +5,7 @@ import * as S from "./Badge.styled";
 interface BadgeProps {
   label: string;
   isSelected?: boolean;
-  handleClick?: () => void;
+  handleClick?: (e: React.MouseEvent) => void;
 }
 
 const Badge = ({ label, isSelected, handleClick }: BadgeProps) => {
