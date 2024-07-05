@@ -103,7 +103,12 @@ const Home = () => {
       </>
       <Badge label="test1" />
       {["배열1", "배열2"].map((label, i) => (
-        <Badge key={i} label={label} handleClick={handleClickBadge} />
+        <Badge
+          key={i}
+          label={label}
+          isSelected={selectedBadges.includes(label)}
+          handleClick={handleClickBadge}
+        />
       ))}
     </>
   );
