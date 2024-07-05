@@ -10,6 +10,7 @@ import {
   Toggle,
   ProfileModal,
   Tab,
+  Badge,
 } from "components";
 import { useDialog, useModal, useToast } from "hooks";
 import Img from "assets/images/img_01.jpg"; //TODO:임시 저장 이미지
@@ -97,6 +98,12 @@ const Home = () => {
         </button>
         {isOpen && <Dialog ref={dialogRef} />}
       </>
+      <Badge label="test1" />
+      <Badge
+        label={"test1"}
+        isSelected={true}
+        handleClick={() => console.log("test")}
+      />
     </>
   );
 };
