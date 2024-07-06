@@ -5,10 +5,11 @@ import { ChevronLeftIcon } from "assets";
 import * as S from "./BackLayout.styled";
 
 interface BackLayoutProps {
+  className?: string;
   children: React.ReactNode;
 }
 
-const BackLayout = ({ children }: BackLayoutProps) => {
+const BackLayout = ({ className, children }: BackLayoutProps) => {
   const navigate = useNavigate();
 
   const onClickBack = (): void => {
@@ -16,7 +17,7 @@ const BackLayout = ({ children }: BackLayoutProps) => {
   };
 
   return (
-    <>
+    <S.BackLayout className={className}>
       <S.Header>
         {/* TODO: 헤더에 타이틀 들어가는 경우가 있어 스크린 나오면 수정 필요 */}
         <button onClick={onClickBack}>
@@ -24,8 +25,8 @@ const BackLayout = ({ children }: BackLayoutProps) => {
           <ChevronLeftIcon />
         </button>
       </S.Header>
-      {children}
-    </>
+      <S.Context>{children}</S.Context>
+    </S.BackLayout>
   );
 };
 
