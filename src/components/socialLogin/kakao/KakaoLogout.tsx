@@ -3,7 +3,7 @@ import { Button } from "components/buttons";
 import { useNavigate } from "react-router-dom";
 
 const KakaoLogout = () => {
-  const accessToken = localStorage.getItem("accessToken");
+  const accessToken = sessionStorage.getItem("accessToken");
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -19,14 +19,14 @@ const KakaoLogout = () => {
         }
       )
       .then(() => {
-        localStorage.clear();
-        navigate("/signup");
+        sessionStorage.clear();
+        navigate("/");
       })
       .catch((err) => {
         console.error(err);
         // 이미 만료된 토큰일 경우
         if (err.response.data.code === -401) {
-          navigate("/signup");
+          navigate("/");
         }
       });
   };

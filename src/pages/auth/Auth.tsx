@@ -26,15 +26,15 @@ const Auth = () => {
       .then((res) => {
         console.log("kakao login response", res.data);
         if (res) {
-          localStorage.setItem(
+          sessionStorage.setItem(
             "accessToken",
             JSON.stringify(res.data.access_token)
           );
-          localStorage.setItem(
+          sessionStorage.setItem(
             "refreshToken",
             JSON.stringify(res.data.refresh_token)
           );
-          navigate("/");
+          navigate("/signup");
         }
       });
   }, []);
