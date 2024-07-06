@@ -1,37 +1,21 @@
+import React from "react";
+
 import * as S from "./Badge.styled";
 
 interface BadgeProps {
-  children?: React.ReactNode;
-  size?: "sm" | "lg";
-  onClick?: () => void;
-  isClickable?: boolean;
-  disabled?: boolean;
-  color?: string;
+  label: string;
+  isSelected?: boolean;
+  handleClick?: (e: React.MouseEvent) => void;
 }
 
-const Badge = ({
-  children,
-  size,
-  color,
-  disabled,
-  onClick,
-  isClickable,
-}: BadgeProps) => {
-  const handleClick = () => {
-    if (isClickable && onClick) {
-      onClick();
-    }
-  };
-
+const Badge = ({ label, isSelected, handleClick }: BadgeProps) => {
   return (
     <S.Badge
-      size={size}
-      isClickable={isClickable}
+      isSelected={isSelected}
+      isClickable={!!handleClick}
       onClick={handleClick}
-      disabled={disabled}
-      color={color}
     >
-      {children}
+      {label}
     </S.Badge>
   );
 };
