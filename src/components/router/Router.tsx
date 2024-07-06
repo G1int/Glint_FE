@@ -16,11 +16,12 @@ const Router = ({ children }: RouterProps) => {
       <Routes>
         {/* NOTE: 임시 코드 */}
         <Route element={<Layout />}>
-          <Route index path="/signup" element={<P.Signup />} />
+          <Route index element={<P.Login />} />
+          <Route path="/signup" element={<P.Signup />} />
           <Route path="/glint/auth/kakao/callback" element={<P.Auth />} />
-          <Route element={<AuthRoute />}>
-            <Route path="/" element={<P.Home />} />
-          </Route>
+          {/* NOTE: 둘러보기 때문에 우선 밖에 빼둠 */}
+          <Route path="/home" element={<P.Home />} />
+          <Route element={<AuthRoute />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
