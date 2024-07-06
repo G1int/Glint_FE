@@ -19,7 +19,10 @@ export const ButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  height: 208px;
+  position: absolute;
+  top: 638px;
+  left: 20px;
+  right: 20px;
   row-gap: 16px;
 `;
 
