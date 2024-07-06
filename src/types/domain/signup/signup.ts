@@ -1,6 +1,6 @@
 export interface SignupForm {
   nickname: string;
-  gender: "male" | "female";
+  gender: "male" | "female" | null;
   height: number;
   birth: {
     year: number;
