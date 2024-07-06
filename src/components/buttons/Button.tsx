@@ -1,15 +1,27 @@
 import * as S from "./Button.styled";
 
 interface ButtonProps {
+  className?: string;
   children?: React.ReactNode;
   size?: "sm" | "lg"; // TODO: 디자인 시스템에 따라 수정 예정
-  // disabled?: boolean;
+  disabled?: boolean;
   onClick?: () => void;
 }
 
-const Button = ({ children, size, onClick }: ButtonProps) => {
+const Button = ({
+  className,
+  children,
+  size,
+  disabled,
+  onClick,
+}: ButtonProps) => {
   return (
-    <S.Button size={size} onClick={onClick}>
+    <S.Button
+      className={className}
+      size={size}
+      disabled={disabled}
+      onClick={onClick}
+    >
       {children}
     </S.Button>
   );
