@@ -1,7 +1,8 @@
+import { BackLayout } from "components";
 import React from "react";
 
 const Signup = () => {
-  return <div>Signup</div>;
+  return <BackLayout>signupu</BackLayout>;
 };
 
 export default Signup;
