@@ -13,7 +13,11 @@ const Carousel = ({ className, info }: CarouselProps) => {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const handleMoveTo = (move: 1 | -1) => (): void => {
-    if (index + move <= 0 || index >= info.length - 1) return;
+    if (
+      (index + move < 0 && move === -1) ||
+      (move === 1 && index >= info.length - 1)
+    )
+      return;
 
     setIndex(index + move);
   };
