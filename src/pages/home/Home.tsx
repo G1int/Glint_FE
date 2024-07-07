@@ -11,6 +11,7 @@ import {
   ProfileModal,
   Tab,
   Badge,
+  KakaoLogout,
 } from "components";
 import { useBadge, useDialog, useModal, useToast } from "hooks";
 import Img from "assets/images/img_01.jpg"; //TODO:임시 저장 이미지
@@ -110,6 +111,7 @@ const Home = () => {
           handleClick={handleClickBadge}
         />
       ))}
+      <KakaoLogout />
     </>
   );
 };
