@@ -102,7 +102,7 @@ export const FormMonthDateText = styled.span`
   font-size: 16px;
 `;
 
-export const FormRadioButtonWrapper = styled.div`
+export const formRadioButton = css`
   position: relative;
   display: flex;
   flex-direction: column;
