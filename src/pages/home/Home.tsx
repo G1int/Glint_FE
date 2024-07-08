@@ -74,16 +74,16 @@ const Home = () => {
       home
       <button onClick={() => addToast(toastContext)}>toast 테스트</button>
       <Input handleChange={() => console.log("hi")} />
-      <Button size="sm" onClick={handleOpenConfirmModal}>
+      <Button variant="mdPink" onClick={handleOpenConfirmModal}>
         ConfirmModal
       </Button>
-      <Button size="sm" onClick={handleOpenConfirmCancelModal}>
+      <Button variant="mdPink" onClick={handleOpenConfirmCancelModal}>
         ConfirmCancelModal
       </Button>
-      <Button size="sm" onClick={handleOpenBottomModal}>
+      <Button variant="smPink" onClick={handleOpenBottomModal}>
         Profile Image
       </Button>
-      <Button size="sm" onClick={handleOpenBottomModal2}>
+      <Button variant="smPink" onClick={handleOpenBottomModal2}>
         Profile Text
       </Button>
       <Toggle />

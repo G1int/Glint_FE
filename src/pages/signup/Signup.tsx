@@ -121,6 +121,7 @@ const Signup = () => {
       </S.Signup>
       <Button
         css={S.button}
+        variant="lgPink"
         disabled={Object.keys(errors).length > 0 || isDisabledRequired}
         onClick={handleSubmit(handleClickNextButton)}
       >
