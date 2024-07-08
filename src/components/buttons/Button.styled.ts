@@ -1,36 +1,35 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-const smSizeArr = ["smGray", "smWhite", "smPink"];
-const mdSizeArr = ["mdGray", "mdWhite", "mdPink"];
-const lgSizeArr = ["lgGray", "lgWhite", "lgPink"];
-const grayArr = ["smGray", "mdGray", "lgGray"];
-// const whiteArr = ["smWhite", "mdWhite", "lgWhite"];
-const pinkArr = ["smPink", "mdPink", "lgPink"];
+interface VariantProps {
+  variant: "smPink" | "lgPink" | "mdWhite" | "lgWhite" | "underline" | "icon";
+}
 
-export const Button = styled.button<{ variant?: string }>`
+export const Button = styled.button<VariantProps>`
   ${({ theme, variant }) => css`
-    height: ${variant !== "underline" && variant !== "icon"
-      ? "56px"
-      : "fit-content"};
-    font-size: ${variant === "underline" ? "1.6rem" : "1.8rem"};
+    height: ${variant === "smPink"
+      ? "40px"
+      : variant === "underline" || variant === "icon"
+      ? "fit-content"
+      : "56px"};
+    font-size: ${variant === "smPink"
+      ? "1.4rem"
+      : variant === "lgPink" || variant === "lgWhite"
+      ? "1.8rem"
+      : "1.6rem"};
     border-radius: 8px;
-    // TODO: md, sm 버튼 사이즈 나오면 수정
-    width: ${variant &&
-    (lgSizeArr.includes(variant)
+    width: ${variant === "lgPink" || variant === "lgWhite"
       ? "320px"
-      : mdSizeArr.includes(variant)
-      ? "160px"
-      : smSizeArr.includes(variant)
-      ? "100px"
-      : "fit-content")};
+      : variant === "mdWhite"
+      ? "140px"
+      : variant === "smPink"
+      ? "59px"
+      : "fit-content"};
+    // TODO: 모달 버튼 color 추가
     color: ${variant === "underline" ? theme.colors.black : theme.colors.white};
-    background-color: ${variant &&
-    (grayArr.includes(variant)
-      ? theme.colors.gray100
-      : pinkArr.includes(variant)
+    background-color: ${variant === "smPink" || variant === "lgPink"
       ? theme.colors.rose400
-      : theme.colors.white)};
+      : theme.colors.white};
     text-decoration: ${variant === "underline" && "underline"};
 
     &:disabled {
@@ -39,10 +38,9 @@ export const Button = styled.button<{ variant?: string }>`
     }
 
     &:not(:disabled):hover {
-      background-color: ${variant !== "underline" &&
-      variant !== "icon" &&
+      background-color: ${(variant === "smPink" || variant === "lgPink") &&
       theme.colors.rose500};
-      color: ${variant === "underline" && theme.colors.navy100};
+      color: ${variant === "underline" && theme.colors.navy900};
     }
   `}
 `;
