@@ -18,7 +18,6 @@ import Img from "assets/images/img_01.jpg"; //TODO:임시 저장 이미지
 import Img2 from "assets/images/IMG_4494.jpg"; // TODO: 임시 저장 이미지
 import {
   toastContext,
-  carouselData,
   info,
   keywords,
   tabs,
@@ -70,7 +69,6 @@ const Home = () => {
 
   return (
     <>
-      <Carousel info={carouselData} />
       home
       <button onClick={() => addToast(toastContext)}>toast 테스트</button>
       <Input handleChange={() => console.log("hi")} />
