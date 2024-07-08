@@ -1,19 +1,37 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const Button = styled.button<{ size?: "sm" | "lg" }>`
-  ${({ theme, size }) => css`
-    padding: ${size === "sm"
-      ? "5px 10px"
-      : size === "lg"
-      ? "15px 30px"
-      : "10px 20px"};
-    font-size: ${size === "sm" ? "1rem" : size === "lg" ? "2rem" : "1.5rem"};
-    border: 8px;
-    border-radius: 5px;
-    background-color: ${theme.colors.rose400};
-    color: ${theme.colors.white};
-    transition: background-color 0.3s ease;
+const smSizeArr = ["smGray", "smWhite", "smPink"];
+const mdSizeArr = ["mdGray", "mdWhite", "mdPink"];
+const lgSizeArr = ["lgGray", "lgWhite", "lgPink"];
+const grayArr = ["smGray", "mdGray", "lgGray"];
+// const whiteArr = ["smWhite", "mdWhite", "lgWhite"];
+const pinkArr = ["smPink", "mdPink", "lgPink"];
+
+export const Button = styled.button<{ variant?: string }>`
+  ${({ theme, variant }) => css`
+    height: ${variant !== "underline" && variant !== "icon"
+      ? "56px"
+      : "fit-content"};
+    font-size: ${variant === "underline" ? "1.6rem" : "1.8rem"};
+    border-radius: 8px;
+    // TODO: md, sm 버튼 사이즈 나오면 수정
+    width: ${variant &&
+    (lgSizeArr.includes(variant)
+      ? "320px"
+      : mdSizeArr.includes(variant)
+      ? "160px"
+      : smSizeArr.includes(variant)
+      ? "100px"
+      : "fit-content")};
+    color: ${variant === "underline" ? theme.colors.black : theme.colors.white};
+    background-color: ${variant &&
+    (grayArr.includes(variant)
+      ? theme.colors.gray100
+      : pinkArr.includes(variant)
+      ? theme.colors.rose400
+      : theme.colors.white)};
+    text-decoration: ${variant === "underline" && "underline"};
 
     &:disabled {
       color: ${theme.colors.gray500};
@@ -21,7 +39,10 @@ export const Button = styled.button<{ size?: "sm" | "lg" }>`
     }
 
     &:not(:disabled):hover {
-      background-color: ${theme.colors.rose500};
+      background-color: ${variant !== "underline" &&
+      variant !== "icon" &&
+      theme.colors.rose500};
+      color: ${variant === "underline" && theme.colors.navy100};
     }
   `}
 `;
