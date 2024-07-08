@@ -2,10 +2,15 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { CarouselItem } from "./carouselItem";
 import * as S from "./Carousel.styled";
+import { ArrowIcon } from "assets";
 
 interface CarouselProps {
   className?: string;
-  info: { title: string; content: string; img: string }[];
+  info: {
+    title: React.ReactNode;
+    content: React.ReactNode;
+    img: string;
+  }[];
 }
 
 const Carousel = ({ className, info }: CarouselProps) => {
@@ -24,15 +29,20 @@ const Carousel = ({ className, info }: CarouselProps) => {
 
   useEffect(() => {
     if (carouselRef.current !== null) {
-      carouselRef.current.style.transform = `translateX(-${index}00%)`;
+      carouselRef.current.style.transform = `translateX(-${index * 100}%)`;
     }
   }, [index]);
 
   return (
     <S.CarouselWrapper className={className}>
       <S.CarouselContainer>
-        {/* TODO: 디자인에서 버튼 확인 필요-> 웹에서는 추가가 필요하여 작성 */}
-        <S.Button onClick={handleMoveTo(-1)}>이전</S.Button>
+        {/* 이전 */}
+        {/* TODO: ArrowIcon 디자인 체크*/}
+        {index > 0 && (
+          <S.PrevButton onClick={handleMoveTo(-1)}>
+            <ArrowIcon css={S.prevIcon} />
+          </S.PrevButton>
+        )}
         <S.CarouselItemWrapper>
           <S.CarouselItem ref={carouselRef}>
             {info.map((item, idx) => (
@@ -45,7 +55,13 @@ const Carousel = ({ className, info }: CarouselProps) => {
             ))}
           </S.CarouselItem>
         </S.CarouselItemWrapper>
-        <S.Button onClick={handleMoveTo(1)}>이후</S.Button>
+
+        {/* 이후 */}
+        {index !== info.length - 1 && (
+          <S.NextButton onClick={handleMoveTo(1)}>
+            <ArrowIcon css={S.nextIcon} />
+          </S.NextButton>
+        )}
       </S.CarouselContainer>
       <S.CurrentStateWrapper>
         {Array.from({ length: info.length }, (_, idx) => {

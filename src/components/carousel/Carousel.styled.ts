@@ -5,7 +5,8 @@ export const CarouselWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  row-gap: 20px;
+  row-gap: 12px;
+  position: relative;
 `;
 
 export const CarouselContainer = styled.div`
@@ -25,18 +26,40 @@ export const CarouselItem = styled.div`
 
 export const CurrentStateWrapper = styled.div`
   display: flex;
-  column-gap: 5px;
+  column-gap: 8px;
 `;
 
 export const CurrentState = styled.button<{ index: boolean }>`
-  ${({ index }) => css`
-    width: 10px; //TODO: 디자인에 따라 변경 예정
-    height: 10px;
+  ${({ index, theme }) => css`
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
-    background-color: ${index ? "red" : "blue"};
+    background-color: ${index
+      ? theme.colors.black
+      : theme.colors.gray200}; //TODO: 디자인에 따라 변경 예정(gray200부분)
   `}
 `;
 
 export const Button = styled.button`
+  position: absolute;
+  transform: translateY(-50%);
   z-index: 100;
+  cursor: pointer;
+  top: 298px; // TODO: 디자인 나오면 변경
+`;
+
+export const PrevButton = styled(Button)`
+  left: 10px; // TODO: 디자인 나오면 변경
+`;
+
+export const prevIcon = css`
+  rotate: 270deg;
+`;
+
+export const NextButton = styled(Button)`
+  right: 10px; // TODO: 디자인 나오면 변경
+`;
+
+export const nextIcon = css`
+  rotate: 90deg;
 `;

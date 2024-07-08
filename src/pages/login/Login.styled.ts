@@ -7,13 +7,6 @@ export const Login = styled.div`
   height: 100%;
 `;
 
-// TODO: 임시코드
-export const CarouselContainer = styled.div`
-  display: flex;
-  height: 592px;
-  background-color: grey;
-`;
-
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -33,8 +26,8 @@ export const Text = styled.div`
 
     // TODO: color 임시값
     &:hover {
-      color: ${theme.colors.rose500};
-      border-bottom: 1px solid ${theme.colors.rose500};
+      color: ${theme.colors.navy900};
+      border-bottom: 1px solid ${theme.colors.navy900};
       cursor: pointer;
     }
   `}
