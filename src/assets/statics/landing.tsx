@@ -1,4 +1,4 @@
-export const carouselData = [
+export const glintLandings = [
   {
     id: 1,
     title: (

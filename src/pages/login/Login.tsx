@@ -1,16 +1,17 @@
 import { Carousel, KakaoLogin } from "components";
 import * as S from "./Login.styled";
 import { useNavigate } from "react-router-dom";
-import { carouselData } from "./CarouselData";
+import { glintLandings } from "assets";
 
 const Login = () => {
   const navigate = useNavigate();
   return (
     <S.Login>
-      <Carousel info={carouselData} />
+      <Carousel info={glintLandings} />
       <S.ButtonContainer>
         <KakaoLogin />
-        <S.Text onClick={() => navigate("/home")}>둘러보기</S.Text>
+        // TODO: navigate 수정
+        <S.Text onClick={() => navigate("/")}>둘러보기</S.Text>
       </S.ButtonContainer>
     </S.Login>
   );
