@@ -7,8 +7,6 @@ export const Login = styled.div`
   height: 100%;
 `;
 
-// TODO: 임시코드
-
 export const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
