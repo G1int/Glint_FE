@@ -6,6 +6,7 @@ export const CarouselWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   row-gap: 12px;
+  position: relative;
 `;
 
 export const CarouselContainer = styled.div`
