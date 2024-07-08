@@ -14,6 +14,6 @@ export const ProgressBar = styled.div`
 export const FilledProgressBar = styled.div<{ filledRange: number }>`
   ${({ theme, filledRange }) => css`
     width: ${filledRange}%;
-    background-color: ${theme.colors.navy100};
+    background-color: ${theme.colors.navy900};
   `}
 `;
