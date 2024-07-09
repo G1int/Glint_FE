@@ -45,21 +45,17 @@ export const Button = styled.button`
   transform: translateY(-50%);
   z-index: 100;
   cursor: pointer;
-  top: 298px; // TODO: 디자인 나오면 변경
+  top: 330px;
 `;
 
 export const PrevButton = styled(Button)`
-  left: 10px; // TODO: 디자인 나오면 변경
+  left: 6px;
 `;
 
 export const prevIcon = css`
-  rotate: 270deg;
+  rotate: 180deg;
 `;
 
 export const NextButton = styled(Button)`
-  right: 10px; // TODO: 디자인 나오면 변경
-`;
-
-export const nextIcon = css`
-  rotate: 90deg;
+  right: 6px;
 `;

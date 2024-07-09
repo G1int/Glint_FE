@@ -2,6 +2,7 @@ import { BaseModal, Button } from "components";
 import * as S from "./ConfirmModal.styled";
 
 interface ConfirmModalProps {
+  title?: React.ReactNode;
   content?: React.ReactNode;
   confirmLabel?: string;
   cancelLabel?: string;
@@ -11,6 +12,7 @@ interface ConfirmModalProps {
 }
 
 const ConfirmModal = ({
+  title,
   content,
   cancelLabel,
   confirmLabel,
@@ -20,23 +22,24 @@ const ConfirmModal = ({
 }: ConfirmModalProps) => {
   return (
     <BaseModal className={className}>
-      <S.ModalBody>{content}</S.ModalBody>
+      <S.ModalBody>
+        <S.Title>{title}</S.Title>
+        <S.Content>{content}</S.Content>
+      </S.ModalBody>
       <S.ModalFooter>
         {cancelLabel && (
-          <Button
-            variant={confirmLabel ? "mdWhite" : "lgWhite"}
-            onClick={handleCloseClick}
-          >
-            {cancelLabel}
-          </Button>
+          <S.ModalButton>
+            <Button css={S.cancelButton} onClick={handleCloseClick}>
+              {cancelLabel}
+            </Button>
+          </S.ModalButton>
         )}
         {confirmLabel && (
-          <Button
-            variant={cancelLabel ? "mdWhite" : "lgWhite"}
-            onClick={handleConfirmClick}
-          >
-            {confirmLabel}
-          </Button>
+          <S.ModalButton>
+            <Button css={S.confirmButton} onClick={handleConfirmClick}>
+              {confirmLabel}
+            </Button>
+          </S.ModalButton>
         )}
       </S.ModalFooter>
     </BaseModal>

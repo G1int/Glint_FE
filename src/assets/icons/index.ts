@@ -5,3 +5,4 @@ export { ReactComponent as ChevronLeftIcon } from "./ic_chevronLeft.svg";
 export { ReactComponent as CircleCloseIcon } from "./ic_circleClose.svg";
 export { ReactComponent as HeartIcon } from "./ic_heart.svg";
 export { ReactComponent as KakaoLoginIcon } from "./ic_kakaoLogin.svg";
+export { ReactComponent as ChevronRightIcon } from "./ic_chevronRight.svg";
