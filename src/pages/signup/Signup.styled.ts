@@ -44,10 +44,6 @@ export const Unit = styled.span`
   font-size: 16px;
 `;
 
-export const button = css`
-  height: 56px;
-`;
-
 export const Label = styled.span<{ hasError?: boolean }>`
   ${({ theme, hasError }) => css`
     margin-bottom: 6px;

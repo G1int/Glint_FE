@@ -1,19 +1,36 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const Button = styled.button<{ size?: "sm" | "lg" }>`
-  ${({ theme, size }) => css`
-    padding: ${size === "sm"
-      ? "5px 10px"
-      : size === "lg"
-      ? "15px 30px"
-      : "10px 20px"};
-    font-size: ${size === "sm" ? "1rem" : size === "lg" ? "2rem" : "1.5rem"};
-    border: 8px;
-    border-radius: 5px;
-    background-color: ${theme.colors.rose400};
-    color: ${theme.colors.white};
-    transition: background-color 0.3s ease;
+interface VariantProps {
+  variant: "smPink" | "lgPink" | "mdWhite" | "lgWhite" | "underline" | "icon";
+}
+
+export const Button = styled.button<VariantProps>`
+  ${({ theme, variant }) => css`
+    height: ${variant === "smPink"
+      ? "40px"
+      : variant === "underline" || variant === "icon"
+      ? "fit-content"
+      : "56px"};
+    font-size: ${variant === "smPink"
+      ? "1.4rem"
+      : variant === "lgPink" || variant === "lgWhite"
+      ? "1.8rem"
+      : "1.6rem"};
+    border-radius: 8px;
+    width: ${variant === "lgPink" || variant === "lgWhite"
+      ? "320px"
+      : variant === "mdWhite"
+      ? "140px"
+      : variant === "smPink"
+      ? "59px"
+      : "fit-content"};
+    // TODO: 모달 버튼 color 추가
+    color: ${variant === "underline" ? theme.colors.black : theme.colors.white};
+    background-color: ${variant === "smPink" || variant === "lgPink"
+      ? theme.colors.rose400
+      : theme.colors.white};
+    text-decoration: ${variant === "underline" && "underline"};
 
     &:disabled {
       color: ${theme.colors.gray500};
@@ -21,7 +38,9 @@ export const Button = styled.button<{ size?: "sm" | "lg" }>`
     }
 
     &:not(:disabled):hover {
-      background-color: ${theme.colors.rose500};
+      background-color: ${(variant === "smPink" || variant === "lgPink") &&
+      theme.colors.rose500};
+      color: ${variant === "underline" && theme.colors.navy900};
     }
   `}
 `;

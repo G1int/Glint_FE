@@ -9,6 +9,8 @@ import type {
 
 import type { SignupForm } from "types";
 import * as S from "../../Signup.styled";
+import { HeartIcon } from "assets";
+import { Button } from "components";
 
 interface SignupProfileProps {
   watch: UseFormWatch<SignupForm>;
@@ -32,6 +34,9 @@ const SignupProfile = ({
         등록해주세요.
       </S.Title>
       <S.Desc>자신을 잘 나타내는 사진일수록 매력 UP!</S.Desc>
+      <Button variant="icon">
+        <HeartIcon onClick={() => console.log("icon")} />
+      </Button>
     </>
   );
 };

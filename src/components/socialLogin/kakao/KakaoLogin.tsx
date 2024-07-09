@@ -1,6 +1,5 @@
 import { KakaoLoginIcon } from "assets";
 import { KAKAO_AUTH_URL } from "config";
-import { KakaoLoginButton } from "./KakaoLogin.styled";
 
 const KakaoLogin = () => {
   const link: string = KAKAO_AUTH_URL;
@@ -10,9 +9,9 @@ const KakaoLogin = () => {
   };
 
   return (
-    <KakaoLoginButton>
+    <button>
       <KakaoLoginIcon onClick={handleLogin} />
-    </KakaoLoginButton>
+    </button>
   );
 };
 

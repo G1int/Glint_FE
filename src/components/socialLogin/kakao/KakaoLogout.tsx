@@ -30,7 +30,11 @@ const KakaoLogout = () => {
         }
       });
   };
-  return <Button onClick={handleLogout}>Logout</Button>;
+  return (
+    <Button variant="underline" onClick={handleLogout}>
+      Logout
+    </Button>
+  );
 };
 
 export default KakaoLogout;

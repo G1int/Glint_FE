@@ -23,10 +23,20 @@ const ConfirmModal = ({
       <S.ModalBody>{content}</S.ModalBody>
       <S.ModalFooter>
         {cancelLabel && (
-          <Button onClick={handleCloseClick}>{cancelLabel}</Button>
+          <Button
+            variant={confirmLabel ? "mdWhite" : "lgWhite"}
+            onClick={handleCloseClick}
+          >
+            {cancelLabel}
+          </Button>
         )}
         {confirmLabel && (
-          <Button onClick={handleConfirmClick}>{confirmLabel}</Button>
+          <Button
+            variant={cancelLabel ? "mdWhite" : "lgWhite"}
+            onClick={handleConfirmClick}
+          >
+            {confirmLabel}
+          </Button>
         )}
       </S.ModalFooter>
     </BaseModal>
