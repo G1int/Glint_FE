@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 
 import { CarouselItem } from "./carouselItem";
 import * as S from "./Carousel.styled";
-import { ArrowIcon } from "assets";
+import { ChevronRightIcon } from "assets";
 
 interface CarouselProps {
   className?: string;
@@ -40,7 +40,7 @@ const Carousel = ({ className, info }: CarouselProps) => {
         {/* TODO: ArrowIcon 디자인 체크*/}
         {index > 0 && (
           <S.PrevButton onClick={handleMoveTo(-1)}>
-            <ArrowIcon css={S.prevIcon} />
+            <ChevronRightIcon css={S.prevIcon} />
           </S.PrevButton>
         )}
         <S.CarouselItemWrapper>
@@ -59,7 +59,7 @@ const Carousel = ({ className, info }: CarouselProps) => {
         {/* 이후 */}
         {index !== info.length - 1 && (
           <S.NextButton onClick={handleMoveTo(1)}>
-            <ArrowIcon css={S.nextIcon} />
+            <ChevronRightIcon />
           </S.NextButton>
         )}
       </S.CarouselContainer>
