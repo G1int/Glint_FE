@@ -3,7 +3,7 @@ import * as S from "./Button.styled";
 interface ButtonProps {
   className?: string;
   children?: React.ReactNode;
-  variant: "smPink" | "lgPink" | "mdWhite" | "lgWhite" | "underline" | "icon";
+  variant?: "smPink" | "lgPink" | "mdWhite" | "lgWhite" | "underline" | "icon";
   disabled?: boolean;
   onClick?: () => void;
 }

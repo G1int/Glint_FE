@@ -12,15 +12,13 @@ export const ModalContainer = styled.dialog`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-radius: 1rem;
+  border-radius: 16px;
   border: 0px; //TODO: 디자인 시스템에 따라 변경 예정
   background-color: #ffffff; //TODO: 컬러는 디자인 시스템에 따라 변경 예정
   position: absolute;
-  top: 50%;
+  top: 50%; // TODO: 디자인 시스템에 따라 변경 예정
   left: 50%;
-  width: 345px; // TODO: 디자인 시스템에 따라 변경 예정
-  height: auto;
+  width: 280px;
   max-height: calc(100% - 100px);
-  text-align: center;
   transform: translate(-50%, -50%);
 `;

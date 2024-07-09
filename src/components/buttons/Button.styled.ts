@@ -2,7 +2,7 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 interface VariantProps {
-  variant: "smPink" | "lgPink" | "mdWhite" | "lgWhite" | "underline" | "icon";
+  variant?: "smPink" | "lgPink" | "mdWhite" | "lgWhite" | "underline" | "icon";
 }
 
 export const Button = styled.button<VariantProps>`
@@ -25,7 +25,6 @@ export const Button = styled.button<VariantProps>`
       : variant === "smPink"
       ? "59px"
       : "fit-content"};
-    // TODO: 모달 버튼 color 추가
     color: ${variant === "underline" ? theme.colors.black : theme.colors.white};
     background-color: ${variant === "smPink" || variant === "lgPink"
       ? theme.colors.rose400
