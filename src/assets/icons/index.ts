@@ -6,3 +6,7 @@ export { ReactComponent as CircleCloseIcon } from "./ic_circleClose.svg";
 export { ReactComponent as HeartIcon } from "./ic_heart.svg";
 export { ReactComponent as KakaoLoginIcon } from "./ic_kakaoLogin.svg";
 export { ReactComponent as ChevronRightIcon } from "./ic_chevronRight.svg";
+export { ReactComponent as AuthBadgeIcon } from "./ic_authBadge.svg";
+export { ReactComponent as MyProfileIcon } from "./ic_myProfile.svg";
+export { ReactComponent as FriendsManageIcon } from "./ic_friendsManage.svg";
+export { ReactComponent as ProfileCamera } from "./ic_profileCamera.svg";
