@@ -36,6 +36,7 @@ export const SelectedValue = styled.div`
   flex: 1;
   text-align: right;
   font-size: 1.2rem; // TODO: 디자인 시스템에 따라 변경
+  cursor: pointer;
 `;
 
 export const arrowIcon = css`
@@ -45,15 +46,18 @@ export const arrowIcon = css`
 `;
 
 export const DropdownList = styled.ul`
-  position: absolute;
-  border: 1px solid black; // TODO: 디자인 시스템에 따라 변경
-  width: 100%;
-  top: 100%;
-  left: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  z-index: 1;
+  ${({ theme }) => css`
+    position: absolute;
+    border: 1px solid black; // TODO: 디자인 시스템에 따라 변경
+    background-color: ${theme.colors.white};
+    width: 100%;
+    top: 100%;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    z-index: 1;
+  `}
 `;
 
 export const DropdownItem = styled.li`
