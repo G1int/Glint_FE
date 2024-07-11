@@ -11,3 +11,7 @@ export { ReactComponent as MyProfileIcon } from "./ic_myProfile.svg";
 export { ReactComponent as FriendsManageIcon } from "./ic_friendsManage.svg";
 export { ReactComponent as ProfileCameraIcon } from "./ic_profileCamera.svg";
 export { ReactComponent as LineIcon } from "./ic_line.svg";
+export { ReactComponent as Home } from "./ic_home.svg";
+export { ReactComponent as Search } from "./ic_search.svg";
+export { ReactComponent as MyMeeting } from "./ic_myMeeting.svg";
+export { ReactComponent as MyInfo } from "./ic_myInfo.svg";
