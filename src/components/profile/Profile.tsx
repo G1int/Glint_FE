@@ -1,6 +1,6 @@
 import React from "react";
 
-import { ProfileCamera } from "assets";
+import { ProfileCameraIcon } from "assets";
 import * as S from "./Profile.styled";
 
 interface ProfileProps {
@@ -25,7 +25,7 @@ const Profile = ({
       <S.ImgContent>
         <S.Img src={img} />
         <S.IconContent onClick={handleChangeProfile}>
-          <ProfileCamera />
+          <ProfileCameraIcon />
         </S.IconContent>
       </S.ImgContent>
       <S.InfoWrapper>
