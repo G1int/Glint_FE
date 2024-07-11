@@ -1,24 +1,32 @@
 import { Button, KakaoLogout, Profile, Toggle } from "components";
 import * as S from "./MyInfo.styled";
 import Img from "assets/images/img_01.jpg";
-import { AuthBadgeIcon, FriendsManageIcon, MyProfileIcon } from "assets";
+import {
+  alarmTitle,
+  AuthBadgeIcon,
+  cutoffTitle,
+  FriendsManageIcon,
+  LineIcon,
+  MyProfileIcon,
+} from "assets";
+import React from "react";
 
+// TODO : 임시 데이터
 const info = {
   location: "서울",
   company: "신한은행",
   job: "은행원",
 };
-const cutoff = ["같은 학교 · 직장 차단", "연락처로 지인 차단"];
-const alarm = ["채팅 알림 사용", "초대 알림 사용", " 참가 신청 알림 사용"];
 
 const MyInfo = () => {
   return (
     <S.BackLayout>
       <S.Header>내 정보</S.Header>
       <S.Info>
+        {/* TODO: img 임의로 넣어놈 */}
         <Profile name="룰루랄라" age="29" img={Img} info={info} />
       </S.Info>
-      <S.Line />
+      <LineIcon css={S.line} />
       <S.ManageButtonWrapper>
         <Button css={S.manageButton} variant="icon">
           <MyProfileIcon css={S.icon} />내 프로필
@@ -33,24 +41,24 @@ const MyInfo = () => {
         </Button>
       </S.ManageButtonWrapper>
       <S.MainTitle>아는사람 만나지 않기</S.MainTitle>
-      {cutoff.map((title, idx) => (
-        <>
-          <S.ToggleContent key={idx}>
+      {cutoffTitle.map((title, idx) => (
+        <React.Fragment key={idx}>
+          <S.ToggleContent>
             {title}
             <Toggle />
           </S.ToggleContent>
-          {idx < cutoff.length - 1 && <S.Line />}
-        </>
+          {idx < cutoffTitle.length - 1 && <LineIcon css={S.line} />}
+        </React.Fragment>
       ))}
       <S.MainTitle>알림</S.MainTitle>
-      {alarm.map((title, idx) => (
-        <>
-          <S.ToggleContent key={idx}>
+      {alarmTitle.map((title, idx) => (
+        <React.Fragment key={idx}>
+          <S.ToggleContent>
             {title}
             <Toggle />
           </S.ToggleContent>
-          {idx < alarm.length - 1 && <S.Line />}
-        </>
+          {idx < alarmTitle.length - 1 && <LineIcon css={S.line} />}
+        </React.Fragment>
       ))}
       <S.OutButtonWrapper>
         <KakaoLogout css={S.outButton} />
@@ -58,6 +66,7 @@ const MyInfo = () => {
           회원탈퇴
         </Button>
       </S.OutButtonWrapper>
+      {/* TODO: Footer 머지하면 삭제 */}
       <S.Footer />
     </S.BackLayout>
   );

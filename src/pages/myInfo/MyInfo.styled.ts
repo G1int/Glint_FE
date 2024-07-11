@@ -21,12 +21,8 @@ export const Info = styled.div`
   padding: 16.25px 108px 9px 24px;
 `;
 
-export const Line = styled.div`
-  ${({ theme }) => css`
-    border: 1px solid ${theme.colors.gray300}; //TODO: 디자인 시스템에 따라 변경
-    width: 320px;
-    align-self: center;
-  `}
+export const line = css`
+  align-self: center;
 `;
 
 export const ManageButtonWrapper = styled.div`
@@ -50,7 +46,7 @@ export const manageButton = (theme: Theme) => css`
   font-size: 1.4rem;
   font-weight: bold;
   color: ${theme.colors.black};
-  border: 1px solid lightGrey;
+  border: 1px solid lightGrey; // TODO: background 컬러 나오면 삭제
   gap: 4.5px;
 
   &:hover {
@@ -101,6 +97,7 @@ export const outButton = (theme: Theme) => css`
   color: ${theme.colors.gray500};
 `;
 
+// TODO: Footer 머지하면 삭제
 export const Footer = styled.div`
   height: 64px;
   width: 360px;
