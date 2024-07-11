@@ -62,7 +62,6 @@ export const icon = css`
 export const MainTitle = styled.div`
   ${({ theme }) => css`
     width: 100%;
-    height: auto;
     height: 32px;
     background-color: ${theme.colors.gray100};
     color: ${theme.colors.gray600};
