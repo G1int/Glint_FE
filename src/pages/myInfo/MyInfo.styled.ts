@@ -50,7 +50,7 @@ export const manageButton = (theme: Theme) => css`
   gap: 4.5px;
 
   &:hover {
-    background-color: ${theme.colors.rose100}; //TODO: 디자인 시스템에 따라 변경
+    background-color: ${theme.colors.pink100}; //TODO: 디자인 시스템에 따라 변경
   }
 `;
 

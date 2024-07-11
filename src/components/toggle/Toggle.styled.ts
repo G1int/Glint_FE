@@ -7,7 +7,7 @@ display: inline-block;
 cursor: pointer;
 width: 44px; 
 height: 26px; 
-background: ${checked ? theme.colors.rose500 : theme.colors.gray300}; 
+background: ${checked ? theme.colors.pink900 : theme.colors.gray300}; 
 border-radius: 14px ;
 position: relative;
 
