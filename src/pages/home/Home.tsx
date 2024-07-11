@@ -9,9 +9,7 @@ const options = [
 const Home = () => {
   return (
     <div>
-      <Dropdown title="종교" options={options} />
-      <Dropdown title="종교" options={options} />
-      <Dropdown title="종교" options={options} />
+      <Dropdown title="종교" options={options} placeholder="종교 선택" />
     </div>
   );
 };

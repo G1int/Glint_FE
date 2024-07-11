@@ -5,8 +5,9 @@ import { ArrowIcon } from "assets";
 interface DropdownProps {
   title: string;
   options: { label: string; value: string }[];
+  placeholder: string;
 }
-const Dropdown = ({ title, options }: DropdownProps) => {
+const Dropdown = ({ title, options, placeholder }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
@@ -24,7 +25,7 @@ const Dropdown = ({ title, options }: DropdownProps) => {
       <S.SelectContainer>
         <S.Title>{title}</S.Title>
         <S.SelectedValue onClick={handleToggle}>
-          {selectedOption || options[0].label}
+          {selectedOption || placeholder}
         </S.SelectedValue>
         {/* TODO: 아이콘 디자인 시스템에 따라 변경 */}
         <ArrowIcon css={S.arrowIcon} onClick={handleToggle} />
