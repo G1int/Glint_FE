@@ -9,4 +9,5 @@ export { ReactComponent as ChevronRightIcon } from "./ic_chevronRight.svg";
 export { ReactComponent as AuthBadgeIcon } from "./ic_authBadge.svg";
 export { ReactComponent as MyProfileIcon } from "./ic_myProfile.svg";
 export { ReactComponent as FriendsManageIcon } from "./ic_friendsManage.svg";
-export { ReactComponent as ProfileCamera } from "./ic_profileCamera.svg";
+export { ReactComponent as ProfileCameraIcon } from "./ic_profileCamera.svg";
+export { ReactComponent as LineIcon } from "./ic_line.svg";
