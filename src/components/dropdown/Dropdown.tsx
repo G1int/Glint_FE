@@ -23,8 +23,10 @@ const Dropdown = ({ title, options }: DropdownProps) => {
     <S.DropdownContainer>
       <S.SelectContainer>
         <S.Title>{title}</S.Title>
-        <S.SelectedValue>{selectedOption || options[0].label}</S.SelectedValue>
-        // TODO: 아이콘 디자인 시스템에 따라 변경
+        <S.SelectedValue onClick={handleToggle}>
+          {selectedOption || options[0].label}
+        </S.SelectedValue>
+        {/* TODO: 아이콘 디자인 시스템에 따라 변경 */}
         <ArrowIcon css={S.arrowIcon} onClick={handleToggle} />
         {isOpen && (
           <S.DropdownList>
