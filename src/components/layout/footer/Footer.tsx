@@ -4,7 +4,7 @@ import { Home, MyInfo, MyMeeting, Search } from "assets";
 import { useState } from "react";
 
 const Footer = () => {
-  const [isSelected, setIsSelected] = useState<string>("홈");
+  const [isSelected, setIsSelected] = useState("홈");
 
   const handleClickFooter = (text: string) => {
     setIsSelected(text);
@@ -22,23 +22,23 @@ const Footer = () => {
 
   return (
     <S.Footer>
-      {footerArr.map((item) => (
-        <Button
-          css={S.button}
-          key={item.text}
-          onClick={() => handleClickFooter(item.text)}
-        >
-          <S.ButtonWrapper>
-            <S.IconWrapper
-              isSelected={isSelected === item.text}
-              text={item.text}
-            >
-              {item.icon}
-            </S.IconWrapper>
-            <S.Text isSelected={isSelected === item.text}>{item.text}</S.Text>
-          </S.ButtonWrapper>
-        </Button>
-      ))}
+      {footerArr.map((item) => {
+        const selectedItem = isSelected === item.text;
+        return (
+          <Button
+            css={S.button}
+            key={item.text}
+            onClick={() => handleClickFooter(item.text)}
+          >
+            <S.ButtonWrapper>
+              <S.IconWrapper isSelected={selectedItem} text={item.text}>
+                {item.icon}
+              </S.IconWrapper>
+              <S.Text isSelected={selectedItem}>{item.text}</S.Text>
+            </S.ButtonWrapper>
+          </Button>
+        );
+      })}
     </S.Footer>
   );
 };
