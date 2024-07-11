@@ -1,4 +1,4 @@
-import { Dropdown } from "components";
+import { Dropdown, Footer } from "components";
 
 const options = [
   { label: "무교", value: "무교" },
@@ -8,9 +8,12 @@ const options = [
 
 const Home = () => {
   return (
-    <div>
-      <Dropdown title="종교" options={options} placeholder="종교 선택" />
-    </div>
+    <>
+      <div>
+        <Dropdown title="종교" options={options} placeholder="종교 선택" />
+      </div>
+      <Footer />
+    </>
   );
 };
 

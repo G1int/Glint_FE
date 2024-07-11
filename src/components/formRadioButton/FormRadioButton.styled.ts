@@ -10,11 +10,11 @@ export const FormRadioButton = styled.label<{ isSelected: boolean }>`
     display: flex;
     justify-content: space-between;
     border: 1px solid
-      ${isSelected ? theme.colors.rose500 : theme.colors.gray200};
+      ${isSelected ? theme.colors.pink900 : theme.colors.gray200};
     border-radius: 6px;
     padding: 13px 20px;
     font-size: 16px;
-    color: ${isSelected ? theme.colors.rose500 : theme.colors.gray200};
+    color: ${isSelected ? theme.colors.pink900 : theme.colors.gray200};
 
     & > input[type="radio"] {
       display: none;
@@ -25,6 +25,6 @@ export const FormRadioButton = styled.label<{ isSelected: boolean }>`
 export const checkIcon = (isSelected: boolean) => (theme: Theme) =>
   css`
     & > path {
-      fill: ${isSelected && theme.colors.rose500};
+      fill: ${isSelected && theme.colors.pink900};
     }
   `;
