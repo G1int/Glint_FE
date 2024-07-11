@@ -55,7 +55,7 @@ export const ModalButton = styled.button`
 `;
 
 export const confirmButton = (theme: Theme) => css`
-  color: ${theme.colors.rose400};
+  color: ${theme.colors.pink900};
   border-bottom-right-radius: 16px;
   height: 55px;
 `;

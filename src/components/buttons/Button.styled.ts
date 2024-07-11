@@ -27,7 +27,7 @@ export const Button = styled.button<VariantProps>`
       : "fit-content"};
     color: ${variant === "underline" ? theme.colors.black : theme.colors.white};
     background-color: ${variant === "smPink" || variant === "lgPink"
-      ? theme.colors.rose400
+      ? theme.colors.pink900
       : theme.colors.white};
     text-decoration: ${variant === "underline" && "underline"};
 
@@ -38,7 +38,7 @@ export const Button = styled.button<VariantProps>`
 
     &:not(:disabled):hover {
       background-color: ${(variant === "smPink" || variant === "lgPink") &&
-      theme.colors.rose500};
+      theme.colors.pink700};
       color: ${variant === "underline" && theme.colors.navy900};
     }
   `}
