@@ -12,3 +12,4 @@ export * from "./socialLogin";
 export * from "./tab";
 export * from "./toast";
 export * from "./toggle";
+export * from "./dropdown";
