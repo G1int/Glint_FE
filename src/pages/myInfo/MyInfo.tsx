@@ -66,8 +66,6 @@ const MyInfo = () => {
           회원탈퇴
         </Button>
       </S.OutButtonWrapper>
-      {/* TODO: Footer 머지하면 삭제 */}
-      <S.Footer />
     </S.BackLayout>
   );
 };

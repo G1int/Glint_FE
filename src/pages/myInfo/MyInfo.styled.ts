@@ -95,12 +95,3 @@ export const outButton = (theme: Theme) => css`
   font-size: 1.4rem;
   color: ${theme.colors.gray500};
 `;
-
-// TODO: Footer 머지하면 삭제
-export const Footer = styled.div`
-  height: 64px;
-  width: 360px;
-  border: 1px solid black;
-  position: absolute;
-  bottom: 0;
-`;
