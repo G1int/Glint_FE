@@ -58,11 +58,12 @@ export const IconWrapper = styled.div<{ isSelected: boolean; text: string }>`
         theme.colors.navy900};
       }
       & path:nth-of-type(2) {
-        fill: ${text === "검색" && isSelected && theme.colors.navy900};
+        fill: ${(text === "검색" || text === "내미팅") &&
+        isSelected &&
+        theme.colors.navy900};
         stroke: ${text === "검색" && isSelected && theme.colors.navy900};
       }
       & path:nth-of-type(3) {
-        fill: ${isSelected && theme.colors.navy900};
         stroke: ${text === "내미팅" && isSelected && theme.colors.navy900};
       }
       & path:nth-of-type(4) {
@@ -71,7 +72,6 @@ export const IconWrapper = styled.div<{ isSelected: boolean; text: string }>`
       }
       & path:nth-of-type(5) {
         fill: ${text === "내미팅" && isSelected && theme.colors.navy900};
-        stroke: ${text === "내미팅" && isSelected && theme.colors.navy900};
       }
       & path:nth-of-type(6) {
         stroke: ${text === "내미팅" && isSelected && theme.colors.navy900};
