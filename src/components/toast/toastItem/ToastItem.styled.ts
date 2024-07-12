@@ -22,7 +22,7 @@ const fadeOut = keyframes`
  `;
 
 export const ToastItem = styled.div<{ isClosing: boolean }>`
-  ${({ isClosing }) => css`
+  ${({ isClosing, theme }) => css`
     max-height: 0;
     overflow: visible;
     animation: 0.8s forwards ${isClosing ? scaleDown : scaleUp};
@@ -30,10 +30,13 @@ export const ToastItem = styled.div<{ isClosing: boolean }>`
 
     div {
       width: 340px;
-      padding: 10px 0;
-      color: white; //NOTE: 컬러는 디자인 시스템에 따라 변경 예정
-      background-color: black;
-      text-align: center;
+      color: ${theme.colors.white};
+      background-color: ${theme.colors.black};
+      height: 52px;
+      align-content: center;
+      border-radius: 8px;
+      padding: 16px;
+      ${theme.fonts.caption_regular_14}
     }
   `}
 `;
