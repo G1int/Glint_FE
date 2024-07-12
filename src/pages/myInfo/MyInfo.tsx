@@ -6,7 +6,6 @@ import {
   AuthBadgeIcon,
   cutoffTitle,
   FriendsManageIcon,
-  LineIcon,
   MyProfileIcon,
 } from "assets";
 import React from "react";
@@ -26,7 +25,7 @@ const MyInfo = () => {
         {/* TODO: img 임의로 넣어놈 */}
         <Profile name="룰루랄라" age="29" img={Img} info={info} />
       </S.Info>
-      <LineIcon css={S.line} />
+      <S.Line />
       <S.ManageButtonWrapper>
         <Button css={S.manageButton} variant="icon">
           <MyProfileIcon css={S.icon} />내 프로필
@@ -47,7 +46,7 @@ const MyInfo = () => {
             {title}
             <Toggle />
           </S.ToggleContent>
-          {idx < cutoffTitle.length - 1 && <LineIcon css={S.line} />}
+          {idx < cutoffTitle.length - 1 && <S.Line />}
         </React.Fragment>
       ))}
       <S.MainTitle>알림</S.MainTitle>
@@ -57,7 +56,7 @@ const MyInfo = () => {
             {title}
             <Toggle />
           </S.ToggleContent>
-          {idx < alarmTitle.length - 1 && <LineIcon css={S.line} />}
+          {idx < alarmTitle.length - 1 && <S.Line />}
         </React.Fragment>
       ))}
       <S.OutButtonWrapper>

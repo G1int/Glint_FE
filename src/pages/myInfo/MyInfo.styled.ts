@@ -21,8 +21,12 @@ export const Info = styled.div`
   padding: 16.25px 108px 9px 24px;
 `;
 
-export const line = css`
-  align-self: center;
+export const Line = styled.div`
+  ${({ theme }) => css`
+    border: 0.5px solid ${theme.colors.gray300}; //TODO: 디자인 시스템에 따라 변경
+    width: 320px;
+    align-self: center;
+  `}
 `;
 
 export const ManageButtonWrapper = styled.div`
