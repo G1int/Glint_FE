@@ -5,19 +5,25 @@ export const Badge = styled.button<{
   isSelected?: boolean;
   isClickable: boolean;
 }>`
-  ${({ isSelected, isClickable }) => css`
-    //TODO: 디자인 나온 후 수정 예정
+  ${({ isSelected, isClickable, theme }) => css`
+    ${isSelected ? theme.fonts.caption_bold_12 : theme.fonts.caption_regular_12}
+    height: 36px;
+    width: fit-content;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid red;
+    border: 1px solid
+      ${isSelected ? theme.colors.navy900 : theme.colors.gray300}; //TODO: gray 정의되면 수정
     border-radius: 20px;
-    padding: 5px 15px;
-    background-color: ${isSelected && "rgba(1, 1, 1, 0.2)"};
+    padding: 9px 16px;
+    background-color: ${isSelected && theme.colors.navy900};
+    color: ${isSelected && theme.colors.white};
     cursor: ${!isClickable && "default"};
 
     &:hover {
-      background-color: ${isClickable && "red"};
+      background-color: ${isClickable && theme.colors.navy900};
+      color: ${isClickable && theme.colors.white};
+      border: 1px solid ${theme.colors.navy900};
     }
   `}
 `;
