@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import type {
   FieldErrors,
   UseFormRegister,
@@ -7,10 +7,10 @@ import type {
   UseFormWatch,
 } from "react-hook-form";
 
+import { Button } from "components";
+import { CameraIcon, UserIcon } from "assets";
 import type { SignupForm } from "types";
 import * as S from "../../Signup.styled";
-import { HeartIcon } from "assets";
-import { Button } from "components";
 
 interface SignupProfileProps {
   watch: UseFormWatch<SignupForm>;
@@ -27,6 +27,23 @@ const SignupProfile = ({
   register,
   trigger,
 }: SignupProfileProps) => {
+  const imgRef = useRef<HTMLInputElement | null>(null);
+
+  const onChangeImage = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    const imageUrl = URL.createObjectURL(file);
+    setValue("profile", imageUrl);
+  };
+
+  const handleClick = (): void => {
+    if (!imgRef.current) return;
+
+    imgRef.current?.click();
+  };
+
   return (
     <>
       <S.Title hasDesc>
@@ -34,9 +51,25 @@ const SignupProfile = ({
         등록해주세요.
       </S.Title>
       <S.Desc>자신을 잘 나타내는 사진일수록 매력 UP!</S.Desc>
-      <Button variant="icon">
-        <HeartIcon onClick={() => console.log("icon")} />
-      </Button>
+      <S.ProfileContent>
+        <S.ProfileImg>
+          {watch("profile") ? (
+            <S.Img src={watch("profile") ?? ""} />
+          ) : (
+            <UserIcon css={S.userIcon} />
+          )}
+          {/* TODO: 버튼 컴포넌트와 별개로 이미지 업로드 용 input 컴포넌트 제작 필요 */}
+          <S.FileUploadInput
+            ref={imgRef}
+            type="file"
+            accept="image/*"
+            onChange={onChangeImage}
+          />
+          <Button variant="icon" onClick={handleClick}>
+            <CameraIcon />
+          </Button>
+        </S.ProfileImg>
+      </S.ProfileContent>
     </>
   );
 };

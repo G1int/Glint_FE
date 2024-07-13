@@ -53,10 +53,6 @@ const Signup = () => {
       ? !watch("height")
       : page === 4 && !watch("profile");
 
-  const handleClickNextButton = () => {
-    setPage(page + 1);
-  };
-
   const renderPage = (page: number) => {
     switch (page) {
       case 0:
@@ -110,6 +106,12 @@ const Signup = () => {
     if (page === 0) return navigate(-1);
 
     setPage(page - 1);
+  };
+
+  const handleClickNextButton = (data: SignupForm) => {
+    console.log(data);
+
+    setPage(page + 1);
   };
 
   return (
