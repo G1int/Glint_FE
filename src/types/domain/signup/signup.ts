@@ -7,7 +7,7 @@ export interface SignupForm {
     month: number;
     date: number;
   };
-  profile: string | null;
+  profile: File | string | null;
 }
 
 export interface PostCheckNicknameQuery {
@@ -17,13 +17,13 @@ export interface PostCheckNicknameQuery {
   };
 }
 
-export interface PostSignup {
+export interface PostSignupQuery {
   userId: string;
   body: {
     nickname: string;
     gender: "FEMALE" | "MALE";
-    height: number;
-    birth: string;
+    height: string;
+    birthdate: string;
     profileImage: string;
   };
 }
