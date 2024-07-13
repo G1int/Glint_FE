@@ -159,8 +159,7 @@ const Signup = () => {
       });
     }
 
-    // if (!(page === 0 || page === 4))
-    setPage(page + 1);
+    if (!(page === 0 || page === 4)) setPage(page + 1);
   };
 
   return (
