@@ -1,3 +1,3 @@
 export * from "./toast";
-export * from "./modal";
 export * from "./badge";
+export * from "./image";

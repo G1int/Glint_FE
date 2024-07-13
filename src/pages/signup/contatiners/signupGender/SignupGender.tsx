@@ -4,6 +4,7 @@ import type { UseFormRegister, UseFormWatch } from "react-hook-form";
 import { FormRadioButton } from "components";
 import type { SignupForm } from "types";
 import * as S from "../../Signup.styled";
+import { GENDER_RADIOS } from "assets";
 
 interface SignupGenderProps {
   watch: UseFormWatch<SignupForm>;
@@ -19,10 +20,7 @@ const SignupGender = ({ watch, register }: SignupGenderProps) => {
       </S.Title>
       <FormRadioButton
         css={S.formRadioButton}
-        radioList={[
-          { key: "male", label: "남자" },
-          { key: "female", label: "여자" },
-        ]}
+        radioList={GENDER_RADIOS}
         value={watch("gender") ?? ""}
         register={register("gender")}
       />
