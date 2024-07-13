@@ -6,7 +6,7 @@ import * as S from "./FormRadioButton.styled";
 
 interface FormRadioButtonProps {
   className?: string;
-  radioList: { key: string; label: string }[];
+  radioList: readonly { key: string; label: string }[];
   value: string;
   register: UseFormRegisterReturn<string>;
 }

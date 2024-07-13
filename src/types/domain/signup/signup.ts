@@ -1,6 +1,8 @@
+import { GENDER_RADIOS } from "assets";
+
 export interface SignupForm {
   nickname: string;
-  gender: "FEMALE" | "MALE" | null;
+  gender: (typeof GENDER_RADIOS)[number]["key"] | null;
   height: number;
   birth: {
     year: number;
@@ -21,7 +23,7 @@ export interface PostSignupQuery {
   userId: string;
   body: {
     nickname: string;
-    gender: "FEMALE" | "MALE";
+    gender: (typeof GENDER_RADIOS)[number]["key"];
     height: string;
     birthdate: string;
     profileImage: string;
