@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { BackLayout, Button } from "components";
+import { useToast } from "hooks";
+import { usePostCheckNickname, usePostImage, usePostSingup } from "services";
 import type { SignupForm } from "types";
 import {
   ProgressBar,
@@ -15,8 +17,16 @@ import {
 import * as S from "./Signup.styled";
 
 const Signup = () => {
-  const [page, setPage] = useState(0);
   const navigate = useNavigate();
+  const [page, setPage] = useState(0);
+
+  const id = sessionStorage.getItem("id");
+
+  const { mutate: mutateImage } = usePostImage();
+  const { mutate: mutateCheckNickname } = usePostCheckNickname();
+  const { mutate: mutatePostSignup } = usePostSingup();
+
+  const { addToast } = useToast();
 
   const {
     formState: { errors },
@@ -52,10 +62,6 @@ const Signup = () => {
       : page === 3
       ? !watch("height")
       : page === 4 && !watch("profile");
-
-  const handleClickNextButton = () => {
-    setPage(page + 1);
-  };
 
   const renderPage = (page: number) => {
     switch (page) {
@@ -94,15 +100,7 @@ const Signup = () => {
         );
 
       case 4:
-        return (
-          <SignupProfile
-            errors={errors}
-            watch={watch}
-            setValue={setValue}
-            register={register}
-            trigger={trigger}
-          />
-        );
+        return <SignupProfile setValue={setValue} />;
     }
   };
 
@@ -112,11 +110,64 @@ const Signup = () => {
     setPage(page - 1);
   };
 
+  const handleClickNextButton = (data: SignupForm) => {
+    if (page === 0) {
+      const req = {
+        userId: id!,
+        body: {
+          nickname: data.nickname,
+        },
+      };
+
+      mutateCheckNickname(req, {
+        onSuccess: () => {
+          return setPage(page + 1);
+        },
+        onError: () => {
+          addToast({ content: "이미 존재하는 닉네임입니다." }); //TODO: 문구 및 에러코드 확인 필요
+        },
+      });
+    }
+
+    if (data.profile && page === 4) {
+      const req = { imageFile: data.profile as string };
+
+      mutateImage(req, {
+        onSuccess: (res) => {
+          const req = {
+            userId: id!,
+            body: {
+              nickname: data.nickname,
+              gender: data.gender as "MALE" | "FEMALE",
+              height: `${data.height}`,
+              profileImage: res.url as string,
+              birthdate: `${data.birth.year}-${data.birth.month}-${data.birth.date}`,
+            },
+          };
+          mutatePostSignup(req, {
+            onSuccess: () => {
+              navigate("/");
+            },
+            onError: () => {
+              addToast({
+                content:
+                  "회원가입에 문제가 발생했습니다. 입력한 내용을 다시 확인해주세요",
+              }); //TODO: 문구 및 에러코드 확인 필요
+            },
+          });
+        },
+      });
+    }
+
+    if (!(page === 0 || page === 4)) setPage(page + 1);
+  };
+
   return (
     <BackLayout handleClickBack={handleClickPrevButton}>
       <S.Signup>
         {/* TODO: 현재 좋은 방법이 생각나지 않아 매직넘버 사용 추후 수정 예정 */}
-        <ProgressBar filledRange={(100 / 6) * (page + 1)} />
+        {/* TODO: 사진 유무 판단하여 progressbar 설정하면 공수가 많이 들어 일단 현상 유지함 */}
+        <ProgressBar filledRange={(100 / 5) * (page + 1)} />
         {renderPage(page)}
       </S.Signup>
       <Button

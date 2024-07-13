@@ -104,3 +104,62 @@ export const formRadioButton = css`
   flex-direction: column;
   row-gap: 8px;
 `;
+
+export const ProfileContent = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin-top: 76px;
+`;
+
+export const ProfileImg = styled.div`
+  ${({ theme }) => css`
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 152px;
+    height: 152px;
+    border-radius: 50%;
+    background-color: ${theme.colors.gray700};
+
+    & > button {
+      position: absolute;
+      bottom: -12px;
+      right: 1px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      border: 3px solid ${theme.colors.white};
+      background-color: ${theme.colors.pink900};
+
+      & > svg {
+        margin-top: 4px;
+
+        & > path {
+          fill: ${theme.colors.white};
+        }
+      }
+    }
+  `}
+`;
+
+export const FileUploadInput = styled.input`
+  display: none;
+`;
+
+export const userIcon = css`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -3px;
+  transform: translate(-50%, -50%);
+`;
+
+export const Img = styled.img`
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+`;
