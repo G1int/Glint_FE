@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 
 import { BackLayout, Button } from "components";
+import { useToast } from "hooks";
+import { usePostCheckNickname, usePostImage, usePostSingup } from "services";
 import type { SignupForm } from "types";
 import {
   ProgressBar,
@@ -15,8 +17,16 @@ import {
 import * as S from "./Signup.styled";
 
 const Signup = () => {
-  const [page, setPage] = useState(0);
   const navigate = useNavigate();
+  const [page, setPage] = useState(0);
+
+  const id = sessionStorage.getItem("id");
+
+  const { mutate: mutateImage } = usePostImage();
+  const { mutate: mutateCheckNickname } = usePostCheckNickname();
+  const { mutate: mutatePostSignup } = usePostSingup();
+
+  const { addToast } = useToast();
 
   const {
     formState: { errors },
@@ -90,15 +100,7 @@ const Signup = () => {
         );
 
       case 4:
-        return (
-          <SignupProfile
-            errors={errors}
-            watch={watch}
-            setValue={setValue}
-            register={register}
-            trigger={trigger}
-          />
-        );
+        return <SignupProfile setValue={setValue} />;
     }
   };
 
@@ -109,9 +111,49 @@ const Signup = () => {
   };
 
   const handleClickNextButton = (data: SignupForm) => {
-    console.log(data);
+    if (page === 0) {
+      const req = {
+        userId: id!,
+        body: {
+          nickname: data.nickname,
+        },
+      };
+
+      mutateCheckNickname(req, {
+        onSuccess: () => {
+          return setPage(page + 1);
+        },
+        onError: () => {
+          addToast({ content: "이미 존재하는 닉네임입니다." }); //TODO: 문구 및 에러코드 확인 필요
+        },
+      });
+    }
 
     setPage(page + 1);
+
+    if (data.profile && page === 4) {
+      const req = { imageFile: data.profile as string };
+
+      mutateImage(req, {
+        onSuccess: (res) => {
+          const req = {
+            userId: id!,
+            body: {
+              nickname: data.nickname,
+              gender: data.gender as "MALE" | "FEMALE",
+              height: `${data.height}`,
+              profileImage: res.url as string,
+              birthdate: `${data.birth.year}-${data.birth.month}-${data.birth.date}`,
+            },
+          };
+          mutatePostSignup(req, {
+            onSuccess: () => {
+              navigate("/");
+            },
+          });
+        },
+      });
+    }
   };
 
   return (
