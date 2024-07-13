@@ -159,14 +159,16 @@ const Signup = () => {
       });
     }
 
-    if (!(page === 0 || page === 4)) setPage(page + 1);
+    // if (!(page === 0 || page === 4))
+    setPage(page + 1);
   };
 
   return (
     <BackLayout handleClickBack={handleClickPrevButton}>
       <S.Signup>
         {/* TODO: 현재 좋은 방법이 생각나지 않아 매직넘버 사용 추후 수정 예정 */}
-        <ProgressBar filledRange={(100 / 6) * (page + 1)} />
+        {/* TODO: 사진 유무 판단하여 progressbar 설정하면 공수가 많이 들어 일단 현상 유지함 */}
+        <ProgressBar filledRange={(100 / 5) * (page + 1)} />
         {renderPage(page)}
       </S.Signup>
       <Button
