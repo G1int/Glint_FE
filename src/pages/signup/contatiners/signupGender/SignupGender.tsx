@@ -20,8 +20,8 @@ const SignupGender = ({ watch, register }: SignupGenderProps) => {
       <FormRadioButton
         css={S.formRadioButton}
         radioList={[
-          { key: "male", label: "남자" },
-          { key: "female", label: "여자" },
+          { key: "MALE", label: "남자" },
+          { key: "FEMALE", label: "여자" },
         ]}
         value={watch("gender") ?? ""}
         register={register("gender")}
