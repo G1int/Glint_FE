@@ -1,6 +1,6 @@
 import React from "react";
 
-import { CameraIcon, HeartIcon } from "assets";
+import { ProfileCameraIcon } from "assets";
 import * as S from "./Profile.styled";
 
 interface ProfileProps {
@@ -8,9 +8,6 @@ interface ProfileProps {
   name: string;
   age: string;
   img: string;
-  isChangeProfile?: boolean;
-  isRoomManager?: boolean;
-  keywords?: string[];
   info: { location: string; company: string; job: string };
   handleChangeProfile?: () => void;
 }
@@ -20,9 +17,6 @@ const Profile = ({
   name,
   age,
   img,
-  isChangeProfile,
-  isRoomManager,
-  keywords,
   info,
   handleChangeProfile,
 }: ProfileProps) => {
@@ -30,35 +24,19 @@ const Profile = ({
     <S.Profile className={className}>
       <S.ImgContent>
         <S.Img src={img} />
-        {(isChangeProfile || isRoomManager) && (
-          <S.IconContent
-            isChangeProfile={isChangeProfile}
-            isRoomManager={isRoomManager}
-            disabled={!isChangeProfile}
-            onClick={handleChangeProfile}
-          >
-            {/* TODO: 임시 아이콘으로 디자인 이후 수정 필요 */}
-            {isChangeProfile && <CameraIcon />}
-            {isRoomManager && <HeartIcon />}
-          </S.IconContent>
-        )}
+        <S.IconContent onClick={handleChangeProfile}>
+          <ProfileCameraIcon />
+        </S.IconContent>
       </S.ImgContent>
       <S.InfoWrapper>
-        {keywords?.length && (
-          <S.KeywordContent>
-            {keywords.map((keyword, idx) => (
-              <span key={idx}>{keyword}</span>
-            ))}
-          </S.KeywordContent>
-        )}
         <S.MainInfoContent>
           <S.Name>{name}</S.Name>
-          <span>{age}세</span>
+          <S.Name>({age}세)</S.Name>
         </S.MainInfoContent>
         <S.InfoContent>
           <span>{info.location}</span>
           <span>{info.company}</span>
-          <span>{info.job}</span>
+          {/* <span>{info.job}</span> */}
         </S.InfoContent>
       </S.InfoWrapper>
     </S.Profile>

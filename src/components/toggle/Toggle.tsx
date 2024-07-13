@@ -1,11 +1,28 @@
 import { useState } from "react";
 import * as S from "./Toggle.styled";
+import { useToast } from "hooks";
 
 const Toggle = () => {
   const [isToggleOn, setIsToggleOn] = useState<boolean>(false);
+  const { addToast } = useToast();
+
+  const toastContext = {
+    content: (
+      <>
+        현재 개발 중인 기능이에요.
+        <br />
+        조금만 기다려주세요
+      </>
+    ),
+  };
 
   const handleToggle = () => {
-    setIsToggleOn(!isToggleOn);
+    const newToggleState = !isToggleOn;
+    setIsToggleOn(newToggleState);
+
+    if (newToggleState) {
+      addToast(toastContext);
+    }
   };
 
   return (

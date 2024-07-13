@@ -1,5 +1,4 @@
-import axios from "axios";
-import { KAKAO_BASE_URL, KAKAO_CLIENT_ID, KAKAO_REDIRECT_URI } from "config";
+import { getKakaoInfo } from "apis/user";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -9,36 +8,21 @@ const Auth = () => {
   useEffect(() => {
     const params = new URL(document.location.toString()).searchParams;
     const code = params.get("code");
-    const GRANT_TYPE = "authorization_code";
-    const data = {
-      grant_type: GRANT_TYPE,
-      client_id: KAKAO_CLIENT_ID,
-      redirect_uri: KAKAO_REDIRECT_URI,
-      code: code,
-    };
+    if (code) {
+      getKakaoInfo(code)
+        .then((res) => {
+          sessionStorage.setItem("id", JSON.stringify(res.id));
+          sessionStorage.setItem("email", JSON.stringify(res.email));
 
-    axios
-      .post(KAKAO_BASE_URL, data, {
-        headers: {
-          "Content-type": "application/x-www-form-urlencoded;charset=utf-8",
-        },
-      })
-      .then((res) => {
-        console.log("kakao login response", res.data);
-        if (res) {
-          sessionStorage.setItem(
-            "accessToken",
-            JSON.stringify(res.data.access_token)
-          );
-          sessionStorage.setItem(
-            "refreshToken",
-            JSON.stringify(res.data.refresh_token)
-          );
           navigate("/signup");
-        }
-      });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    }
   }, []);
 
+  // TODO: Spinner 추가?
   return <div>login</div>;
 };
 

@@ -20,7 +20,7 @@ const Router = ({ children }: RouterProps) => {
           <Route path="/signup" element={<P.Signup />} />
           <Route path="/glint/auth/kakao/callback" element={<P.Auth />} />
           {/* NOTE: 둘러보기 때문에 우선 밖에 빼둠 */}
-          <Route path="/home" element={<P.Home />} />
+          <Route path="/myInfo" element={<P.MyInfo />} />
           <Route element={<AuthRoute />}></Route>
         </Route>
       </Routes>
