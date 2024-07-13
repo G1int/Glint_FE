@@ -129,8 +129,6 @@ const Signup = () => {
       });
     }
 
-    setPage(page + 1);
-
     if (data.profile && page === 4) {
       const req = { imageFile: data.profile as string };
 
@@ -150,10 +148,18 @@ const Signup = () => {
             onSuccess: () => {
               navigate("/");
             },
+            onError: () => {
+              addToast({
+                content:
+                  "회원가입에 문제가 발생했습니다. 입력한 내용을 다시 확인해주세요",
+              }); //TODO: 문구 및 에러코드 확인 필요
+            },
           });
         },
       });
     }
+
+    if (!(page === 0 || page === 4)) setPage(page + 1);
   };
 
   return (
