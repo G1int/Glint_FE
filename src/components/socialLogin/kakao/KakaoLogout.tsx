@@ -28,7 +28,7 @@ const KakaoLogout = ({ className }: KakaoLogoutProps) => {
   const handleKaKaoLogout = () => {
     axios
       .post(
-        "https://kapi.kakao.com/v1/user/unlink",
+        "https://kapi.kakao.com/v1/user/logout",
         {},
         {
           headers: {
