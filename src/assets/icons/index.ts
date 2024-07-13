@@ -25,3 +25,5 @@ export { ReactComponent as ThirtiesIcon } from "./ic_thirties.svg";
 export { ReactComponent as TwentiesIcon } from "./ic_twenties.svg";
 export { ReactComponent as UniversityStudentIcon } from "./ic_universityStudent.svg";
 export { ReactComponent as FilterIcon } from "./ic_filter.svg";
+export { ReactComponent as MoreIcon } from "./ic_more.svg";
+export { ReactComponent as AddIcon } from "./ic_add.svg";
