@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { BackIcon, WriteIcon, OutIcon, ShareIcon } from "assets";
+import { WriteIcon, BackIcon, OutIcon, ShareIcon } from "assets";
 import * as S from "./BackLayout.styled";
 import { useToast } from "hooks";
 

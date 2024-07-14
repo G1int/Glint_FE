@@ -7,11 +7,8 @@ export const BackLayout = styled.div`
   height: 100%;
 `;
 
-export const Header = styled.div`
-  display: flex;
-  height: 80px;
-  font-size: 1.8rem;
-  font-weight: 500;
+export const header = (theme: Theme) => css`
+  ${theme.fonts.headline_semibold_18}
   padding-top: 40px;
   padding-left: 20px;
 `;
@@ -50,8 +47,8 @@ export const manageButton = (theme: Theme) => css`
   font-size: 1.4rem;
   font-weight: bold;
   color: ${theme.colors.black};
-  border: 1px solid lightGrey; // TODO: background 컬러 나오면 삭제
   gap: 4.5px;
+  box-shadow: 0 0 30px ${theme.colors.gray100};
 
   &:hover {
     background-color: ${theme.colors.pink100}; //TODO: 디자인 시스템에 따라 변경
