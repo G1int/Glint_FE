@@ -1,4 +1,4 @@
-import { Button, KakaoLogout, Profile, Toggle } from "components";
+import { Button, Header, KakaoLogout, Profile, Toggle } from "components";
 import * as S from "./MyInfo.styled";
 import Img from "assets/images/img_01.jpg";
 import {
@@ -19,8 +19,8 @@ const info = {
 
 const MyInfo = () => {
   return (
-    <S.BackLayout>
-      <S.Header>내 정보</S.Header>
+    <>
+      <Header css={S.header}>내정보</Header>
       <S.Info>
         {/* TODO: img 임의로 넣어놈 */}
         <Profile name="룰루랄라" age="29" img={Img} info={info} />
@@ -44,7 +44,7 @@ const MyInfo = () => {
         <React.Fragment key={idx}>
           <S.ToggleContent>
             {title}
-            <Toggle />
+            <Toggle content="현재 개발중인 기능이에요. 조금만 기다려주세요:)" />
           </S.ToggleContent>
           {idx < cutoffTitle.length - 1 && <S.Line />}
         </React.Fragment>
@@ -54,7 +54,7 @@ const MyInfo = () => {
         <React.Fragment key={idx}>
           <S.ToggleContent>
             {title}
-            <Toggle />
+            <Toggle content="현재 개발중인 기능이에요. 조금만 기다려주세요:)" />
           </S.ToggleContent>
           {idx < alarmTitle.length - 1 && <S.Line />}
         </React.Fragment>
@@ -65,7 +65,7 @@ const MyInfo = () => {
           회원탈퇴
         </Button>
       </S.OutButtonWrapper>
-    </S.BackLayout>
+    </>
   );
 };
 
