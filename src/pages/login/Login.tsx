@@ -11,7 +11,7 @@ const Login = () => {
       <S.ButtonContainer>
         <KakaoLogin />
         {/* TODO: navigate 수정 */}
-        <Button variant="underline" onClick={() => navigate("/home")}>
+        <Button variant="underline" onClick={() => navigate("/main")}>
           둘러보기
         </Button>
       </S.ButtonContainer>

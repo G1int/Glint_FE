@@ -13,7 +13,7 @@ const Footer = () => {
 
   // TODO: path 임의지정
   const footerArr = [
-    { icon: <HomeIcon />, text: "홈", path: "/home" },
+    { icon: <HomeIcon />, text: "홈", path: "/main" },
     { icon: <SearchIcon />, text: "검색", path: "/search" },
     {
       icon: <MyMeetingIcon />,
