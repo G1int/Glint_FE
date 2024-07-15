@@ -39,7 +39,7 @@ export const icon = (isSelected: boolean) => (theme: Theme) =>
 export const Text = styled.span<{ isSelected: boolean }>`
   ${({ theme, isSelected }) => css`
     color: ${isSelected ? theme.colors.navy900 : theme.colors.gray800};
-    ${theme.fonts.caption_regular_12}
+    ${theme.fonts.caption_regular_12};
   `}
 `;
 

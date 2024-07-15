@@ -47,7 +47,7 @@ export const MainIconContainer = styled.div`
 
 export const MainIconWrapper = styled.div`
   ${({ theme }) => css`
-    ${theme.fonts.caption_regular_12}
+    ${theme.fonts.caption_regular_12};
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -65,7 +65,7 @@ export const TitleWrapper = styled.div`
 `;
 export const Title = styled.span`
   ${({ theme }) => css`
-    ${theme.fonts.subTitle_bold_16}
+    ${theme.fonts.subTitle_bold_16};
   `}
 `;
 
@@ -95,7 +95,7 @@ export const BadgeWrapper = styled.div`
 
 export const MeetingTitle = styled.div`
   ${({ theme }) => css`
-    ${theme.fonts.subTitle_bold_14}
+    ${theme.fonts.subTitle_bold_14};
     max-height: 31px;
     width: 296px;
     padding-top: 4px;
@@ -147,7 +147,7 @@ export const PersonInfoWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 4px;
-    ${theme.fonts.caption_regular_12}// TODO: 디자인 시스템에 따라 변경
+    ${theme.fonts.caption_regular_12}; // TODO: 디자인 시스템에 따라 변경
   `}
 `;
 
@@ -170,7 +170,7 @@ export const Gray = styled.span`
 
 export const More = styled.div`
   ${({ theme }) => css`
-    ${theme.fonts.subTitle_semibold_16}
+    ${theme.fonts.subTitle_semibold_16};
     height: 48px;
     display: flex;
     align-items: center;

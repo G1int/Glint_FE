@@ -20,7 +20,7 @@ export const ButtonContainer = styled.div`
 `;
 
 export const text = (theme: Theme) => css`
-  ${theme.fonts.subTitle_regular_16}
+  ${theme.fonts.subTitle_regular_16};
   border-bottom: 1px solid ${theme.colors.black};
 
   &:hover {

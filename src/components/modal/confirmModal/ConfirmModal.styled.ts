@@ -11,7 +11,7 @@ export const ModalBody = styled.div`
 
 export const Title = styled.div`
   ${({ theme }) => css`
-    ${theme.fonts.headline_semibold_18}
+    ${theme.fonts.headline_semibold_18};
     margin-bottom: 8px;
     color: ${theme.colors.black};
   `}
@@ -19,14 +19,14 @@ export const Title = styled.div`
 
 export const Content = styled.div`
   ${({ theme }) => css`
-    ${theme.fonts.subTitle_regular_16}
+    ${theme.fonts.subTitle_regular_16};
     color: ${theme.colors.gray900};
   `}
 `;
 
 export const ModalFooter = styled.div`
   ${({ theme }) => css`
-    ${theme.fonts.subTitle_regular_16}
+    ${theme.fonts.subTitle_regular_16};
     display: flex;
     flex-wrap: wrap;
     flex-shrink: 0;

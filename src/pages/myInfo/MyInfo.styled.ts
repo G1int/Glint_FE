@@ -8,7 +8,7 @@ export const BackLayout = styled.div`
 `;
 
 export const header = (theme: Theme) => css`
-  ${theme.fonts.headline_semibold_18}
+  ${theme.fonts.headline_semibold_18};
   padding-top: 40px;
   padding-left: 20px;
 `;
@@ -44,7 +44,7 @@ export const manageButton = (theme: Theme) => css`
   justify-content: center;
   align-items: center;
   text-align: center;
-  ${theme.fonts.subTitle_bold_14}
+  ${theme.fonts.subTitle_bold_14};
   color: ${theme.colors.black};
   gap: 4.5px;
   box-shadow: 0 0 30px ${theme.colors.gray300};
@@ -65,7 +65,7 @@ export const MainTitle = styled.div`
     height: 32px;
     background-color: ${theme.colors.gray300};
     color: ${theme.colors.gray900};
-    ${theme.fonts.caption_regular_12}
+    ${theme.fonts.caption_regular_12};
     display: flex;
     padding-left: 20px;
     align-items: center;
@@ -80,7 +80,7 @@ export const ToggleContent = styled.div`
     align-items: center;
     flex-direction: row;
     justify-content: space-between;
-    ${theme.fonts.subTitle_regular_16}
+    ${theme.fonts.subTitle_regular_16};
   `}
 `;
 
@@ -94,6 +94,6 @@ export const OutButtonWrapper = styled.div`
 `;
 
 export const outButton = (theme: Theme) => css`
-  ${theme.fonts.subTitle_regular_14}
+  ${theme.fonts.subTitle_regular_14};
   color: ${theme.colors.gray900};
 `;

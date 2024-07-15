@@ -32,7 +32,7 @@ export const Title = styled.span`
 
 export const Content = styled.span`
   ${({ theme }) => css`
-    ${theme.fonts.subTitle_regular_16}
+    ${theme.fonts.subTitle_regular_16};
   `}
 `;
 
