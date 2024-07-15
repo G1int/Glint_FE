@@ -34,9 +34,7 @@ export const CurrentState = styled.button<{ index: boolean }>`
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background-color: ${index
-      ? theme.colors.black
-      : theme.colors.gray200}; //TODO: 디자인에 따라 변경 예정(gray200부분)
+    background-color: ${index ? theme.colors.black : theme.colors.gray300};
   `}
 `;
 

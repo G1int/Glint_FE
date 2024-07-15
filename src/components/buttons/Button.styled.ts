@@ -2,42 +2,46 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 interface VariantProps {
-  variant?: "smPink" | "lgPink" | "mdWhite" | "lgWhite" | "underline" | "icon";
+  variant?: "smPink" | "mdPink" | "lgPink" | "mdWhite" | "underline" | "icon";
 }
 
 export const Button = styled.button<VariantProps>`
   ${({ theme, variant }) => css`
+    ${variant === "smPink"
+      ? theme.fonts.subTitle_bold_14
+      : variant === "lgPink" || variant === "mdPink" || variant === "mdWhite"
+      ? theme.fonts.headline_semibold_18
+      : theme.fonts.subTitle_regular_16};
     height: ${variant === "smPink"
       ? "40px"
       : variant === "underline" || variant === "icon"
       ? "fit-content"
       : "56px"};
-    font-size: ${variant === "smPink"
-      ? "1.4rem"
-      : variant === "lgPink" || variant === "lgWhite"
-      ? "1.8rem"
-      : "1.6rem"};
     border-radius: 8px;
-    width: ${variant === "lgPink" || variant === "lgWhite"
+    width: ${variant === "lgPink"
       ? "320px"
-      : variant === "mdWhite"
+      : variant === "mdPink" || variant === "mdWhite"
       ? "140px"
       : variant === "smPink"
       ? "59px"
       : "fit-content"};
     color: ${variant === "underline" ? theme.colors.black : theme.colors.white};
-    background-color: ${variant === "smPink" || variant === "lgPink"
+    background-color: ${variant === "smPink" ||
+    variant === "mdPink" ||
+    variant === "lgPink"
       ? theme.colors.pink900
       : theme.colors.white};
     text-decoration: ${variant === "underline" && "underline"};
 
     &:disabled {
-      color: ${theme.colors.gray500};
-      background-color: ${theme.colors.gray100};
+      color: ${theme.colors.gray700};
+      background-color: ${theme.colors.gray400};
     }
 
     &:not(:disabled):hover {
-      background-color: ${(variant === "smPink" || variant === "lgPink") &&
+      background-color: ${(variant === "smPink" ||
+        variant == "mdPink" ||
+        variant === "lgPink") &&
       theme.colors.pink700};
       color: ${variant === "underline" && theme.colors.navy900};
     }

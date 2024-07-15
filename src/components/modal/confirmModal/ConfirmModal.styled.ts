@@ -11,8 +11,7 @@ export const ModalBody = styled.div`
 
 export const Title = styled.div`
   ${({ theme }) => css`
-    font-size: 1.8rem;
-    font-weight: 500; //TODO: 디자인 시스템에 따라 변경 예정
+    ${theme.fonts.headline_semibold_18};
     margin-bottom: 8px;
     color: ${theme.colors.black};
   `}
@@ -20,27 +19,25 @@ export const Title = styled.div`
 
 export const Content = styled.div`
   ${({ theme }) => css`
-    font-size: 1.6rem;
-    line-height: 22px;
-    color: ${theme.colors
-      .gray700}; //TODO: 컬러는 디자인 시스템에 따라 변경 예정
+    ${theme.fonts.subTitle_regular_16};
+    color: ${theme.colors.gray900};
   `}
 `;
 
 export const ModalFooter = styled.div`
   ${({ theme }) => css`
+    ${theme.fonts.subTitle_regular_16};
     display: flex;
     flex-wrap: wrap;
     flex-shrink: 0;
     align-items: center;
     justify-content: center;
-    border-top: 1px solid ${theme.colors.gray200};
+    border-top: 1px solid ${theme.colors.gray600};
     height: 56px;
-    font-size: 1.6rem;
 
     & > button {
       flex: 1;
-      border-right: 1px solid ${theme.colors.gray200};
+      border-right: 1px solid ${theme.colors.gray600};
       text-align: center;
     }
 
