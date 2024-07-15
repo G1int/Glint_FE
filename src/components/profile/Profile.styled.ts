@@ -6,7 +6,7 @@ export const Profile = styled.div`
   column-gap: 29px;
 
   span {
-    font-size: 12px; //TODO: 디자인 나오면 수정 필요
+    font-size: 12px;
   }
 `;
 export const ImgContent = styled.div`
@@ -42,7 +42,7 @@ export const InfoWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  row-gap: 1px;
+  row-gap: 4px;
 `;
 
 export const MainInfoContent = styled.div`
@@ -53,7 +53,7 @@ export const MainInfoContent = styled.div`
 `;
 
 export const Name = styled.span`
-  font-size: 2rem !important;
+  font-size: 18px !important;
 `;
 
 export const InfoContent = styled.div`
@@ -61,10 +61,10 @@ export const InfoContent = styled.div`
     display: flex;
     justify-content: flex-start;
     column-gap: 4px;
-    color: ${theme.colors.gray700};
+    color: ${theme.colors.gray900};
 
     & > span:not(:last-of-type) {
-      border-right: 1px solid ${theme.colors.gray700};
+      border-right: 1px solid ${theme.colors.gray500};
       padding-right: 4px;
     }
   `}
