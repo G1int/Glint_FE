@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 import { BackLayout, Button } from "components";
 import { useToast } from "hooks";
-import { usePostCheckNickname, usePostImage, usePostSingup } from "services";
+import { usePostCheckNickname, usePostImage, usePutSingup } from "services";
 import type { SignupForm } from "types";
 import {
   ProgressBar,
@@ -24,7 +24,7 @@ const Signup = () => {
 
   const { mutate: mutateImage } = usePostImage();
   const { mutate: mutateCheckNickname } = usePostCheckNickname();
-  const { mutate: mutatePostSignup } = usePostSingup();
+  const { mutate: mutatePutSignup } = usePutSingup();
 
   const { addToast } = useToast();
 
@@ -34,6 +34,7 @@ const Signup = () => {
     setValue,
     register,
     trigger,
+    setError,
     handleSubmit,
   } = useForm<SignupForm>({
     defaultValues: {
@@ -123,8 +124,9 @@ const Signup = () => {
         onSuccess: () => {
           return setPage(page + 1);
         },
+        //TODO: 회원가입이 된 상태라 회원 탈퇴 후 로직 확인 필요
         onError: () => {
-          addToast({ content: "이미 존재하는 닉네임입니다." }); //TODO: 문구 및 에러코드 확인 필요
+          setError("nickname", { message: "이미 사용 중인 닉네임이에요." });
         },
       });
     }
@@ -141,18 +143,27 @@ const Signup = () => {
               gender: data.gender as "MALE" | "FEMALE",
               height: `${data.height}`,
               profileImage: res.url as string,
-              birthdate: `${data.birth.year}-${data.birth.month}-${data.birth.date}`,
+              birthdate: `${data.birth.year}-${
+                `${data.birth.month}`.length === 1
+                  ? `0${data.birth.month}`
+                  : data.birth.month
+              }-${
+                `${data.birth.date}`.length === 1
+                  ? `0${data.birth.date}`
+                  : data.birth.date
+              }`,
             },
           };
-          mutatePostSignup(req, {
+
+          mutatePutSignup(req, {
             onSuccess: () => {
-              navigate("/");
+              navigate("/main");
             },
             onError: () => {
               addToast({
                 content:
                   "회원가입에 문제가 발생했습니다. 입력한 내용을 다시 확인해주세요",
-              }); //TODO: 문구 및 에러코드 확인 필요
+              });
             },
           });
         },

@@ -19,7 +19,7 @@ export interface PostCheckNicknameQuery {
   };
 }
 
-export interface PostSignupQuery {
+export interface PutSignupQuery {
   userId: string;
   body: {
     nickname: string;

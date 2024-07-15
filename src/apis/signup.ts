@@ -1,5 +1,5 @@
 import { ax } from "./axios";
-import type { PostCheckNicknameQuery, PostSignupQuery } from "types";
+import type { PostCheckNicknameQuery, PutSignupQuery } from "types";
 
 export const postCheckNicknameAPI = async (req: PostCheckNicknameQuery) => {
   const { data } = await ax.post(`/users/${req.userId}/nickname`, req.body);
@@ -7,8 +7,8 @@ export const postCheckNicknameAPI = async (req: PostCheckNicknameQuery) => {
   return data;
 };
 
-export const postSingupAPI = async (req: PostSignupQuery) => {
-  const { data } = await ax.post(`/users/${req.userId}/detail`, req.body);
+export const putSingupAPI = async (req: PutSignupQuery) => {
+  const { data } = await ax.put(`/users/${req.userId}/detail`, req.body);
 
   return data;
 };
