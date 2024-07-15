@@ -19,9 +19,9 @@ export const Title = styled.span<{ hasDesc?: boolean }>`
 
 export const Desc = styled.span`
   ${({ theme }) => css`
+    ${theme.fonts.subTitle_regular_16};
     margin-bottom: 32px;
     color: ${theme.colors.gray900};
-    font-size: 16px;
   `}
 `;
 
@@ -38,16 +38,18 @@ export const closeIcon = css`
 `;
 
 export const Unit = styled.span`
-  position: absolute;
-  left: 43px;
-  top: 24px;
-  font-size: 16px;
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_regular_16};
+    position: absolute;
+    left: 43px;
+    top: 24px;
+  `}
 `;
 
 export const Label = styled.span<{ hasError?: boolean }>`
   ${({ theme, hasError }) => css`
+    ${theme.fonts.subTitle_regular_14};
     margin-bottom: 6px;
-    font-size: 14px;
     color: ${hasError ? theme.colors.danger : theme.colors.black};
   `}
 `;
@@ -65,7 +67,7 @@ export const BirthWrapper = styled.div`
       right: -20px;
       content: "/";
       padding: 0 8px;
-      font-size: 16px;
+      ${theme.fonts.subTitle_regular_16};
       color: ${theme.colors.gray600};
     }
   `}
@@ -73,10 +75,10 @@ export const BirthWrapper = styled.div`
 
 export const Message = styled.span<{ hasError?: boolean }>`
   ${({ theme, hasError }) => css`
+    ${theme.fonts.caption_regular_12};
     display: flex;
     margin-top: 8px;
     color: ${hasError && theme.colors.danger};
-    font-size: 12px;
   `}
 `;
 
@@ -85,17 +87,21 @@ export const FormContext = styled.div`
 `;
 
 export const FormYearText = styled.span`
-  position: absolute;
-  top: 4px;
-  left: 44px;
-  font-size: 16px;
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_regular_16};
+    position: absolute;
+    top: 4px;
+    left: 44px;
+  `}
 `;
 
 export const FormMonthDateText = styled.span`
-  position: absolute;
-  top: 4px;
-  left: 24px;
-  font-size: 16px;
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_regular_16};
+    position: absolute;
+    top: 4px;
+    left: 24px;
+  `}
 `;
 
 export const formRadioButton = css`

@@ -9,12 +9,12 @@ export const InputWrapper = styled.div`
 
 export const Input = styled.input<{ hasError?: boolean }>`
   ${({ theme, hasError }) => css`
+    ${theme.fonts.subTitle_regular_16};
     height: 34px;
     border: 0;
     border-bottom: 1px solid
       ${hasError ? theme.colors.danger : theme.colors.gray600};
     padding: 2px 0 12px;
-    font-size: 16px;
 
     &::placeholder {
       color: ${theme.colors.gray600};
@@ -24,17 +24,17 @@ export const Input = styled.input<{ hasError?: boolean }>`
 
 export const Label = styled.span<{ hasError?: boolean }>`
   ${({ theme, hasError }) => css`
+    ${theme.fonts.subTitle_regular_14};
     margin-bottom: 6px;
-    font-size: 14px;
     color: ${hasError ? theme.colors.danger : theme.colors.black};
   `}
 `;
 
 export const Message = styled.span<{ hasError?: boolean }>`
   ${({ theme, hasError }) => css`
+    ${theme.fonts.caption_regular_12};
     display: flex;
     margin-top: 8px;
     color: ${hasError && theme.colors.danger};
-    font-size: 12px;
   `}
 `;
