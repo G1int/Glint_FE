@@ -20,7 +20,7 @@ export const Info = styled.div`
 
 export const Line = styled.div`
   ${({ theme }) => css`
-    border: 0.5px solid ${theme.colors.gray300}; //TODO: 디자인 시스템에 따라 변경
+    border: 0.5px solid ${theme.colors.gray500};
     width: 320px;
     align-self: center;
   `}
@@ -44,11 +44,10 @@ export const manageButton = (theme: Theme) => css`
   justify-content: center;
   align-items: center;
   text-align: center;
-  font-size: 1.4rem;
-  font-weight: bold;
+  ${theme.fonts.subTitle_bold_14}
   color: ${theme.colors.black};
   gap: 4.5px;
-  box-shadow: 0 0 30px ${theme.colors.gray100};
+  box-shadow: 0 0 30px ${theme.colors.gray300};
 
   &:hover {
     background-color: ${theme.colors.pink100}; //TODO: 디자인 시스템에 따라 변경
@@ -64,9 +63,9 @@ export const MainTitle = styled.div`
   ${({ theme }) => css`
     width: 100%;
     height: 32px;
-    background-color: ${theme.colors.gray100};
-    color: ${theme.colors.gray600};
-    font-size: 1.3rem;
+    background-color: ${theme.colors.gray300};
+    color: ${theme.colors.gray900};
+    ${theme.fonts.caption_regular_12}
     display: flex;
     padding-left: 20px;
     align-items: center;
@@ -74,13 +73,15 @@ export const MainTitle = styled.div`
 `;
 
 export const ToggleContent = styled.div`
-  display: flex;
-  height: 64px;
-  padding: 21px 20px;
-  font-size: 1.5rem;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
+  ${({ theme }) => css`
+    display: flex;
+    height: 64px;
+    padding: 21px 20px;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    ${theme.fonts.subTitle_regular_16}
+  `}
 `;
 
 export const OutButtonWrapper = styled.div`
@@ -93,6 +94,6 @@ export const OutButtonWrapper = styled.div`
 `;
 
 export const outButton = (theme: Theme) => css`
-  font-size: 1.4rem;
-  color: ${theme.colors.gray500};
+  ${theme.fonts.subTitle_regular_14}
+  color: ${theme.colors.gray900};
 `;

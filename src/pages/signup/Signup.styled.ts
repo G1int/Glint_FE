@@ -20,7 +20,7 @@ export const Title = styled.span<{ hasDesc?: boolean }>`
 export const Desc = styled.span`
   ${({ theme }) => css`
     margin-bottom: 32px;
-    color: ${theme.colors.gray700};
+    color: ${theme.colors.gray900};
     font-size: 16px;
   `}
 `;
@@ -48,7 +48,7 @@ export const Label = styled.span<{ hasError?: boolean }>`
   ${({ theme, hasError }) => css`
     margin-bottom: 6px;
     font-size: 14px;
-    color: ${hasError ? theme.colors.red100 : theme.colors.black};
+    color: ${hasError ? theme.colors.danger : theme.colors.black};
   `}
 `;
 
@@ -66,7 +66,7 @@ export const BirthWrapper = styled.div`
       content: "/";
       padding: 0 8px;
       font-size: 16px;
-      color: ${theme.colors.gray400};
+      color: ${theme.colors.gray600};
     }
   `}
 `;
@@ -75,7 +75,7 @@ export const Message = styled.span<{ hasError?: boolean }>`
   ${({ theme, hasError }) => css`
     display: flex;
     margin-top: 8px;
-    color: ${hasError && theme.colors.red100};
+    color: ${hasError && theme.colors.danger};
     font-size: 12px;
   `}
 `;

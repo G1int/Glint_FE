@@ -41,7 +41,7 @@ export const MainIconContainer = styled.div`
     margin-left: 16px;
     align-items: center;
     justify-items: center;
-    box-shadow: 0 0 30px ${theme.colors.gray100};
+    box-shadow: 0 0 30px ${theme.colors.gray300};
   `}
 `;
 
@@ -82,7 +82,7 @@ export const MeetingContainer = styled.div`
     width: 328px;
     border-radius: 12px;
     padding: 16px;
-    box-shadow: 0 0 30px ${theme.colors.gray100};
+    box-shadow: 0 0 30px ${theme.colors.gray300};
     cursor: pointer;
   `}
 `;

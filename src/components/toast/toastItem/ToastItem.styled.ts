@@ -36,7 +36,7 @@ export const ToastItem = styled.div<{ isClosing: boolean }>`
       align-content: center;
       border-radius: 8px;
       padding: 16px;
-      ${theme.fonts.caption_regular_14}
+      ${theme.fonts.subTitle_regular_14}
     }
   `}
 `;

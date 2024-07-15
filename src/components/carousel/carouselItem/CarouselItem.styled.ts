@@ -1,3 +1,4 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const CarouselBox = styled.div`
@@ -30,8 +31,9 @@ export const Title = styled.span`
 `;
 
 export const Content = styled.span`
-  font-size: 16px;
-  line-height: 20px;
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_regular_16}
+  `}
 `;
 
 export const Img = styled.img`
