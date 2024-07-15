@@ -84,11 +84,11 @@ const Main = () => {
                 <S.PersonInfoWrapper>
                   <S.PersonInfo>
                     남&nbsp;<S.Highlight>2</S.Highlight>/2
-                    <S.Gray>&nbsp;· 29~33 · 의사</S.Gray>
+                    <S.Gray>&nbsp;· 29세~33세</S.Gray>
                   </S.PersonInfo>
                   <S.PersonInfo>
                     여&nbsp;<S.Highlight>2</S.Highlight>/2
-                    <S.Gray>&nbsp;· 29~33 · 의사 · 서울대</S.Gray>
+                    <S.Gray>&nbsp;· 29세~33세</S.Gray>
                   </S.PersonInfo>
                 </S.PersonInfoWrapper>
               </S.MeetingInfoWrapper>

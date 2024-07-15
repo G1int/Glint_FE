@@ -41,13 +41,13 @@ export const MainIconContainer = styled.div`
     margin-left: 16px;
     align-items: center;
     justify-items: center;
-    box-shadow: 0 0 30px ${theme.colors.gray100};
+    box-shadow: 0 0 30px ${theme.colors.gray300};
   `}
 `;
 
 export const MainIconWrapper = styled.div`
   ${({ theme }) => css`
-    ${theme.fonts.caption_regular_12}
+    ${theme.fonts.caption_regular_12};
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -63,9 +63,10 @@ export const TitleWrapper = styled.div`
   padding: 31px 16px 19px 19px;
   align-items: center;
 `;
+
 export const Title = styled.span`
   ${({ theme }) => css`
-    ${theme.fonts.subTitle_bold_16}
+    ${theme.fonts.subTitle_bold_16};
   `}
 `;
 
@@ -82,7 +83,7 @@ export const MeetingContainer = styled.div`
     width: 328px;
     border-radius: 12px;
     padding: 16px;
-    box-shadow: 0 0 30px ${theme.colors.gray100};
+    box-shadow: 0 0 30px ${theme.colors.gray300};
     cursor: pointer;
   `}
 `;
@@ -95,7 +96,7 @@ export const BadgeWrapper = styled.div`
 
 export const MeetingTitle = styled.div`
   ${({ theme }) => css`
-    ${theme.fonts.subTitle_bold_14}
+    ${theme.fonts.subTitle_bold_14};
     max-height: 31px;
     width: 296px;
     padding-top: 4px;
@@ -146,14 +147,14 @@ export const PersonInfoWrapper = styled.div`
     padding: 12px 16px;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    ${theme.fonts.caption_regular_12}// TODO: 디자인 시스템에 따라 변경
+    ${theme.fonts.subTitle_regular_14};
   `}
 `;
 
 export const PersonInfo = styled.div`
   display: flex;
   align-items: center;
+  height: 28px;
 `;
 
 export const Highlight = styled.span`
@@ -170,7 +171,7 @@ export const Gray = styled.span`
 
 export const More = styled.div`
   ${({ theme }) => css`
-    ${theme.fonts.subTitle_semibold_16}
+    ${theme.fonts.subTitle_semibold_16};
     height: 48px;
     display: flex;
     align-items: center;
@@ -181,8 +182,8 @@ export const More = styled.div`
 
 export const addIcon = css`
   position: fixed;
-  bottom: 103px;
-  padding-left: 257px;
+  bottom: 80px;
+  left: 288px;
   width: 56px;
   height: 56px;
   background-color: transparent;
