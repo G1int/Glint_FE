@@ -7,7 +7,7 @@ export const postCheckNicknameAPI = async (req: PostCheckNicknameQuery) => {
   return data;
 };
 
-export const putSingupAPI = async (req: PutSignupQuery) => {
+export const putSignupAPI = async (req: PutSignupQuery) => {
   const { data } = await ax.put(`/users/${req.userId}/detail`, req.body);
 
   return data;

@@ -4,7 +4,11 @@ import { useForm } from "react-hook-form";
 
 import { BackLayout, Button } from "components";
 import { useToast } from "hooks";
-import { usePostCheckNickname, usePostImage, usePutSingup } from "services";
+import {
+  usePostCheckNickname,
+  usePostImage,
+  usePutSignup as usePutSignup,
+} from "services";
 import type { SignupForm } from "types";
 import {
   ProgressBar,
@@ -24,7 +28,7 @@ const Signup = () => {
 
   const { mutate: mutateImage } = usePostImage();
   const { mutate: mutateCheckNickname } = usePostCheckNickname();
-  const { mutate: mutatePutSignup } = usePutSingup();
+  const { mutate: mutatePutSignup } = usePutSignup();
 
   const { addToast } = useToast();
 

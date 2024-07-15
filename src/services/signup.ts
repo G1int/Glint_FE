@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 
-import { postCheckNicknameAPI, putSingupAPI } from "apis";
+import { postCheckNicknameAPI, putSignupAPI } from "apis";
 import type { PostCheckNicknameQuery, PutSignupQuery } from "types";
 
-export const usePutSingup = () => {
+export const usePutSignup = () => {
   return useMutation({
-    mutationFn: (req: PutSignupQuery) => putSingupAPI(req),
+    mutationFn: (req: PutSignupQuery) => putSignupAPI(req),
   });
 };
 
