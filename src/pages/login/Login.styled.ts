@@ -5,6 +5,7 @@ export const Login = styled.div`
   display: flex;
   flex-direction: column;
   height: 100%;
+  justify-content: space-between;
 `;
 
 export const ButtonContainer = styled.div`
@@ -12,10 +13,7 @@ export const ButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  position: absolute;
-  top: 638px;
-  left: 20px;
-  right: 20px;
+  padding: 48px 20px 66px 20px;
   row-gap: 16px;
 `;
 
