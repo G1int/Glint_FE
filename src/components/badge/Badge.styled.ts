@@ -8,7 +8,7 @@ export const Badge = styled.button<{
 }>`
   ${({ isSelected, isClickable, theme, variant }) => css`
     ${variant === "smPink" || variant === "smNavy"
-      ? "10px" //TODO: 디자인시스템 나오면 변경
+      ? theme.fonts.caption_regular_10
       : isSelected
       ? theme.fonts.caption_bold_12
       : theme.fonts.caption_regular_12};
@@ -22,7 +22,7 @@ export const Badge = styled.button<{
         ? theme.colors.pink900
         : (isSelected && isClickable) || variant === "smNavy"
         ? theme.colors.navy900
-        : theme.colors.gray300}; //TODO: gray 정의되면 수정
+        : theme.colors.gray600};
     border-radius: ${variant === "smPink" || variant === "smNavy"
       ? "4px"
       : "20px"};

@@ -7,7 +7,7 @@ export const ProgressBar = styled.div`
     width: 100%;
     height: 4px;
     margin: 20px 0 24px;
-    background-color: ${theme.colors.gray400};
+    background-color: ${theme.colors.gray500};
   `}
 `;
 
