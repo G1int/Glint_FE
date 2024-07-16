@@ -1,13 +1,11 @@
 import { useState } from "react";
 import * as S from "./Dropdown.styled";
-import { ArrowIcon } from "assets";
+import { DropdownArrowIcon } from "assets";
 
 interface DropdownProps {
-  title: string;
   options: { label: string; value: string }[];
-  placeholder: string;
 }
-const Dropdown = ({ title, options, placeholder }: DropdownProps) => {
+const Dropdown = ({ options }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
@@ -23,12 +21,8 @@ const Dropdown = ({ title, options, placeholder }: DropdownProps) => {
   return (
     <S.DropdownContainer>
       <S.SelectContainer>
-        <S.Title>{title}</S.Title>
-        <S.SelectedValue onClick={handleToggle}>
-          {selectedOption || placeholder}
-        </S.SelectedValue>
-        {/* TODO: 아이콘 디자인 시스템에 따라 변경 */}
-        <ArrowIcon css={S.arrowIcon} onClick={handleToggle} />
+        <S.SelectedValue> {selectedOption || "선택하기"}</S.SelectedValue>
+        <DropdownArrowIcon css={S.arrowIcon} onClick={handleToggle} />
         {isOpen && (
           <S.DropdownList>
             {options.map((option, index) => (
