@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const Login = styled.div`
@@ -17,16 +17,13 @@ export const ButtonContainer = styled.div`
   row-gap: 16px;
 `;
 
-export const Text = styled.div`
-  ${({ theme }) => css`
-    font-size: 16px;
-    border-bottom: 1px solid ${theme.colors.black};
+export const text = (theme: Theme) => css`
+  ${theme.fonts.subTitle_regular_16};
+  border-bottom: 1px solid ${theme.colors.black};
 
-    // TODO: color 임시값
-    &:hover {
-      color: ${theme.colors.navy900};
-      border-bottom: 1px solid ${theme.colors.navy900};
-      cursor: pointer;
-    }
-  `}
+  &:hover {
+    color: ${theme.colors.navy900};
+    border-bottom: 1px solid ${theme.colors.navy900};
+    cursor: pointer;
+  }
 `;
