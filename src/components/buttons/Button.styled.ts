@@ -35,7 +35,7 @@ export const Button = styled.button<VariantProps>`
 
     &:disabled {
       color: ${theme.colors.gray700};
-      background-color: ${theme.colors.gray400};
+      background-color: ${variant !== "icon" && theme.colors.gray400};
     }
 
     &:not(:disabled):hover {
