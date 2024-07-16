@@ -81,6 +81,22 @@ export const ToggleContent = styled.div`
     flex-direction: row;
     justify-content: space-between;
     ${theme.fonts.subTitle_regular_16};
+    position: relative;
+
+    &::after {
+      content: "";
+      width: 320px;
+      height: 1px;
+      background-color: ${theme.colors.gray500};
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &.last::after {
+      display: none;
+    }
   `}
 `;
 
