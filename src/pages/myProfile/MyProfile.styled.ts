@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 export const Content = styled.div`
   overflow-y: auto;
 `;
+
 export const Img = styled.img`
   height: 360px;
   width: 360px;
@@ -39,7 +40,7 @@ export const DropdownContainer = styled.div`
     min-height: 116px;
     position: relative;
 
-    &:not(:last-child)::after {
+    &:after {
       content: "";
       width: 320px;
       height: 1px;
