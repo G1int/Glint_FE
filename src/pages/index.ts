@@ -3,3 +3,4 @@ export * from "./signup";
 export * from "./login";
 export * from "./myInfo";
 export * from "./main";
+export * from "./myProfile";
