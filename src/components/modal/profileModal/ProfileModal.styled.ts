@@ -1,6 +1,26 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
+export const bottomModal = css`
+  position: fixed;
+  top: auto;
+  bottom: 0;
+  height: 644px;
+  width: 360px;
+  transform: translateX(-50%);
+`;
+
+export const rectangleIcon = css`
+  position: absolute;
+  bottom: 626.64px;
+  left: 162px;
+`;
+
+export const closeIcon = css`
+  position: absolute;
+  left: 318px;
+  bottom: 608px;
+`;
 export const ModalBody = styled.div`
   display: block;
   align-items: center;
@@ -12,39 +32,56 @@ export const ModalBody = styled.div`
 `;
 
 export const Img = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 360px;
+  height: 600px;
+  position: absolute;
+  bottom: 0;
   object-fit: cover;
-  border-radius: 1rem;
   align-self: center;
+`;
+
+export const GradientOverlay = styled.div`
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 300px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
 `;
 
 // TODO: color, backgroud할지말지 등 css 디자인 시스템에 따라 수정
 export const MainInfoContent = styled.div`
-  position: absolute;
-  top: 75%;
-  left: 30%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 3rem;
-  display: flex;
-  column-gap: 10px;
+  ${({ theme }) => css`
+    ${theme.fonts.subCopy_bold_24};
+    position: absolute;
+    height: 62px;
+    // top: 408px;
+    bottom: 130px;
+    left: 15px;
+    color: ${theme.colors.white};
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  `}
 `;
 
 export const InfoContent = styled.div`
-  position: absolute;
-  top: 83%;
-  left: 30%;
-  transform: translate(-50%, -50%);
-  color: white;
-  font-size: 2rem;
-  display: flex;
-  column-gap: 10px;
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_semibold_16};
+    display: flex;
+    column-gap: 10px;
+    align-items: center;
+  `}
+`;
 
-  & > span:not(:last-of-type) {
-    border-right: 1px solid white;
-    padding-right: 10px;
-  }
+export const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+`;
+
+export const modifyButton = css`
+  position: absolute;
+  bottom: 50px;
 `;
 
 export const Title = styled.div`
@@ -60,13 +97,4 @@ export const IntroduceContent = styled.div`
   line-height: normal;
   padding: 10px 10px 20px 10px;
   text-align: left;
-`;
-
-export const bottomModal = css`
-  position: fixed;
-  top: auto;
-  bottom: 10px;
-  height: 585px; // TODO: 디자인 시스템에 따라 변경 예정
-  width: 345px; // TODO: 디자인 시스템에 따라 변경 예정
-  transform: translateX(-50%);
 `;
