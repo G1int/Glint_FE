@@ -37,3 +37,4 @@ export { ReactComponent as SchoolIcon } from "./ic_school.svg";
 export { ReactComponent as SmallAuthBadgeIcon } from "./ic_smallAuthBadge.svg";
 export { ReactComponent as ProfileRectangleIcon } from "./ic_profileRectangle.svg";
 export { ReactComponent as SmallChevronRightIcon } from "./ic_smallChevronRight.svg";
+export { ReactComponent as TagCloseIcon } from "./ic_tagClose.svg";
