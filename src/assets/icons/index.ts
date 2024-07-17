@@ -29,3 +29,4 @@ export { ReactComponent as MyProfileIcon } from "./ic_myProfile.svg";
 export { ReactComponent as ProfileCameraIcon } from "./ic_profileCamera.svg";
 export { ReactComponent as SearchIcon } from "./ic_search.svg";
 export { ReactComponent as UserIcon } from "./ic_user.svg";
+export { ReactComponent as TagCloseIcon } from "./ic_tagClose.svg";
