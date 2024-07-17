@@ -57,7 +57,9 @@ const MyProfile = () => {
           {/* TODO: Input size, css 수정 */}
           <Input
             handleChange={(e) => e.target.value}
-            placeholder="키워드 입력 후 엔터를 쳐주세요."
+            placeholder={`현재 하는 일이나, 꿈, 계획, 목표,
+취미생활, 상대방에게 바라는 점 등을 자유롭게
+작성해주세요.`}
           />
         </S.InputContainer>
         <S.ButtonWrapper>
