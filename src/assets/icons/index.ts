@@ -27,6 +27,7 @@ export { ReactComponent as PublicCompanyIcon } from "./ic_publicCompany.svg";
 export { ReactComponent as SearchIcon } from "./ic_search.svg";
 export { ReactComponent as ShareIcon } from "./ic_share.svg";
 export { ReactComponent as SpecializedJobIcon } from "./ic_specializedJob.svg";
+export { ReactComponent as TagCloseIcon } from "./ic_tagClose.svg";
 export { ReactComponent as ThirtiesIcon } from "./ic_thirties.svg";
 export { ReactComponent as TwentiesIcon } from "./ic_twenties.svg";
 export { ReactComponent as UniversityStudentIcon } from "./ic_universityStudent.svg";

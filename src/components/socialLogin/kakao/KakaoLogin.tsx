@@ -9,8 +9,8 @@ const KakaoLogin = () => {
   };
 
   return (
-    <button>
-      <KakaoLoginIcon onClick={handleLogin} />
+    <button onClick={handleLogin}>
+      <KakaoLoginIcon />
     </button>
   );
 };

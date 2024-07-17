@@ -9,7 +9,9 @@ const Home = () => {
   return (
     <S.HomeWrapper>
       <S.Content>
-        <Badge css={S.badge} variant="smPink" label={memberCounts} />
+        <Badge css={S.badge} variant="smPink">
+          {memberCounts}
+        </Badge>
         <div>
           <span>타이틀</span>
           <span>설명</span>

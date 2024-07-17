@@ -4,7 +4,7 @@ import * as S from "./Badge.styled";
 
 interface BadgeProps {
   className?: string;
-  label: string;
+  children: React.ReactNode;
   isSelected?: boolean;
   variant: "smPink" | "smNavy";
   handleClick?: (e: React.MouseEvent) => void;
@@ -12,7 +12,7 @@ interface BadgeProps {
 
 const Badge = ({
   className,
-  label,
+  children,
   isSelected,
   handleClick,
   variant,
@@ -25,7 +25,7 @@ const Badge = ({
       onClick={handleClick}
       variant={variant}
     >
-      {label}
+      {children}
     </S.Badge>
   );
 };

@@ -1,10 +1,9 @@
-import axios from "axios";
-import { API_URL } from "config";
-import { Login } from "types";
+import { getKakaoInfoResponse } from "types";
+import { ax } from "./axios";
 
-export const getKakaoInfo = async (code: string) => {
-  const { data } = await axios.get<Login>(
-    `${API_URL}/auth/KAKAO/callback?code=${code}`
+export const getKakaoInfoAPI = async (code: string) => {
+  const { data } = await ax.get<getKakaoInfoResponse>(
+    `/auth/KAKAO/callback?code=${code}`
   );
   return data;
 };
