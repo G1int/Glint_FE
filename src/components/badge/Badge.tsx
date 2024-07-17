@@ -3,15 +3,23 @@ import React from "react";
 import * as S from "./Badge.styled";
 
 interface BadgeProps {
+  className?: string;
   label: string;
   isSelected?: boolean;
-  variant?: "smPink" | "smNavy";
+  variant: "smPink" | "smNavy";
   handleClick?: (e: React.MouseEvent) => void;
 }
 
-const Badge = ({ label, isSelected, handleClick, variant }: BadgeProps) => {
+const Badge = ({
+  className,
+  label,
+  isSelected,
+  handleClick,
+  variant,
+}: BadgeProps) => {
   return (
     <S.Badge
+      className={className}
       isSelected={isSelected}
       isClickable={!!handleClick}
       onClick={handleClick}

@@ -11,6 +11,7 @@ interface BackLayoutProps {
   isMeeting?: boolean;
   isOwner?: boolean;
   isAlert?: boolean; //TODO: 알림 아이콘으로 추가 예정
+  hasTopContent?: boolean;
   children: React.ReactNode;
   handleClickBack?: () => void;
   handleClickEdit?: () => void;
@@ -22,6 +23,7 @@ const BackLayout = ({
   isMeeting,
   isOwner,
   isAlert,
+  hasTopContent,
   children,
   handleClickEdit,
   handleClickBack,
@@ -66,7 +68,7 @@ const BackLayout = ({
           </S.LeftHeaderContainer>
         )}
       </S.Header>
-      <S.Context>{children}</S.Context>
+      <S.Context hasTopContent={hasTopContent}>{children}</S.Context>
     </S.BackLayout>
   );
 };

@@ -16,12 +16,14 @@ export const Header = styled.div`
   padding: 0 16px;
 `;
 
-export const Context = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 100%;
-  padding: 0 20px 46px;
+export const Context = styled.div<{ hasTopContent: boolean }>`
+  ${({ hasTopContent }) => css`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: ${!hasTopContent && `0 20px 46px`};
+  `}
 `;
 
 export const Title = styled.span`
