@@ -1,4 +1,4 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const bottomModal = css`
@@ -8,6 +8,11 @@ export const bottomModal = css`
   height: 644px;
   width: 360px;
   transform: translateX(-50%);
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+`;
+export const StaticContainer = styled.div`
+  height: 44px;
 `;
 
 export const rectangleIcon = css`
@@ -21,14 +26,16 @@ export const closeIcon = css`
   left: 318px;
   bottom: 608px;
 `;
-export const ModalBody = styled.div`
-  display: block;
-  align-items: center;
-  justify-content: center;
-  font-size: 2rem;
-  padding: 10px;
-  height: 100%;
-  overflow: hidden;
+
+export const ScrollContainer = styled.div`
+  height: calc(100% - 44px);
+  overflow: auto;
+  padding-bottom: 80px; /* 버튼 여백 */
+`;
+
+export const ImageContainer = styled.div`
+  position: relative;
+  height: 600px;
 `;
 
 export const Img = styled.img`
@@ -49,19 +56,18 @@ export const GradientOverlay = styled.div`
   background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
 `;
 
-// TODO: color, backgroud할지말지 등 css 디자인 시스템에 따라 수정
 export const MainInfoContent = styled.div`
   ${({ theme }) => css`
     ${theme.fonts.subCopy_bold_24};
-    position: absolute;
     height: 62px;
-    // top: 408px;
-    bottom: 130px;
-    left: 15px;
     color: ${theme.colors.white};
     display: flex;
     flex-direction: column;
     gap: 8px;
+    position: absolute;
+    top: 408px;
+    bottom: 130px;
+    left: 15px;
   `}
 `;
 
@@ -74,6 +80,13 @@ export const InfoContent = styled.div`
   `}
 `;
 
+export const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px 24px 50px 20px;
+  gap: 24px;
+`;
+
 export const ButtonWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -84,17 +97,39 @@ export const modifyButton = css`
   bottom: 50px;
 `;
 
+export const InfoWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 320px;
+  gap: 4px;
+`;
+
 export const Title = styled.div`
-  font-size: 2.5rem;
-  font-weight: 600;
-  text-align: left;
-  padding: 10px;
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_bold_16};
+    text-align: left;
+  `}
 `;
 export const IntroduceContent = styled.div`
-  color: black;
-  font-size: 2rem;
-  font-weight: 400;
-  line-height: normal;
-  padding: 10px 10px 20px 10px;
-  text-align: left;
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_semibold_16};
+    text-align: left;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    flex-wrap: wrap;
+  `}
+`;
+
+export const badge = (theme: Theme) => css`
+  ${theme.fonts.caption_regular_12};
+  color: ${theme.colors.black};
+`;
+
+export const NoContent = styled.div`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_semibold_16};
+    color: ${theme.colors.gray900};
+  `}
 `;
