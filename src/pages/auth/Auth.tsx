@@ -1,26 +1,24 @@
-import { getKakaoInfo } from "apis/user";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useGetKakaoInfo } from "services/user";
 
 const Auth = () => {
   const navigate = useNavigate();
-  // 카카오 로그인 : 토큰 발급
-  useEffect(() => {
-    const params = new URL(document.location.toString()).searchParams;
-    const code = params.get("code");
-    if (code) {
-      getKakaoInfo(code)
-        .then((res) => {
-          sessionStorage.setItem("id", JSON.stringify(res.id));
-          sessionStorage.setItem("email", JSON.stringify(res.email));
+  const params = new URL(document.location.toString()).searchParams;
+  const code = params.get("code");
+  const { data, error } = useGetKakaoInfo(code || "");
 
-          navigate("/signup");
-        })
-        .catch((err) => {
-          console.error(err);
-        });
+  useEffect(() => {
+    if (data) {
+      sessionStorage.setItem("id", JSON.stringify(data.id));
+      sessionStorage.setItem("email", JSON.stringify(data.email));
+      navigate("/signup");
     }
-  }, []);
+
+    if (error) {
+      console.error(error);
+    }
+  }, [data, error]);
 
   // TODO: Spinner 추가?
   return <div>login</div>;
