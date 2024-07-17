@@ -3,7 +3,7 @@ import * as S from "./Dropdown.styled";
 import { DropdownArrowIcon } from "assets";
 
 interface DropdownProps {
-  options: { label: string; value: string }[];
+  options: { label: string; value: number }[];
 }
 const Dropdown = ({ options }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -13,8 +13,8 @@ const Dropdown = ({ options }: DropdownProps) => {
     setIsOpen(!isOpen);
   };
 
-  const handleSelect = (value: string) => {
-    setSelectedOption(value);
+  const handleSelect = (label: string) => {
+    setSelectedOption(label);
     setIsOpen(false);
   };
 
@@ -28,7 +28,7 @@ const Dropdown = ({ options }: DropdownProps) => {
             {options.map((option, index) => (
               <S.DropdownItem
                 key={index}
-                onClick={() => handleSelect(option.value)}
+                onClick={() => handleSelect(option.label)}
               >
                 {option.label}
               </S.DropdownItem>

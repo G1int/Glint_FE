@@ -1,6 +1,6 @@
 import Img from "assets/images/img_01.jpg";
 import * as S from "./MyProfile.styled";
-import { LockIcon, selectData, SmallChevronRightIcon } from "assets";
+import { LockIcon, profileSelectData, SmallChevronRightIcon } from "assets";
 import { Button, Dropdown, Input } from "components";
 
 const MyProfile = () => {
@@ -31,7 +31,7 @@ const MyProfile = () => {
           <S.Height>185</S.Height>
           <LockIcon css={S.rightIcon} />
         </S.Container>
-        {selectData.map((item, index) => (
+        {profileSelectData.map((item, index) => (
           <S.DropdownContainer key={index}>
             <S.DropdownTitle>{item.title}</S.DropdownTitle>
             <Dropdown options={item.options} />
