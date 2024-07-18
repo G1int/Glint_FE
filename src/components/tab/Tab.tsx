@@ -17,7 +17,7 @@ const Tab = ({ className, tabList, tabs }: TabProps) => {
 
   return (
     <S.Tab className={className}>
-      <S.TabLabelWrapper>
+      <S.TabLabelWrapper columns={tabList.length}>
         {tabList.map((tab) => (
           <S.TabButton
             key={tab}

@@ -18,6 +18,7 @@ export const Button = styled.button<VariantProps>`
       ? "fit-content"
       : "56px"};
     border-radius: 8px;
+    border: ${variant === "mdWhite" && `1px solid ${theme.colors.gray600}`};
     width: ${variant === "lgPink"
       ? "320px"
       : variant === "mdPink" || variant === "mdWhite"
@@ -25,7 +26,9 @@ export const Button = styled.button<VariantProps>`
       : variant === "smPink"
       ? "59px"
       : "fit-content"};
-    color: ${variant === "underline" ? theme.colors.black : theme.colors.white};
+    color: ${variant === "underline" || variant === "mdWhite"
+      ? theme.colors.black
+      : theme.colors.white};
     background-color: ${variant === "smPink" ||
     variant === "mdPink" ||
     variant === "lgPink"
