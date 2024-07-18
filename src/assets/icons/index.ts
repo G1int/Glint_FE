@@ -35,6 +35,6 @@ export { ReactComponent as DropdownArrowIcon } from "./ic_dropdownArrow.svg";
 export { ReactComponent as LockIcon } from "./ic_lock.svg";
 export { ReactComponent as SchoolIcon } from "./ic_school.svg";
 export { ReactComponent as SmallAuthBadgeIcon } from "./ic_smallAuthBadge.svg";
-export { ReactComponent as ProfileRectangleIcon } from "./ic_profileRectangle.svg";
+export { ReactComponent as ModalRectangleIcon } from "./ic_modalRectangle.svg";
 export { ReactComponent as SmallChevronRightIcon } from "./ic_smallChevronRight.svg";
 export { ReactComponent as TagCloseIcon } from "./ic_tagClose.svg";

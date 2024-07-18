@@ -1,11 +1,6 @@
 import { Badge, BaseModal, Button } from "components";
 import * as S from "./ProfileModal.styled";
-import {
-  CloseIcon,
-  CompanyIcon,
-  ProfileRectangleIcon,
-  SchoolIcon,
-} from "assets";
+import { CloseIcon, CompanyIcon, ModalRectangleIcon, SchoolIcon } from "assets";
 import { useNavigate } from "react-router-dom";
 import { useModal } from "hooks";
 
@@ -42,7 +37,7 @@ const ProfileModal = ({
   return (
     <BaseModal className={className} css={S.bottomModal}>
       <S.StaticContainer>
-        <ProfileRectangleIcon css={S.rectangleIcon} />
+        <ModalRectangleIcon css={S.rectangleIcon} />
         <CloseIcon css={S.closeIcon} onClick={handleCloseModal} />
       </S.StaticContainer>
       <S.ScrollContainer>
