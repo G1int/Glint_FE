@@ -33,3 +33,5 @@ export { ReactComponent as TwentiesIcon } from "./ic_twenties.svg";
 export { ReactComponent as UniversityStudentIcon } from "./ic_universityStudent.svg";
 export { ReactComponent as UserIcon } from "./ic_user.svg";
 export { ReactComponent as WriteIcon } from "./ic_write.svg";
+export { ReactComponent as ModalRectangleIcon } from "./ic_modalRectangle.svg";
+export { ReactComponent as CloseIcon } from "./ic_close.svg";
