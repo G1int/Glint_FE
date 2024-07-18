@@ -30,7 +30,6 @@ export const closeIcon = css`
 export const ScrollContainer = styled.div`
   height: calc(100% - 44px);
   overflow: auto;
-  padding-bottom: 80px; /* 버튼 여백 */
 `;
 
 export const ImageContainer = styled.div`
@@ -83,7 +82,7 @@ export const InfoContent = styled.div`
 export const ContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 24px 50px 20px;
+  padding: 20px 24px 130px 20px;
   gap: 24px;
 `;
 
