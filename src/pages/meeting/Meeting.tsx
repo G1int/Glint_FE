@@ -1,6 +1,6 @@
 import React from "react";
 
-import { BackLayout, Button, Tab } from "components";
+import { BackLayout, Tab } from "components";
 import { Application, Chatting, Home } from "./containers";
 import * as S from "./Meeting.styled";
 
@@ -19,11 +19,6 @@ const Meeting = () => {
         tabList={isOwner ? ["홈", "채팅", "신청목록"] : ["홈", "채팅"]}
         tabs={tabs}
       />
-      <S.ButtonWrapper>
-        <Button css={S.button} variant="lgPink">
-          참가 신청
-        </Button>
-      </S.ButtonWrapper>
     </BackLayout>
   );
 };

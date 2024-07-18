@@ -29,7 +29,7 @@ export const MainContent = styled.div`
     flex-direction: column;
     height: fit-content;
     border-bottom: 8px solid ${theme.colors.gray300};
-    padding: 24px 20px;
+    padding: 0 24px 20px !important;
 
     span:first-of-type {
       ${theme.fonts.headline_semibold_18};
