@@ -1,9 +1,31 @@
 import Img from "assets/images/img_01.jpg";
 import * as S from "./MyProfile.styled";
 import { LockIcon, profileSelectData, SmallChevronRightIcon } from "assets";
-import { Button, Dropdown, Input } from "components";
+import { Button, Dropdown, LocationModal, Tag, Textarea } from "components";
+import { useModal } from "hooks";
+import { useState } from "react";
 
 const MyProfile = () => {
+  const { handleOpenModal, handleCloseModal } = useModal();
+  // TODO: 예시코드
+  const [location, setLocation] = useState<string[]>([]);
+  const locationStr = location.join();
+
+  const handleConfirmLocation = (list: string[]) => {
+    setLocation(list);
+    handleCloseModal();
+  };
+
+  const handleLocation = () => {
+    return handleOpenModal(
+      <LocationModal
+        title="사는곳이 어디세요?"
+        handleCloseClick={handleCloseModal}
+        handleConfirmClick={handleConfirmLocation}
+      />
+    );
+  };
+
   return (
     <>
       <S.Content>
@@ -22,13 +44,14 @@ const MyProfile = () => {
         <S.LineTitle>기본정보</S.LineTitle>
         <S.Container css={S.line}>
           <S.InfoTitle>지역</S.InfoTitle>
-          <Button variant="icon" css={S.rightIcon}>
+          <S.Value>{locationStr}</S.Value>
+          <Button variant="icon" css={S.rightIcon} onClick={handleLocation}>
             <SmallChevronRightIcon />
           </Button>
         </S.Container>
         <S.Container>
           <S.InfoTitle>키</S.InfoTitle>
-          <S.Height>185</S.Height>
+          <S.Value>185</S.Value>
           <LockIcon css={S.rightIcon} />
         </S.Container>
         {profileSelectData.map((item, index) => (
@@ -45,18 +68,14 @@ const MyProfile = () => {
               직업, 성격, MBTI 등 키워드로 자신을 표현하세요.
             </S.Description>
           </S.TitleWrapper>
-          {/* TODO: tag input으로 수정*/}
-          <Input
-            handleChange={(e) => e.target.value}
-            placeholder="키워드 입력 후 엔터를 쳐주세요."
-          />
+          <Tag />
         </S.InputContainer>
         <S.Line />
         <S.InputContainer>
           <S.Title>자기소개</S.Title>
-          {/* TODO: Input size, css 수정 */}
-          <Input
-            handleChange={(e) => e.target.value}
+          <Textarea
+            // TODO: 예시코드
+            handleChange={(e) => console.log(e.target.value)}
             placeholder={`현재 하는 일이나, 꿈, 계획, 목표,
 취미생활, 상대방에게 바라는 점 등을 자유롭게
 작성해주세요.`}

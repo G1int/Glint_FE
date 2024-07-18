@@ -60,7 +60,7 @@ export const Name = styled.span`
   `}
 `;
 
-export const Height = styled.span`
+export const Value = styled.span`
   ${({ theme }) => css`
     ${theme.fonts.subTitle_regular_14};
     padding-right: 8px;
@@ -136,5 +136,5 @@ export const Description = styled.div`
 
 export const ButtonWrapper = styled.div`
   display: flex;
-  padding: 48px 20px 24px 20px;
+  padding: 28px 20px 24px 20px;
 `;
