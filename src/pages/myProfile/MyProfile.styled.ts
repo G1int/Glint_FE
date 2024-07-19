@@ -55,7 +55,7 @@ export const DropdownContainer = styled.div`
 
 export const Name = styled.span`
   ${({ theme }) => css`
-    ${theme.fonts.headline_semibold_18}; //TODO: fontsize 변경
+    ${theme.fonts.headline_semibold_18};
     flex: 1;
   `}
 `;
