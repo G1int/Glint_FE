@@ -1,5 +1,10 @@
 import * as S from "./LocationModal.styled";
-import { CheckIcon, CloseIcon, ModalRectangleIcon, TagCloseIcon } from "assets";
+import {
+  CheckIcon,
+  CloseIcon,
+  ModalRectangleIcon,
+  TagCloseWhiteIcon,
+} from "assets";
 import { BaseModal, Badge, Button } from "components";
 import { useState } from "react";
 import { useToast } from "hooks";
@@ -10,6 +15,7 @@ interface LocationModalProps {
   title?: string;
   description?: string;
   highlight?: string;
+  maxLength: number;
   handleCloseClick: () => void;
   handleConfirmClick: (selectedList: string[]) => void;
 }
@@ -19,6 +25,7 @@ const LocationModal = ({
   title,
   description,
   highlight,
+  maxLength,
   handleCloseClick,
   handleConfirmClick,
 }: LocationModalProps) => {
@@ -31,11 +38,12 @@ const LocationModal = ({
 
   const handleSelect = (item: string) => {
     if (!selectedList.includes(item)) {
-      // TODO: 갯수선택 체크
-      if (selectedList.length < 5) {
+      if (selectedList.length < maxLength || maxLength === 0) {
         setSelectedList((prev) => [...prev, item]);
-      } else {
-        addToast({ content: "지역은 최대 5개까지 선택 가능합니다." });
+      } else if (maxLength !== 0 && selectedList.length >= maxLength) {
+        addToast({
+          content: `지역은 최대 ${maxLength}개까지 선택 가능합니다.`,
+        });
       }
     }
   };
@@ -60,14 +68,19 @@ const LocationModal = ({
         )}
       </S.Header>
       <S.ContentContainer>
-        <S.SelectedLocation>
-          {selectedList.map((tag, index) => (
-            <Badge css={S.badge} key={index}>
-              {tag}
-              <TagCloseIcon onClick={() => handleDelete(index)} />
-            </Badge>
-          ))}
-        </S.SelectedLocation>
+        {maxLength !== 0 && (
+          <S.SelectedLocation>
+            {selectedList.map((tag, index) => (
+              <Badge
+                css={S.badge}
+                key={index}
+                label={tag}
+                variant="mdNavy"
+                icon={<TagCloseWhiteIcon onClick={() => handleDelete(index)} />}
+              />
+            ))}
+          </S.SelectedLocation>
+        )}
         <S.LocationContainer>
           <S.LocationTitleWrapper>
             <S.LocationTitle isLeft={true}>시/도</S.LocationTitle>
@@ -110,12 +123,8 @@ const LocationModal = ({
         </S.LocationContainer>
       </S.ContentContainer>
       <S.ButtonWrapper>
-        <Button variant="mdWhite" css={S.button} onClick={handleCloseClick}>
-          취소
-        </Button>
         <Button
-          variant="mdPink"
-          css={S.button}
+          variant="lgPink"
           onClick={() => handleConfirmClick(selectedList)}
         >
           확인
