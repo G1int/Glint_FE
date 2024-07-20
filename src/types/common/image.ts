@@ -1,3 +1,3 @@
 export interface PostImageQuery {
-  imageFile: string;
+  imageFile: string | File;
 }
