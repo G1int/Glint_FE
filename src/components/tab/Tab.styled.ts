@@ -11,8 +11,8 @@ export const TabLabelWrapper = styled.div<{ columns: number }>`
   ${({ columns }) => css`
     display: grid;
     grid-template-columns: repeat(${columns}, 1fr);
-    margin-bottom: 10px;
     width: 100%;
+    margin-bottom: 24px;
   `}
 `;
 
