@@ -87,9 +87,12 @@ const ProfileModal = ({
               <S.IntroduceContent>
                 {introduceInfo.basicInfo.length > 0 ? (
                   introduceInfo.basicInfo.map((item, index) => (
-                    <Badge key={index} css={S.badge}>
-                      #{item}
-                    </Badge>
+                    <Badge
+                      key={index}
+                      css={S.badge}
+                      label={`#${item}`}
+                      variant="mdWhite"
+                    />
                   ))
                 ) : (
                   <S.NoContent>입력 내용이 없어요</S.NoContent>
@@ -101,9 +104,12 @@ const ProfileModal = ({
               <S.IntroduceContent>
                 {introduceInfo.keywords.length > 0 ? (
                   introduceInfo.keywords.map((item, index) => (
-                    <Badge key={index} css={S.badge}>
-                      #{item}
-                    </Badge>
+                    <Badge
+                      key={index}
+                      css={S.badge}
+                      label={`#${item}`}
+                      variant="mdWhite"
+                    />
                   ))
                 ) : (
                   <S.NoContent>입력 내용이 없어요</S.NoContent>

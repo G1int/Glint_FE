@@ -68,8 +68,8 @@ const Main = () => {
           {meetings.slice(0, visibleCount).map((meeting) => (
             <S.MeetingContainer key={meeting.id}>
               <S.BadgeWrapper>
-                <Badge variant="smPink">2:2</Badge>
-                <Badge variant="smNavy">인천</Badge>
+                <Badge variant="smPink" label="2:2" />
+                <Badge variant="smNavy" label="인천" />
               </S.BadgeWrapper>
               <S.MeetingTitle>
                 서울 30대 초 의사 미팅서울 30대 초 의사 미팅서울 30대 초 의사
