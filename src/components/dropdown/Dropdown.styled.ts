@@ -2,47 +2,36 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const DropdownContainer = styled.div`
-  width: 360px;
-  display: flex;
-  position: relative;
-  flex-direction: column;
+  ${({ theme }) => css`
+    width: 320px;
+    height: 48px;
+    border: 1px solid ${theme.colors.gray600};
+    border-radius: 6px;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+  `}
 `;
 
 export const SelectContainer = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    width: 100%;
-    height: 40px; // TODO: 디자인 시스템에 따라 변경
-    justify-content: center;
-    align-items: center;
-    border-bottom: 1px solid ${theme.colors.gray400}; // TODO: 디자인 시스템에 따라 변경
-  `}
-`;
-
-export const Title = styled.div`
-  ${({ theme }) => css`
-    position: absolute;
-    top: 50%;
-    left: 15px;
-    transform: translateY(-50%);
-    font-size: 1.2rem; // TODO: 디자인 시스템에 따라 변경
-    font-weight: bold;
-    pointer-events: none;
-    color: ${theme.colors.black}; // TODO: 디자인 시스템에 따라 변경
-  `}
+  display: flex;
+  width: 100%;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const SelectedValue = styled.div`
-  flex: 1;
-  text-align: right;
-  font-size: 1.2rem; // TODO: 디자인 시스템에 따라 변경
-  cursor: pointer;
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_regular_16};
+    padding-left: 12px;
+    flex: 1;
+  `}
 `;
 
 export const arrowIcon = css`
-  padding: 10px;
+  margin-right: 8px;
   cursor: pointer;
-  rotate: 180deg;
 `;
 
 export const DropdownList = styled.ul`

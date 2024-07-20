@@ -1,4 +1,11 @@
-import { Button, Header, KakaoLogout, Profile, Toggle } from "components";
+import {
+  Button,
+  Header,
+  KakaoLogout,
+  Profile,
+  ProfileModal,
+  Toggle,
+} from "components";
 import * as S from "./MyInfo.styled";
 import Img from "assets/images/img_01.jpg";
 import {
@@ -9,6 +16,7 @@ import {
   MyProfileIcon,
 } from "assets";
 import React from "react";
+import { useModal } from "hooks";
 
 // TODO : 임시 데이터
 const info = {
@@ -18,6 +26,15 @@ const info = {
 };
 
 const MyInfo = () => {
+  const { handleOpenModal } = useModal();
+
+  const handleMyProfile = () => {
+    // TODO: 임시데이터
+    return handleOpenModal(
+      <ProfileModal img={Img} name="룰루랄라" age="29" company="삼성전자" />
+    );
+  };
+
   return (
     <>
       <Header css={S.header}>내정보</Header>
@@ -27,7 +44,7 @@ const MyInfo = () => {
       </S.Info>
       <S.Line />
       <S.ManageButtonWrapper>
-        <Button css={S.manageButton} variant="icon">
+        <Button css={S.manageButton} variant="icon" onClick={handleMyProfile}>
           <MyProfileIcon css={S.icon} />내 프로필
         </Button>
         <Button css={S.manageButton} variant="icon">
@@ -41,23 +58,23 @@ const MyInfo = () => {
       </S.ManageButtonWrapper>
       <S.MainTitle>아는사람 만나지 않기</S.MainTitle>
       {cutoffTitle.map((title, idx) => (
-        <React.Fragment key={idx}>
-          <S.ToggleContent>
-            {title}
-            <Toggle content="현재 개발중인 기능이에요. 조금만 기다려주세요:)" />
-          </S.ToggleContent>
-          {idx < cutoffTitle.length - 1 && <S.Line />}
-        </React.Fragment>
+        <S.ToggleContent
+          key={idx}
+          className={idx === cutoffTitle.length - 1 ? "last" : ""}
+        >
+          {title}
+          <Toggle content="현재 개발중인 기능이에요. 조금만 기다려주세요:)" />
+        </S.ToggleContent>
       ))}
       <S.MainTitle>알림</S.MainTitle>
       {alarmTitle.map((title, idx) => (
-        <React.Fragment key={idx}>
-          <S.ToggleContent>
-            {title}
-            <Toggle content="현재 개발중인 기능이에요. 조금만 기다려주세요:)" />
-          </S.ToggleContent>
-          {idx < alarmTitle.length - 1 && <S.Line />}
-        </React.Fragment>
+        <S.ToggleContent
+          key={idx}
+          className={idx === alarmTitle.length - 1 ? "last" : ""}
+        >
+          {title}
+          <Toggle content="현재 개발중인 기능이에요. 조금만 기다려주세요:)" />
+        </S.ToggleContent>
       ))}
       <S.OutButtonWrapper>
         <KakaoLogout css={S.outButton} />
