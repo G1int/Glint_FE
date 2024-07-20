@@ -6,3 +6,6 @@ export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id
 
 // API_URL
 export const API_URL = import.meta.env.VITE_APP_API_SERVER_URL;
+
+// SOCKET_URL
+export const SOCKET_URL = import.meta.env.VITE_APP_SOCKET_URL_SERVER_URL;
