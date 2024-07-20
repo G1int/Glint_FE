@@ -4,8 +4,9 @@ import { DropdownArrowIcon } from "assets";
 
 interface DropdownProps {
   options: { label: string; value: number }[];
+  handleChange: (selectedLabel: string) => void;
 }
-const Dropdown = ({ options }: DropdownProps) => {
+const Dropdown = ({ options, handleChange }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
@@ -15,6 +16,7 @@ const Dropdown = ({ options }: DropdownProps) => {
 
   const handleSelect = (label: string) => {
     setSelectedOption(label);
+    handleChange(label);
     setIsOpen(false);
   };
 
