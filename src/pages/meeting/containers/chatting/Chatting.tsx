@@ -108,7 +108,7 @@ const Chatting = () => {
               {!isMyChat(msg.userId) && (
                 <S.Img src={msg.userProfileImageUrl ?? ""} />
               )}
-              <S.Test isMe={isMyChat(msg.userId)}>
+              <S.ChatInfoBox isMe={isMyChat(msg.userId)}>
                 {!isMyChat(msg.userId) && <S.Name>{msg.nickname}</S.Name>}
                 <S.ChatContent isMe={isMyChat(msg.userId)}>
                   {msg.message}
@@ -116,7 +116,7 @@ const Chatting = () => {
                 <S.Date isMe={isMyChat(msg.userId)}>
                   {formatDateTime(msg.sendDate)}
                 </S.Date>
-              </S.Test>
+              </S.ChatInfoBox>
             </S.ChatMessageBox>
           ))}
         </S.ChatList>

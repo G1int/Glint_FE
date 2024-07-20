@@ -111,7 +111,7 @@ export const Date = styled.span<{ isMe: boolean }>`
   `}
 `;
 
-export const Test = styled.div<{ isMe: boolean }>`
+export const ChatInfoBox = styled.div<{ isMe: boolean }>`
   ${({ isMe }) => css`
     display: flex;
     flex-direction: column;
