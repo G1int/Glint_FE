@@ -1,81 +1,92 @@
-import { Client, IMessage } from "@stomp/stompjs";
-import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
-import React, { useEffect, useState } from "react";
-import * as S from "./Chatting.styled";
-import { Button, Input } from "components";
+import { CompatClient, IMessage, Stomp } from "@stomp/stompjs";
 
-interface ChatMessageReqeust {
-  text: string;
-  roomId: number;
-}
-interface ChatMessageResponse {
-  id: number;
-  content: string;
-  writer: string;
-}
+import { Button, Input } from "components";
+import { useGetChats } from "services";
+import { formatDateTime } from "utils";
+import { SOCKET_URL } from "config";
+import type { chatsResponseItem } from "types";
+import * as S from "./Chatting.styled";
 
 const Chatting = () => {
-  const [stompClient, setStompClient] = useState<Client | null>(null);
-  const [messages, setMessages] = useState<ChatMessageResponse[]>([]);
+  const [chatMessageList, setChatMessageList] = useState<chatsResponseItem[]>(
+    []
+  );
   const [newMessage, setNewMessage] = useState<string>("");
 
-  const roomId = 1;
-  const day = dayjs();
+  const client = useRef<CompatClient>();
+  const listRef = useRef<HTMLDivElement>(null);
+
+  const roomId = 1; //TODO: 임시 추가 방코드
+  const myId = sessionStorage.getItem("id");
+
+  const { data } = useGetChats(`${roomId}`);
+
+  const scrollToListBottom = () => {
+    if (window.innerWidth <= 375) {
+      return;
+    }
+    listRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  const isMyChat = (userId: string) => {
+    return +userId === +myId!;
+  };
+
+  const connectHandler = () => {
+    if (client.current && client.current.connected) {
+      return;
+    }
+
+    const socket = new WebSocket(SOCKET_URL);
+    client.current = Stomp.over(socket);
+
+    client.current.connect(
+      {},
+      () => {
+        client.current?.subscribe(
+          `/sub/chatrooms/${roomId}`,
+          (message: IMessage) => {
+            const receivedMessage = JSON.parse(message.body);
+            setChatMessageList((prevList) => [...prevList, receivedMessage]);
+          }
+        );
+      },
+      //TODO: 타입 수정 예정
+      (error: any) => {
+        console.error("WebSocket connection error:", error);
+        setTimeout(connectHandler, 5000); // 5초 후에 다시 연결 시도
+      }
+    );
+  };
 
   const sendMessage = () => {
-    if (stompClient && newMessage) {
-      const chatMessage: ChatMessageReqeust = {
-        message: newMessage,
-        userId: 1,
-        chatroomId: 1,
-        sendDate: day.format("YYYY-MM-DD HH:mm:ss"),
-      };
-      console.log(chatMessage, "1");
+    if (!newMessage.trim()) return;
 
-      stompClient.publish({
-        destination: `/pub/chatrooms/1`,
-        body: JSON.stringify(chatMessage),
-      });
-      setNewMessage("");
-    }
+    client.current!.send(
+      `/pub/chatrooms/${roomId}`,
+      {},
+      JSON.stringify({
+        userId: 1,
+        message: newMessage,
+        chatroomId: roomId,
+        sendDate: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+      })
+    );
+
+    setNewMessage("");
   };
-  console.log(messages);
 
   useEffect(() => {
-    const loadChatHistory = async () => {
-      try {
-        const response = await axios.get(
-          `http://3.27.84.199:8080/glint/chatrooms/1/chats`
-        );
-        const messages = response.data.chats as ChatMessageResponse[];
-        setMessages(messages);
-        console.log(messages);
-      } catch (error) {
-        console.error("채팅 내역 로드 실패", error);
-      }
-    };
+    if (!data) return;
 
-    loadChatHistory();
+    setChatMessageList(data.chats.reverse());
+    connectHandler();
+  }, [roomId, data]);
 
-    const client = new Client({
-      brokerURL: "https://api.g1int.com/glint/ws", // 서버 WebSocket URL
-      reconnectDelay: 5000,
-      onConnect: () => {
-        client.subscribe(`/sub/chatrooms/${roomId}`, (message: IMessage) => {
-          const msg: ChatMessageResponse = JSON.parse(message.body);
-          setMessages((prevMessages) => [...prevMessages, msg]);
-        });
-      },
-    });
-    client.activate();
-    setStompClient(client);
-    return () => {
-      client.deactivate();
-    };
-  }, [roomId]);
-
-  console.log(messages, "messages");
+  useEffect(() => {
+    scrollToListBottom();
+  }, [chatMessageList]);
 
   return (
     <S.Chatting>
@@ -87,17 +98,28 @@ const Chatting = () => {
           <br />
           깊은 대화는 직접 만나서 나누길 추천드려요.
         </S.ChatInfo>
-        <div>
-          {messages.map((msg, idx) => (
-            <div key={idx}>
-              {msg.writer}: {msg.content}
-            </div>
+        <S.ChatList>
+          {chatMessageList?.map((msg, idx) => (
+            <S.ChatMessageBox
+              key={idx}
+              ref={listRef}
+              isMe={isMyChat(msg.userId)}
+            >
+              {!isMyChat(msg.userId) && (
+                <S.Img src={msg.userProfileImageUrl ?? ""} />
+              )}
+              <S.Test isMe={isMyChat(msg.userId)}>
+                {!isMyChat(msg.userId) && <S.Name>{msg.nickname}</S.Name>}
+                <S.ChatContent isMe={isMyChat(msg.userId)}>
+                  {msg.message}
+                </S.ChatContent>
+                <S.Date isMe={isMyChat(msg.userId)}>
+                  {formatDateTime(msg.sendDate)}
+                </S.Date>
+              </S.Test>
+            </S.ChatMessageBox>
           ))}
-        </div>
-        <S.ChatMessageBox isMe={false}>
-          <S.Name>이름</S.Name>
-          <S.ChatContent isMe={false}>내용</S.ChatContent>
-        </S.ChatMessageBox>
+        </S.ChatList>
       </S.ChatBox>
       <S.InputWrapper>
         <Input

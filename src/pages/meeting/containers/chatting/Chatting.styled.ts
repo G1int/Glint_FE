@@ -18,7 +18,6 @@ export const InputWrapper = styled.div`
     width: 100%;
     padding: 12px 20px;
     background-color: ${theme.colors.white};
-    z-index: 1000;
   `}
 `;
 
@@ -57,31 +56,66 @@ export const input = (theme: Theme) => css`
   }
 `;
 
-export const ChatMessageBox = styled.div<{ isMe?: boolean }>`
-  ${({ theme, isMe }) => css`
-    display: flex;
-    justify-content: ${isMe ? "flex-end" : "flex-start"};
+export const ChatList = styled.div`
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  padding: 12px 12px 65px;
+`;
+const isMeCss = (isMe: boolean) => css`
+  display: flex;
+  justify-content: ${isMe ? "flex-end" : "flex-start"};
+`;
+
+export const ChatMessageBox = styled.div<{ isMe: boolean }>`
+  ${({ isMe }) => css`
+    ${isMeCss(isMe)};
     width: 100%;
-    padding: 12px;
   `}
 `;
 
 export const Name = styled.span`
-  ${({ theme, isMe }) => css`
+  ${({ theme }) => css`
     ${theme.fonts.subTitle_bold_14};
     display: flex;
+    justify-content: flex-start;
+    padding: 6px 0 12px;
   `}
 `;
 
-export const ChatContent = styled.div<{ isMe?: boolean }>`
+export const ChatContent = styled.div<{ isMe: boolean }>`
   ${({ theme, isMe }) => css`
     ${theme.fonts.caption_regular_12};
-    display: flex;
-    width: 100%;
-    padding: 12px;
+    ${isMeCss(isMe)};
     width: fit-content;
+    padding: 12px;
+    margin-left: ${!isMe && "10px"};
+    margin-bottom: 8px;
     border-radius: ${isMe ? "8px 0 8px 8px" : "0 8px 8px 8px"};
     color: ${isMe && theme.colors.white};
     background-color: ${isMe ? theme.colors.pink900 : theme.colors.gray400};
+  `}
+`;
+
+export const Img = styled.img`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+`;
+
+export const Date = styled.span<{ isMe: boolean }>`
+  ${({ theme, isMe }) => css`
+    ${theme.fonts.caption_bold_10};
+    margin-left: ${!isMe && "10px"};
+    color: ${theme.colors.gray900};
+  `}
+`;
+
+export const Test = styled.div<{ isMe: boolean }>`
+  ${({ isMe }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: ${isMe ? "flex-end" : "flex-start"};
+    padding-left: ${!isMe && "12px"};
   `}
 `;
