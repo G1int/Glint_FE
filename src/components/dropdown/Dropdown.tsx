@@ -1,6 +1,6 @@
 import { useState } from "react";
 import * as S from "./Dropdown.styled";
-import { DropdownArrowIcon } from "assets";
+import { CheckIcon, DropdownArrowIcon } from "assets";
 
 interface DropdownProps {
   options: { label: string; value: number }[];
@@ -20,9 +20,9 @@ const Dropdown = ({ options }: DropdownProps) => {
 
   return (
     <S.DropdownContainer>
-      <S.SelectContainer>
+      <S.SelectContainer onClick={handleToggle}>
         <S.SelectedValue> {selectedOption || "선택하기"}</S.SelectedValue>
-        <DropdownArrowIcon css={S.arrowIcon} onClick={handleToggle} />
+        <DropdownArrowIcon css={S.arrowIcon} />
         {isOpen && (
           <S.DropdownList>
             {options.map((option, index) => (
@@ -31,6 +31,7 @@ const Dropdown = ({ options }: DropdownProps) => {
                 onClick={() => handleSelect(option.label)}
               >
                 {option.label}
+                <CheckIcon css={S.checkIcon} />
               </S.DropdownItem>
             ))}
           </S.DropdownList>
