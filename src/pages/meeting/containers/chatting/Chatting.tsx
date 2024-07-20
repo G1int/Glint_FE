@@ -67,7 +67,7 @@ const Chatting = () => {
       `/pub/chatrooms/${roomId}`,
       {},
       JSON.stringify({
-        userId: 1,
+        userId: myId,
         message: newMessage,
         chatroomId: roomId,
         sendDate: dayjs().format("YYYY-MM-DD HH:mm:ss"),
