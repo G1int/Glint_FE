@@ -183,7 +183,7 @@ export const More = styled.div`
 export const addIcon = css`
   position: fixed;
   bottom: 80px;
-  left: 288px;
+  transform: translateX(288px);
   width: 56px;
   height: 56px;
   background-color: transparent;
