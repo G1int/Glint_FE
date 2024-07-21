@@ -1,12 +1,12 @@
 import { SELECT_CONDITIONS } from "assets";
 
 export interface age {
-  minAge: number | null;
-  maxAge: number | null;
+  minAge: number;
+  maxAge: number;
 }
 export interface height {
-  minHeight: number | null;
-  maxHeight: number | null;
+  minHeight: number;
+  maxHeight: number;
 }
 
 export interface createRoomForm {
@@ -14,7 +14,7 @@ export interface createRoomForm {
   title: string;
   description: string;
   locationIds: number[] | null;
-  maleConditions?: {
+  maleConditions: {
     selectConditions: (typeof SELECT_CONDITIONS)[number]["key"][];
     affiliation: string[];
     religions: string;
@@ -23,7 +23,7 @@ export interface createRoomForm {
     age: age;
     height: height;
   };
-  femaleConditions?: {
+  femaleConditions: {
     selectConditions: (typeof SELECT_CONDITIONS)[number]["key"][];
     affiliation: string[];
     religions: string;
@@ -31,5 +31,37 @@ export interface createRoomForm {
     drinking: string;
     age: age;
     height: height;
+  };
+}
+
+export interface postCreateRoomQuery {
+  body: {
+    peopleCapacity: string;
+    title: string;
+    description: string;
+    leaderUserId: string;
+    locationIds: number[];
+    maleConditions: {
+      selectConditions: (typeof SELECT_CONDITIONS)[number]["key"][];
+      affiliation: string[];
+      religionIds: number[];
+      smokingIds: number[];
+      drinkingIds: number[];
+      minAge: number;
+      maxAge: number;
+      minHeight: number;
+      maxHeight: number;
+    };
+    femaleConditions: {
+      selectConditions: (typeof SELECT_CONDITIONS)[number]["key"][];
+      affiliation: string[];
+      religionIds: number[];
+      smokingIds: number[];
+      drinkingIds: number[];
+      minAge: number;
+      maxAge: number;
+      minHeight: number;
+      maxHeight: number;
+    };
   };
 }
