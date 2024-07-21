@@ -110,12 +110,8 @@ const LocationModal = ({
         </S.LocationContainer>
       </S.ContentContainer>
       <S.ButtonWrapper>
-        <Button variant="mdWhite" css={S.button} onClick={handleCloseClick}>
-          취소
-        </Button>
         <Button
-          variant="mdPink"
-          css={S.button}
+          variant="lgPink"
           onClick={() => handleConfirmClick(selectedList)}
         >
           확인
