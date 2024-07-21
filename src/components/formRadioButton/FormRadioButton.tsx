@@ -7,7 +7,7 @@ import * as S from "./FormRadioButton.styled";
 interface FormRadioButtonProps {
   className?: string;
   isChecked?: boolean;
-  radioList: readonly { key: string | number; label: string }[];
+  radioList: readonly { key: string; label: string }[];
   variant?: "smNavy" | "lgPink"; //TODO: 추후 필수값으로 변경 예정
   value: string;
   register: UseFormRegisterReturn<string>;
