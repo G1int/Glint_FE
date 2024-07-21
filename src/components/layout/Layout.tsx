@@ -13,6 +13,7 @@ const Layout = () => {
     "/meeting",
     "/myProfile",
     "/glint/auth/kakao/callback",
+    "/createRoom",
   ];
 
   const shouldHideFooter = hideFooterPath.includes(location.pathname);

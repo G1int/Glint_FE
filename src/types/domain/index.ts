@@ -1,3 +1,4 @@
+export * from "./createRoom";
 export * from "./login";
 export * from "./profile";
 export * from "./user";
