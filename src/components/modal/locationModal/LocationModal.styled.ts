@@ -126,7 +126,7 @@ export const Separator = styled.div`
   background-color: ${({ theme }) => theme.colors.gray500};
   position: absolute;
   top: 14px;
-  left: 119.38px;
+  left: 119px;
 `;
 
 export const LocationListWrapper = styled.div`
@@ -137,7 +137,7 @@ export const LocationListWrapper = styled.div`
 
 export const StateList = styled.div`
   ${({ theme }) => css`
-    width: 119.38px;
+    width: 119px;
     border-right: 1px solid ${theme.colors.gray400};
     height: 335px;
     overflow-y: auto;

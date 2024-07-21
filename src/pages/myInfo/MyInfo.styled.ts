@@ -48,10 +48,6 @@ export const manageButton = (theme: Theme) => css`
   color: ${theme.colors.black};
   gap: 4.5px;
   box-shadow: 0 0 30px ${theme.colors.gray300};
-
-  &:hover {
-    background-color: ${theme.colors.pink100}; //TODO: 디자인 시스템에 따라 변경
-  }
 `;
 
 export const icon = css`
