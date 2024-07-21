@@ -113,3 +113,32 @@ export const selectConditionFormRadioButton = css`
     justify-content: flex-start;
   }
 `;
+
+export const BadgeWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+`;
+
+export const Division = styled.hr`
+  ${({ theme }) => css`
+    width: 100%;
+    height: 1px;
+    border: 0;
+    background-color: ${theme.colors.gray600};
+  `}
+`;
+
+export const formInput = (theme: Theme) => css`
+  ${theme.fonts.subTitle_regular_16};
+  min-width: 245px;
+  height: min-content;
+  border-radius: 8px;
+  border: 1px solid ${theme.colors.gray600};
+  padding: 13px 12px;
+
+  &::placeholder {
+    ${theme.fonts.subTitle_regular_16};
+    color: ${theme.colors.gray700};
+  }
+`;

@@ -118,20 +118,23 @@ const CreateRoom = () => {
           <S.Desc marginBottom={8}>정확한 장소는 함께 정해보세요!</S.Desc>
         </S.MainContent>
         <S.MainContent>
-          <S.Title marginBottom={12}>
-            참가 조건<strong>(선택)</strong>
-          </S.Title>
           <S.SelectContent>
-            <div>
+            <S.SelectContentBox>
+              <S.Title marginBottom={12}>
+                참가 조건<strong>(선택)</strong>
+              </S.Title>
               <S.Desc>
                 <strong>이성</strong>(최대 2개까지 선택해주세요)
               </S.Desc>
-              <div>
+              <S.BadgeWrapper>
                 {/* TODO: variant 수정 예정 */}
                 {SELECT_CONDITIONS.map((select) => (
                   <Badge
                     key={select.key}
-                    variant="smNavy"
+                    variant="mdNavy"
+                    isSelected={watch(
+                      "maleConditions.selectConditions"
+                    ).includes(select.key)}
                     handleClick={handleSelectConditions(
                       "maleConditions",
                       select.key
@@ -140,12 +143,13 @@ const CreateRoom = () => {
                     {select.label}
                   </Badge>
                 ))}
-              </div>
-            </div>
-            <hr />
+              </S.BadgeWrapper>
+            </S.SelectContentBox>
+            <S.Division />
             <S.SelectContentBox>
               <S.SubTitle>회사 / 학교</S.SubTitle>
               <FormInput
+                css={S.formInput}
                 placeholder="키워드 입력 후 엔터를 쳐주세요"
                 register={register("maleConditions.affiliation")}
               />
