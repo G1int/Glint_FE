@@ -6,7 +6,7 @@ interface BadgeProps {
   className?: string;
   children: React.ReactNode;
   isSelected?: boolean;
-  variant?: "smPink" | "smNavy";
+  variant?: "smPink" | "smNavy" | "mdNavy";
   handleClick?: () => void;
 }
 
