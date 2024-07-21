@@ -9,9 +9,7 @@ export const Badge = styled.button<{
   ${({ isSelected, isClickable, theme, variant }) => css`
     ${variant === "smPink" || variant === "smNavy"
       ? theme.fonts.caption_regular_10
-      : variant === "mdNavy"
-      ? theme.fonts.caption_bold_12
-      : isSelected
+      : variant === "mdNavy" || isSelected
       ? theme.fonts.caption_bold_12
       : theme.fonts.caption_regular_12};
     height: ${variant === "smPink" || variant === "smNavy" ? "18px" : "36px"};
