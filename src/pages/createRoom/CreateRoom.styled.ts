@@ -1,6 +1,12 @@
 import { css, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 
+export const CreateRoom = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+`;
+
 export const CreateRoomWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -46,7 +52,9 @@ export const MainContent = styled.div`
     justify-content: flex-start;
     row-gap: 24px;
     height: 100%;
-    border-bottom: 8px solid ${theme.colors.gray300};
+    &:not(:last-of-type) {
+      border-bottom: 8px solid ${theme.colors.gray300};
+    }
   `}
 `;
 
@@ -141,4 +149,17 @@ export const formInput = (theme: Theme) => css`
     ${theme.fonts.subTitle_regular_16};
     color: ${theme.colors.gray700};
   }
+`;
+
+export const button = css`
+  min-width: 360px;
+`;
+
+export const ButtonWrapper = styled.div`
+  ${({ theme }) => css`
+    position: fixed;
+    bottom: 0;
+    padding: 24px 0;
+    background-color: ${theme.colors.white};
+  `}
 `;
