@@ -10,7 +10,7 @@ interface ProfileModalProps {
   name?: string;
   age?: string;
   company?: string;
-  school?: string;
+  university?: string;
   introduceInfo?: {
     introduce: string;
     basicInfo: string[];
@@ -25,7 +25,7 @@ const ProfileModal = ({
   name,
   age,
   company,
-  school,
+  university,
 }: ProfileModalProps) => {
   const navigate = useNavigate();
   const { handleCloseModal } = useModal();
@@ -60,10 +60,10 @@ const ProfileModal = ({
                     <span>{company}</span>
                   </>
                 )}
-                {school && (
+                {university && (
                   <>
                     <SchoolIcon />
-                    <span>{school}</span>
+                    <span>{university}</span>
                   </>
                 )}
               </S.InfoContent>
