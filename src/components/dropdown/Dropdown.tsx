@@ -3,8 +3,8 @@ import * as S from "./Dropdown.styled";
 import { CheckIcon, DropdownArrowIcon } from "assets";
 
 interface DropdownProps {
-  options: { label: string; value: number }[];
-  handleChange: (selectedLabel: string) => void;
+  options: readonly { label: string; key: string }[];
+  handleChange: (key: string) => void;
 }
 const Dropdown = ({ options, handleChange }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -27,9 +27,9 @@ const Dropdown = ({ options, handleChange }: DropdownProps) => {
     setIsOpen(!isOpen);
   };
 
-  const handleSelect = (label: string) => {
+  const handleSelect = (label: string, key: string) => {
     setSelectedOption(label);
-    handleChange(label);
+    handleChange(key);
     setIsOpen(false);
   };
 
@@ -43,7 +43,7 @@ const Dropdown = ({ options, handleChange }: DropdownProps) => {
             {options.map((option, index) => (
               <S.DropdownItem
                 key={index}
-                onClick={() => handleSelect(option.label)}
+                onClick={() => handleSelect(option.label, option.key)}
               >
                 {option.label}
                 <CheckIcon css={S.checkIcon} />
