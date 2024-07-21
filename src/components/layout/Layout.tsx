@@ -7,7 +7,13 @@ import { Footer } from "./footer";
 const Layout = () => {
   const location = useLocation();
   // TODO: 로그인, 회원가입, 채팅 - Footer X
-  const hideFooterPath = ["/", "/signup", "/meeting", "/myProfile"];
+  const hideFooterPath = [
+    "/",
+    "/signup",
+    "/meeting",
+    "/myProfile",
+    "/createRoom",
+  ];
 
   const shouldHideFooter = hideFooterPath.includes(location.pathname);
 
