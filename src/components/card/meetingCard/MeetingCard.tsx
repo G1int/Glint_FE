@@ -4,7 +4,7 @@ import { useState } from "react";
 import { MoreIcon } from "assets";
 
 interface MeetingCardProps {
-  meetingList: Array<{ id: number; img: string }>;
+  meetingList: { id: number; img: string }[];
   count: number;
 }
 
