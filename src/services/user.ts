@@ -9,10 +9,10 @@ export const useGetKakaoInfo = (code: string) => {
   });
 };
 
-export const useGetUser = (id: string) => {
+export const useGetUser = (userId: string) => {
   return useQuery<getUserResponse>({
-    queryKey: ["user", id],
-    queryFn: () => getUserAPI(id),
-    enabled: !!id,
+    queryKey: ["user", userId],
+    queryFn: () => getUserAPI(userId),
+    enabled: !!userId,
   });
 };
