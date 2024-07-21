@@ -1,13 +1,6 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { getProfileAPI, putProfileAPI } from "apis/profile";
-import { getProfileResponse, PutProfileQuery } from "types";
-
-export const useGetProfile = (userId: string) => {
-  return useQuery<getProfileResponse>({
-    queryKey: ["profile", userId],
-    queryFn: () => getProfileAPI(userId),
-  });
-};
+import { useMutation } from "@tanstack/react-query";
+import { putProfileAPI } from "apis/profile";
+import { PutProfileQuery } from "types";
 
 export const usePutProfile = (userId: string) => {
   return useMutation({
