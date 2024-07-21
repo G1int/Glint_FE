@@ -7,11 +7,11 @@ import * as S from "./Meeting.styled";
 const Meeting = () => {
   const isOwner = false;
 
-  const tabs = {
-    홈: <Home />,
-    채팅: <Chatting />,
-    신청목록: <Application />,
-  };
+  const tabs = [
+    { label: "홈", query: "home", component: <Home /> },
+    { label: "채팅", query: "chatting", component: <Chatting /> },
+    { label: "신청목록", query: "application", component: <Application /> },
+  ];
 
   return (
     <BackLayout css={S.backLayout} isMeeting isOwner hasTopContent>
