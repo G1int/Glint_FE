@@ -14,3 +14,4 @@ export * from "./toast";
 export * from "./toggle";
 export * from "./dropdown";
 export * from "./tag";
+export * from "./card";
