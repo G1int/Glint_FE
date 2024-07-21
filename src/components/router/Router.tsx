@@ -22,6 +22,7 @@ const Router = ({ children }: RouterProps) => {
           // TODO: 둘러보기 미적용
           <Route element={<AuthRoute />}>
             <Route path="/main" element={<P.Main />} />
+            <Route path="/search" element={<P.Search />} />
             <Route path="/myInfo" element={<P.MyInfo />} />
             <Route path="/myProfile" element={<P.MyProfile />} />
             <Route path="/meeting" element={<P.Meeting />} />

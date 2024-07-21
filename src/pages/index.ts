@@ -6,3 +6,4 @@ export * from "./meeting";
 export * from "./myInfo";
 export * from "./myProfile";
 export * from "./signup";
+export * from "./search";
