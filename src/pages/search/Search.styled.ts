@@ -33,6 +33,17 @@ export const input = css`
   padding: 0px;
 `;
 
+export const ButtonWrapper = styled.span`
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  height: 24px;
+  align-items: center;
+  position: absolute;
+  right: 6px;
+  top: 0px;
+`;
+
 export const searchIcon = css`
   position: absolute;
   right: 6px;
@@ -85,7 +96,37 @@ export const CurrentSearchItem = styled.div`
     justify-content: space-between;
     height: 20px;
     width: 312px;
-    // margin-bottom: 16px;
     align-items: center;
+  `}
+`;
+
+export const SearchResultContainer = styled.div`
+  flex: 1;
+  overflow: auto;
+  padding-bottom: 64px;
+`;
+
+export const SearchSubResult = styled.div`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_regular_14};
+    display: flex;
+    height: 28px;
+    margin: 16px;
+    align-items: center;
+  `}
+`;
+
+export const FilterWrapper = styled.span`
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: center;
+  margin-left: 164px;
+`;
+
+export const Highlight = styled.span`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_semibold_14};
+    color: ${theme.colors.pink900};
   `}
 `;
