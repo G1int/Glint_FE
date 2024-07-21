@@ -20,8 +20,8 @@ const Search = () => {
     { id: 10, img: Img },
   ]);
   const [searchList, setSearchList] = useState<string[]>([]);
-  const [searchItem, setSearchItem] = useState<string>("");
-  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const [searchItem, setSearchItem] = useState("");
+  const [isSearching, setIsSearching] = useState(false);
 
   const handleSearch = () => {
     if (searchItem && !searchList.includes(searchItem)) {
