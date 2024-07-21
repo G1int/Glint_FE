@@ -19,6 +19,7 @@ export const SelectContainer = styled.div`
   height: 100%;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 `;
 
 export const SelectedValue = styled.div`
@@ -37,10 +38,10 @@ export const arrowIcon = css`
 export const DropdownList = styled.ul`
   ${({ theme }) => css`
     position: absolute;
-    border: 1px solid black; // TODO: 디자인 시스템에 따라 변경
     background-color: ${theme.colors.white};
-    width: 100%;
-    top: 100%;
+    box-shadow: 0 0 30px ${theme.colors.gray400};
+    width: 320px;
+    top: 102%;
     left: 0;
     margin: 0;
     padding: 0;
@@ -50,17 +51,38 @@ export const DropdownList = styled.ul`
 `;
 
 export const DropdownItem = styled.li`
-  padding: 12px 16px; // TODO: 디자인 시스템에 따라 변경
-  cursor: pointer;
-  display: block;
-  border-bottom: 1px solid black; // TODO: 디자인 시스템에 따라 변경
-  font-size: 1.2rem; // TODO: 디자인 시스템에 따라 변경
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_bold_16};
+    height: 54.01px;
+    padding-left: 20px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-  &:hover {
-    background-color: #ddd; // TODO: 디자인 시스템에 따라 변경
-  }
+    &:hover {
+      background-color: ${theme.colors.pink100};
+      color: ${theme.colors.pink900};
 
-  &:last-child {
-    border-bottom: none;
-  }
+      svg {
+        & path {
+          fill: ${theme.colors.pink900};
+        }
+      }
+    }
+
+    svg {
+      & path {
+        fill: ${theme.colors.white};
+      }
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  `}
+`;
+
+export const checkIcon = css`
+  margin-right: 20px;
 `;

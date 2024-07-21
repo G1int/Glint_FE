@@ -1,9 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 const AuthRoute = () => {
-  const accessToken = sessionStorage.getItem("accessToken");
+  const sessionId = sessionStorage.getItem("id");
 
-  return accessToken ? <Outlet /> : <Navigate to={"/"} />;
+  return sessionId ? <Outlet /> : <Navigate to={"/"} />;
 };
 
 export default AuthRoute;
