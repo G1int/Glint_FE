@@ -1,6 +1,6 @@
 import Img from "assets/images/img_01.jpg";
 import * as S from "./MyProfile.styled";
-import { LockIcon, profileSelectData, SmallChevronRightIcon } from "assets";
+import { LockIcon, SELECT_DATA, SmallChevronRightIcon } from "assets";
 import { Button, Dropdown, LocationModal, Tag, Textarea } from "components";
 import { useModal } from "hooks";
 import { useState } from "react";
@@ -54,7 +54,7 @@ const MyProfile = () => {
           <S.Value>185</S.Value>
           <LockIcon css={S.rightIcon} />
         </S.Container>
-        {profileSelectData.map((item, index) => (
+        {SELECT_DATA.map((item, index) => (
           <S.DropdownContainer key={index}>
             <S.DropdownTitle>{item.title}</S.DropdownTitle>
             <Dropdown options={item.options} />

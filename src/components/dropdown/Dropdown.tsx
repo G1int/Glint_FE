@@ -3,7 +3,7 @@ import * as S from "./Dropdown.styled";
 import { DropdownArrowIcon } from "assets";
 
 interface DropdownProps {
-  options: { label: string; value: number }[];
+  options: readonly { label: string; key: number }[];
 }
 const Dropdown = ({ options }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
