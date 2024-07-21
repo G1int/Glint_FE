@@ -85,7 +85,7 @@ export const CurrentSearchWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 23.56px 27px;
+  padding: 23px 27px;
 `;
 
 export const CurrentSearchItem = styled.div`
