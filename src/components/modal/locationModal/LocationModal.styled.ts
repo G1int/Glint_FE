@@ -37,7 +37,9 @@ export const ContentContainer = styled.div`
 `;
 
 export const Header = styled.div`
-  height: 70px;
+  height: auto;
+  min-height: 70px;
+  max-height: 90px;
   padding: 24px 20px;
   display: flex;
   flex-direction: column;
