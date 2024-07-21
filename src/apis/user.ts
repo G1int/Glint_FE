@@ -1,4 +1,8 @@
-import { getKakaoInfoResponse, getUserResponse } from "types";
+import {
+  getKakaoInfoResponse,
+  getUserInfoResponse,
+  getUserResponse,
+} from "types";
 import { ax } from "./axios";
 
 export const getKakaoInfoAPI = async (code: string) => {
@@ -10,6 +14,12 @@ export const getKakaoInfoAPI = async (code: string) => {
 
 export const getUserAPI = async (userId: string) => {
   const { data } = await ax.get<getUserResponse>(`/users/${userId}`);
+
+  return data;
+};
+
+export const getUserInfoAPI = async (userId: string) => {
+  const { data } = await ax.get<getUserInfoResponse>(`/users/${userId}/info`);
 
   return data;
 };
