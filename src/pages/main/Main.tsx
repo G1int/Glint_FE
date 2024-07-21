@@ -1,14 +1,7 @@
 import { useState } from "react";
 import * as S from "./Main.styled";
-import { Badge, Button, Header } from "components";
-import {
-  AddIcon,
-  BellIcon,
-  FilterIcon,
-  LogoIcon,
-  mainIconList,
-  MoreIcon,
-} from "assets";
+import { Button, Header, MeetingCard } from "components";
+import { AddIcon, BellIcon, FilterIcon, LogoIcon, mainIconList } from "assets";
 import Img from "assets/images/img_01.jpg";
 import { useToast } from "hooks";
 
@@ -27,12 +20,6 @@ const Main = () => {
     { id: 9, img: Img },
     { id: 10, img: Img },
   ]);
-
-  const [visibleCount, setVisibleCount] = useState(2);
-
-  const handleMoreMeeting = () => {
-    setVisibleCount((prevCount) => Math.min(prevCount + 2, meetings.length));
-  };
 
   return (
     <>
@@ -64,43 +51,7 @@ const Main = () => {
           <S.Title>New 미팅</S.Title>
           <FilterIcon />
         </S.TitleWrapper>
-        <S.MeetingWrapper>
-          {meetings.slice(0, visibleCount).map((meeting) => (
-            <S.MeetingContainer key={meeting.id}>
-              <S.BadgeWrapper>
-                <Badge variant="smPink" label="2:2" />
-                <Badge variant="smNavy" label="인천" />
-              </S.BadgeWrapper>
-              <S.MeetingTitle>
-                서울 30대 초 의사 미팅서울 30대 초 의사 미팅서울 30대 초 의사
-                미팅서울 30대 초 의사 미팅서울 30대 초 의사 미팅서울 30대 초
-                의사 미팅
-              </S.MeetingTitle>
-              <S.MeetingInfoWrapper>
-                <S.ImgWrapper>
-                  <img src={meeting.img} css={S.Img} />
-                  <S.Close>마감</S.Close>
-                </S.ImgWrapper>
-                <S.PersonInfoWrapper>
-                  <S.PersonInfo>
-                    남&nbsp;<S.Highlight>2</S.Highlight>/2
-                    <S.Gray>&nbsp;· 29세~33세</S.Gray>
-                  </S.PersonInfo>
-                  <S.PersonInfo>
-                    여&nbsp;<S.Highlight>2</S.Highlight>/2
-                    <S.Gray>&nbsp;· 29세~33세</S.Gray>
-                  </S.PersonInfo>
-                </S.PersonInfoWrapper>
-              </S.MeetingInfoWrapper>
-            </S.MeetingContainer>
-          ))}
-        </S.MeetingWrapper>
-        {visibleCount < meetings.length && (
-          <S.More onClick={handleMoreMeeting}>
-            더보기
-            <MoreIcon />
-          </S.More>
-        )}
+        <MeetingCard meetingList={meetings} count={2} />
         <Button variant="icon" css={S.addIcon}>
           <AddIcon />
         </Button>
