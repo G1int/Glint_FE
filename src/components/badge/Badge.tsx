@@ -7,7 +7,7 @@ interface BadgeProps {
   children: React.ReactNode;
   isSelected?: boolean;
   variant?: "smPink" | "smNavy";
-  handleClick?: (e: React.MouseEvent) => void;
+  handleClick?: () => void;
 }
 
 const Badge = ({

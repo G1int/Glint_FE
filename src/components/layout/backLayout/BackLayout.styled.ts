@@ -16,7 +16,7 @@ export const Header = styled.div`
   padding: 0 16px;
 `;
 
-export const Context = styled.div<{ hasTopContent: boolean }>`
+export const Context = styled.div<{ hasTopContent?: boolean }>`
   ${({ hasTopContent }) => css`
     display: flex;
     flex-direction: column;
