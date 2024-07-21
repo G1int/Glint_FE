@@ -35,7 +35,7 @@ export const arrowIcon = css`
   cursor: pointer;
 `;
 
-export const DropdownList = styled.div`
+export const DropdownList = styled.ul`
   ${({ theme }) => css`
     position: absolute;
     background-color: ${theme.colors.white};
