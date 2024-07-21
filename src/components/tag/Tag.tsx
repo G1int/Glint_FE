@@ -6,11 +6,12 @@ import { useToast } from "hooks";
 
 interface TagProps {
   handleChange: (value: string[]) => void;
+  data?: string[];
 }
 
-const Tag = ({ handleChange }: TagProps) => {
+const Tag = ({ handleChange, data }: TagProps) => {
   const { addToast } = useToast();
-  const [tagList, setTagList] = useState<string[]>([]);
+  const [tagList, setTagList] = useState<string[]>(data || []);
   const [tagItem, setTagItem] = useState<string>("");
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
