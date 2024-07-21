@@ -12,6 +12,7 @@ export const CreateRoomWrapper = styled.div`
   flex-direction: column;
   height: 100%;
   overflow-y: scroll;
+  margin-bottom: 100px;
 
   & > div:first-of-type {
     padding: 16px 20px 24px;
@@ -88,19 +89,15 @@ export const Desc = styled.span<{ marginBottom?: number }>`
 `;
 
 export const SelectContent = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    row-gap: 20px;
-  `}
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  row-gap: 20px;
 `;
 
 export const SelectContentBox = styled.div`
-  ${({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-  `}
+  display: flex;
+  flex-direction: column;
 `;
 
 export const SubTitle = styled.span<{ marginBottom?: number }>`
@@ -162,4 +159,20 @@ export const ButtonWrapper = styled.div`
     padding: 24px 0;
     background-color: ${theme.colors.white};
   `}
+`;
+
+export const RequiredBox = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    align-items: flex-start;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    margin-left: 4px;
+    background-color: ${theme.colors.danger};
+  `}
+`;
+
+export const RequiredContent = styled.div`
+  display: flex;
 `;

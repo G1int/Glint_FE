@@ -51,7 +51,13 @@ const initForm = {
 };
 
 const CreateRoom = () => {
-  const { watch, setValue, register } = useForm<createRoomForm>({
+  const {
+    formState: { errors },
+    watch,
+    setValue,
+    register,
+    handleSubmit,
+  } = useForm<createRoomForm>({
     defaultValues: initForm,
     mode: "onTouched",
   });
@@ -84,13 +90,20 @@ const CreateRoom = () => {
       }
     };
 
+  const handleClickButton = (data: createRoomForm): void => {
+    console.log(data);
+  };
+
   return (
     <BackLayout title="미팅 만들기" hasTopContent>
       <S.CreateRoom>
         <S.CreateRoomWrapper>
           <S.MainContent>
             <S.MainContentBox>
-              <S.Title>인원수</S.Title>
+              <S.RequiredContent>
+                <S.Title>인원수</S.Title>
+                <S.RequiredBox />
+              </S.RequiredContent>
               <FormRadioButton
                 css={S.formRadioButton}
                 radioList={PEOPEL_CAPACITY_RADIOS}
@@ -99,7 +112,10 @@ const CreateRoom = () => {
               />
             </S.MainContentBox>
             <S.MainContentBox>
-              <S.Title>제목</S.Title>
+              <S.RequiredContent>
+                <S.Title>제목</S.Title>
+                <S.RequiredBox />
+              </S.RequiredContent>
               <FormInput
                 css={S.input}
                 placeholder="제목을 입력해주세요"
@@ -107,7 +123,10 @@ const CreateRoom = () => {
               />
             </S.MainContentBox>
             <S.MainContentBox>
-              <S.Title>내용</S.Title>
+              <S.RequiredContent>
+                <S.Title>내용</S.Title>
+                <S.RequiredBox />
+              </S.RequiredContent>
               <Textarea
                 placeholder="간단한 자기소개나 만나고 싶은 이성, 미팅의 주제 등에 대해 작성해보세요"
                 register={register("description", { required: true })}
@@ -116,7 +135,10 @@ const CreateRoom = () => {
           </S.MainContent>
           <S.MainContent>
             {/* TODO: 수정 필요 */}
-            <S.Title marginBottom={4}>미팅 희망 지역</S.Title>
+            <S.RequiredContent>
+              <S.Title marginBottom={4}>미팅 희망 지역</S.Title>
+              <S.RequiredBox />
+            </S.RequiredContent>
             <S.Desc marginBottom={8}>정확한 장소는 함께 정해보세요!</S.Desc>
           </S.MainContent>
           <S.MainContent>
@@ -226,7 +248,11 @@ const CreateRoom = () => {
           </S.MainContent>
         </S.CreateRoomWrapper>
         <S.ButtonWrapper>
-          <Button css={S.button} variant="lgPink">
+          <Button
+            css={S.button}
+            variant="lgPink"
+            onClick={handleSubmit(handleClickButton)}
+          >
             등록
           </Button>
         </S.ButtonWrapper>
