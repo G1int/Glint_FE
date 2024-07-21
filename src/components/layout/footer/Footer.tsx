@@ -1,6 +1,6 @@
 import { Button } from "components/buttons";
 import * as S from "./Footer.styled";
-import { HomeIcon, MyInfoIcon, MyMeetingIcon, SearchIcon } from "assets";
+import { HomeIcon, MyInfoIcon, MyMeetingIcon, SearchGrayIcon } from "assets";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const Footer = () => {
@@ -14,7 +14,7 @@ const Footer = () => {
   // TODO: path 임의지정
   const footerArr = [
     { icon: <HomeIcon />, text: "홈", path: "/main" },
-    { icon: <SearchIcon />, text: "검색", path: "/search" },
+    { icon: <SearchGrayIcon />, text: "검색", path: "/search" },
     {
       icon: <MyMeetingIcon />,
       text: "내미팅",

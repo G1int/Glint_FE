@@ -8,8 +8,8 @@ export const getKakaoInfoAPI = async (code: string) => {
   return data;
 };
 
-export const getUserAPI = async (id: string) => {
-  const { data } = await ax.get<getUserResponse>(`/user/${id}`);
+export const getUserAPI = async (userId: string) => {
+  const { data } = await ax.get<getUserResponse>(`/users/${userId}`);
 
   return data;
 };
