@@ -211,9 +211,8 @@ const CreateRoom = () => {
                         "maleConditions",
                         select.key
                       )}
-                    >
-                      {select.label}
-                    </Badge>
+                      label={select.label}
+                    />
                   ))}
                 </S.BadgeWrapper>
               </S.SelectContentBox>
@@ -305,9 +304,8 @@ const CreateRoom = () => {
                       "femaleConditions",
                       select.key
                     )}
-                  >
-                    {select.label}
-                  </Badge>
+                    label={select.label}
+                  />
                 ))}
               </S.BadgeWrapper>
               {!!watch("femaleConditions.selectConditions").length && (
