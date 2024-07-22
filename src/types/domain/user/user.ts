@@ -47,7 +47,7 @@ export interface locationType {
   locationCity: string;
 }
 
-export interface regionType {
+export interface religionType {
   religionId: number;
   religionName: string;
 }
@@ -67,7 +67,7 @@ export interface userProfileType {
   work: workType;
   university: universityType;
   location: locationType;
-  region: regionType;
+  religion: religionType;
   smoking: smokingType;
   drinking: drinkingType;
   selfIntroduction: string;

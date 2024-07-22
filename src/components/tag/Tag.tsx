@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./Tag.styled";
 import { Input, Badge } from "components";
 import { TagCloseGrayIcon } from "assets";
@@ -11,8 +11,14 @@ interface TagProps {
 
 const Tag = ({ handleChange, data }: TagProps) => {
   const { addToast } = useToast();
-  const [tagList, setTagList] = useState<string[]>(data || []);
-  const [tagItem, setTagItem] = useState<string>("");
+  const [tagList, setTagList] = useState<string[]>([]);
+  const [tagItem, setTagItem] = useState("");
+
+  useEffect(() => {
+    if (data) {
+      setTagList(data);
+    }
+  }, [data]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (
