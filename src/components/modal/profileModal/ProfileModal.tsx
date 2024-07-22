@@ -9,8 +9,8 @@ interface ProfileModalProps {
   img?: string;
   name?: string;
   age?: string;
-  company?: string;
-  university?: string;
+  work?: string | null;
+  university?: string | null;
   introduceInfo?: {
     introduce: string;
     basicInfo: string[];
@@ -24,7 +24,7 @@ const ProfileModal = ({
   img,
   name,
   age,
-  company,
+  work,
   university,
 }: ProfileModalProps) => {
   const navigate = useNavigate();
@@ -54,10 +54,10 @@ const ProfileModal = ({
                 {name} ({age})
               </span>
               <S.InfoContent>
-                {company && (
+                {work && (
                   <>
                     <CompanyIcon />
-                    <span>{company}</span>
+                    <span>{work}</span>
                   </>
                 )}
                 {university && (
