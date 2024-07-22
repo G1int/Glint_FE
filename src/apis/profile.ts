@@ -1,4 +1,4 @@
-import { PutProfileQuery } from "types";
+import { PostImageQuery, PutProfileQuery } from "types";
 import { ax } from "./axios";
 
 export const getProfileAPI = async (userId: string) => {
@@ -9,6 +9,19 @@ export const getProfileAPI = async (userId: string) => {
 
 export const putProfileAPI = async (userId: string, req: PutProfileQuery) => {
   const { data } = await ax.put(`/users/${userId}/profile`, req);
+
+  return data;
+};
+
+export const putProfileImageAPI = async (
+  userId: string,
+  req: PostImageQuery
+) => {
+  const { data } = await ax.put(`/users/${userId}/profile-image`, req, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 
   return data;
 };
