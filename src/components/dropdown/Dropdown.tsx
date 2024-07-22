@@ -5,8 +5,9 @@ import { CheckIcon, DropdownArrowIcon } from "assets";
 interface DropdownProps {
   options: readonly { label: string; key: string }[];
   handleChange: (key: string) => void;
+  selectedKey?: string;
 }
-const Dropdown = ({ options, handleChange }: DropdownProps) => {
+const Dropdown = ({ options, handleChange, selectedKey }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const dropMenuRef = useRef<HTMLDivElement | null>(null);
@@ -22,6 +23,14 @@ const Dropdown = ({ options, handleChange }: DropdownProps) => {
     document.addEventListener("click", handleClickOutside);
     return () => document.removeEventListener("click", handleClickOutside);
   }, [isOpen]);
+
+  useEffect(() => {
+    // 받아온 데이터 선택값
+    const getOption = options.find((option) => option.key === selectedKey);
+    if (getOption) {
+      setSelectedOption(getOption.label);
+    }
+  }, [selectedKey, options]);
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
