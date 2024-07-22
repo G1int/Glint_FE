@@ -1,4 +1,5 @@
 export interface PutProfileQuery {
+  profileImageUrl: string;
   workName: string;
   universityName: string;
   universityDepartment: string;
