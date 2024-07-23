@@ -113,7 +113,7 @@ const MyProfile = () => {
               저장되지 않아요. 저장할까요?
             </>
           }
-          confirmLabel="저장"
+          confirmLabel="확인"
           cancelLabel="취소"
           handleCloseClick={handleBackClose}
           handleConfirmClick={handleBackSave}
