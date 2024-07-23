@@ -4,9 +4,9 @@ import * as S from "./RangeSlider.styled";
 interface RangeSliderProps {
   min: number;
   max: number;
-  onChange?: (minValue: number, maxValue: number) => void;
+  handleValueChange?: (minValue: number, maxValue: number) => void;
 }
-const RangeSlider = ({ min, max, onChange }: RangeSliderProps) => {
+const RangeSlider = ({ min, max, handleValueChange }: RangeSliderProps) => {
   const [minValue, setMinValue] = useState(min);
   const [maxValue, setMaxValue] = useState(max);
   const [minPercent, setMinPercent] = useState(0);
@@ -34,8 +34,8 @@ const RangeSlider = ({ min, max, onChange }: RangeSliderProps) => {
 
   useEffect(() => {
     updatePercentages();
-    if (onChange) {
-      onChange(minValue, maxValue);
+    if (handleValueChange) {
+      handleValueChange(minValue, maxValue);
     }
   }, [minValue, maxValue]);
 
