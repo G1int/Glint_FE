@@ -8,7 +8,7 @@ interface DropdownProps {
   selectedKey?: string;
 }
 const Dropdown = ({ options, handleChange, selectedKey }: DropdownProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const dropMenuRef = useRef<HTMLDivElement | null>(null);
 
