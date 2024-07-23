@@ -40,7 +40,7 @@ const Search = () => {
   };
 
   const handleFilter = () => {
-    // TODO: Maxlength 추가, handleConfirmClick 수정
+    // TODO: handleConfirmClick 수정
     handleOpenModal(
       <LocationModal
         title="어디서 만나는게 편하세요?"
@@ -48,6 +48,7 @@ const Search = () => {
         description="까지 선택할 수 있어요."
         handleCloseClick={handleCloseModal}
         handleConfirmClick={() => console.log("ddd")}
+        maxLength={5}
       />
     );
   };

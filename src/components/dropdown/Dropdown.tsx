@@ -3,10 +3,12 @@ import * as S from "./Dropdown.styled";
 import { CheckIcon, DropdownArrowIcon } from "assets";
 
 interface DropdownProps {
-  options: readonly { label: string; key: number }[];
+  options: readonly { label: string; key: string }[];
+  handleChange: (key: string) => void;
+  selectedKey?: string;
 }
-const Dropdown = ({ options }: DropdownProps) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+const Dropdown = ({ options, handleChange, selectedKey }: DropdownProps) => {
+  const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
   const dropMenuRef = useRef<HTMLDivElement | null>(null);
 
@@ -22,12 +24,21 @@ const Dropdown = ({ options }: DropdownProps) => {
     return () => document.removeEventListener("click", handleClickOutside);
   }, [isOpen]);
 
+  useEffect(() => {
+    // 받아온 데이터 선택값
+    const getOption = options.find((option) => option.key === selectedKey);
+    if (getOption) {
+      setSelectedOption(getOption.label);
+    }
+  }, [selectedKey, options]);
+
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleSelect = (label: string) => {
+  const handleSelect = (label: string, key: string) => {
     setSelectedOption(label);
+    handleChange(key);
     setIsOpen(false);
   };
 
@@ -41,7 +52,7 @@ const Dropdown = ({ options }: DropdownProps) => {
             {options.map((option, index) => (
               <S.DropdownItem
                 key={index}
-                onClick={() => handleSelect(option.label)}
+                onClick={() => handleSelect(option.label, option.key)}
               >
                 {option.label}
                 <CheckIcon css={S.checkIcon} />
