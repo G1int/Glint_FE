@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 export const Badge = styled.button<{
   isSelected?: boolean;
   isClickable: boolean;
-  variant?: "smPink" | "smNavy" | "mdNavy";
+  variant?: "smPink" | "smNavy" | "mdNavy" | "mdWhite";
 }>`
   ${({ isSelected, isClickable, theme, variant }) => css`
     ${variant === "smPink" || variant === "smNavy"
@@ -34,7 +34,9 @@ export const Badge = styled.button<{
       : isSelected || variant === "smNavy"
       ? theme.colors.navy900
       : theme.colors.white};
-    color: ${(isSelected || !isClickable) && theme.colors.white};
+    color: ${variant === "mdWhite"
+      ? theme.colors.black
+      : (isSelected || !isClickable) && theme.colors.white};
     cursor: ${!isClickable && "default"};
 
     &:hover {
