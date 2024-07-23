@@ -7,6 +7,8 @@ export const ModalBody = styled.div`
   padding: 32px 20px;
   min-height: 92px;
   height: auto;
+  gap: 10px;
+  justify-content: center;
 `;
 
 export const Title = styled.div`
@@ -17,10 +19,13 @@ export const Title = styled.div`
   `}
 `;
 
-export const Content = styled.div`
-  ${({ theme }) => css`
+export const Content = styled.div<{ isTitle?: boolean }>`
+  ${({ theme, isTitle }) => css`
     ${theme.fonts.subTitle_regular_16};
-    color: ${theme.colors.gray900};
+    color: ${isTitle ? theme.colors.gray900 : theme.colors.black};
+    height: auto;
+    min-height: 20px;
+    align-content: center;
   `}
 `;
 

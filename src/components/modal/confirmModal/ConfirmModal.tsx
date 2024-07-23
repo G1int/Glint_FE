@@ -23,8 +23,8 @@ const ConfirmModal = ({
   return (
     <BaseModal className={className}>
       <S.ModalBody>
-        <S.Title>{title}</S.Title>
-        <S.Content>{content}</S.Content>
+        {title && <S.Title>{title}</S.Title>}
+        {content && <S.Content isTitle={!!title}>{content}</S.Content>}
       </S.ModalBody>
       <S.ModalFooter>
         {cancelLabel && (
