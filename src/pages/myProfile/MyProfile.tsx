@@ -1,11 +1,20 @@
 import * as S from "./MyProfile.styled";
 import { LockIcon, SELECT_DATA, SmallChevronRightIcon } from "assets";
-import { Button, Dropdown, LocationModal, Tag, Textarea } from "components";
+import {
+  Button,
+  ConfirmModal,
+  Dropdown,
+  LocationModal,
+  Tag,
+  Textarea,
+} from "components";
 import { useModal, useToast, useUserInfo } from "hooks";
 import { usePutProfile } from "services";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { profileState, userIdSelector } from "atoms";
+import { profileState, updatedProfileSelector, userIdSelector } from "atoms";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { PutProfileQuery } from "types";
 
 const MyProfile = () => {
   const { handleOpenModal, handleCloseModal } = useModal();
@@ -14,12 +23,15 @@ const MyProfile = () => {
   const navigate = useNavigate();
   const userId = useRecoilValue(userIdSelector);
   const { mutate: mutatePutProfile } = usePutProfile(userId!);
-  const [profile, setProfile] = useRecoilState(profileState);
+  const [changeProfile, setChangeProfile] = useRecoilState(profileState);
+  const updatedProfile = useRecoilValue(updatedProfileSelector);
 
   // TODO: selectedWork, selectedUniversity 추가 해야함.
   const selectedLocation =
-    profile.locationState || profile.locationCity
-      ? `${profile.locationState ?? ""} ${profile.locationCity ?? ""}`
+    changeProfile.locationState || changeProfile.locationCity
+      ? `${changeProfile.locationState ?? ""} ${
+          changeProfile.locationCity ?? ""
+        }`
       : `${userProfile?.location?.locationState ?? ""} ${
           userProfile?.location?.locationCity ?? ""
         }`;
@@ -40,42 +52,16 @@ const MyProfile = () => {
       // location City 선택 안했을 때 에러남
       addToast({ content: "시/군/구도 선택해주세요." });
     } else {
-      // TODO: work, university 인증 구현 후 수정
-      const updatedProfile = {
-        profileImageUrl: userDetail?.profileImage || "",
-        workName: "",
-        universityName: "",
-        universityDepartment: "",
+      setChangeProfile((prevProfile) => ({
+        ...prevProfile,
         locationState: list[0] || "",
         locationCity: list[1] || "",
-        religionId: profile.religionId,
-        smokingId: profile.smokingId,
-        drinkingId: profile.drinkingId,
-        selfIntroduction: profile.selfIntroduction,
-        hashtags: profile.hashtags,
-      };
-      setProfile(updatedProfile);
+      }));
       handleCloseModal();
     }
   };
 
-  const handleSaveProfile = () => {
-    // TODO: work, university 인증 구현 후 수정
-    const updatedProfile = {
-      ...userProfile,
-      profileImageUrl: userDetail?.profileImage || "",
-      workName: "",
-      universityName: "",
-      universityDepartment: "",
-      locationState: profile.locationState,
-      locationCity: profile.locationCity,
-      religionId: profile.religionId,
-      smokingId: profile.smokingId,
-      drinkingId: profile.drinkingId,
-      selfIntroduction: profile.selfIntroduction,
-      hashtags: profile.hashtags,
-    };
-
+  const handleSaveProfile = (updatedProfile: PutProfileQuery) => {
     mutatePutProfile(updatedProfile, {
       onSuccess: () => {
         addToast({ content: "프로필이 저장됐어요." });
@@ -91,11 +77,56 @@ const MyProfile = () => {
   };
 
   const handleChange = (key: string, value: string | string[]) => {
-    setProfile((prevProfile) => ({
+    setChangeProfile((prevProfile) => ({
       ...prevProfile,
       [key]: value,
     }));
   };
+
+  // 뒤로가기 처리
+  const handleBackSave = () => {
+    setChangeProfile((prevProfile) => {
+      const updatedProfile = {
+        ...prevProfile,
+      };
+      handleSaveProfile(updatedProfile);
+      return updatedProfile;
+    });
+    handleCloseModal();
+  };
+
+  const handleBackClose = () => {
+    handleCloseModal();
+    history.pushState(null, "", "");
+  };
+
+  useEffect(() => {
+    history.pushState(null, "", "");
+
+    const handleClickBrowseBack = () => {
+      handleOpenModal(
+        <ConfirmModal
+          content={
+            <>
+              이대로 나가면 작성한 내용이
+              <br />
+              저장되지 않아요. 저장할까요?
+            </>
+          }
+          confirmLabel="저장"
+          cancelLabel="취소"
+          handleCloseClick={handleBackClose}
+          handleConfirmClick={handleBackSave}
+        />
+      );
+    };
+
+    window.addEventListener("popstate", handleClickBrowseBack);
+
+    return () => {
+      window.removeEventListener("popstate", handleClickBrowseBack);
+    };
+  }, []);
 
   return (
     <S.Content>
@@ -175,7 +206,10 @@ const MyProfile = () => {
         />
       </S.InputContainer>
       <S.ButtonWrapper>
-        <Button variant="lgPink" onClick={() => handleSaveProfile()}>
+        <Button
+          variant="lgPink"
+          onClick={() => handleSaveProfile(updatedProfile)}
+        >
           저장
         </Button>
       </S.ButtonWrapper>

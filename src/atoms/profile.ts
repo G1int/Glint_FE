@@ -1,5 +1,5 @@
 import { atom, selector } from "recoil";
-import { userDetailType, userProfileType } from "types";
+import { PutProfileQuery, userDetailType, userProfileType } from "types";
 
 export const profileState = atom({
   key: "profileState",
@@ -32,4 +32,50 @@ export const userDetailState = atom<userDetailType | null>({
 export const userProfileState = atom<userProfileType | null>({
   key: "userProfileState",
   default: null,
+});
+
+export const updatedProfileSelector = selector<PutProfileQuery>({
+  key: "updatedProfileSelector",
+  get: ({ get }) => {
+    const changeProfile = get(profileState);
+    const userDetail = get(userDetailState);
+    const userProfile = get(userProfileState);
+
+    return {
+      profileImageUrl:
+        changeProfile.profileImageUrl || userDetail?.profileImage || "",
+      workName: changeProfile.workName || userProfile?.work?.workName || "",
+      universityName:
+        changeProfile.universityName ||
+        userProfile?.university?.universityName ||
+        "",
+      universityDepartment:
+        changeProfile.universityDepartment ||
+        userProfile?.university?.universityDepartment ||
+        "",
+      locationState:
+        changeProfile.locationState ||
+        userProfile?.location?.locationState ||
+        "",
+      locationCity:
+        changeProfile.locationCity || userProfile?.location?.locationCity || "",
+      religionId:
+        changeProfile.religionId ||
+        userProfile?.religion?.religionId.toString() ||
+        "",
+      smokingId:
+        changeProfile.smokingId ||
+        userProfile?.smoking?.smokingId.toString() ||
+        "",
+      drinkingId:
+        changeProfile.drinkingId ||
+        userProfile?.drinking?.drinkingId.toString() ||
+        "",
+      selfIntroduction:
+        changeProfile.selfIntroduction || userProfile?.selfIntroduction || "",
+      hashtags: changeProfile.hashtags.length
+        ? changeProfile.hashtags
+        : userProfile?.hashtags || [],
+    };
+  },
 });
