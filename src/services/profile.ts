@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { putProfileAPI, putProfileImageAPI } from "apis/profile";
+import { putProfileAPI, putProfileImageAPI } from "apis";
 import { PostImageQuery, PutProfileQuery } from "types";
 
 export const usePutProfile = (userId: string) => {
