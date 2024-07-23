@@ -7,3 +7,4 @@ export * from "./myInfo";
 export * from "./myProfile";
 export * from "./signup";
 export * from "./search";
+export * from "./myMeeting";

@@ -27,6 +27,7 @@ const Router = ({ children }: RouterProps) => {
             <Route path="/myProfile" element={<P.MyProfile />} />
             <Route path="/meeting" element={<P.Meeting />} />
             <Route path="/createRoom" element={<P.CreateRoom />} />
+            <Route path="/myMeeting" element={<P.MyMeeting />} />
           </Route>
         </Route>
       </Routes>
