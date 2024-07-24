@@ -4,7 +4,6 @@ import { useParams } from "react-router-dom";
 import { Badge, Button } from "components";
 import { useGetMeeting } from "services";
 import { PEOPEL_CAPACITY_RADIOS } from "assets";
-import { Profile } from "./containers";
 import * as S from "./Home.styled";
 
 const Home = () => {

@@ -75,6 +75,7 @@ export const ButtonWrapper = styled.div`
   ${({ theme }) => css`
     position: fixed;
     display: flex;
+    justify-content: center;
     width: 100%;
     bottom: 0;
     left: 0;
@@ -85,7 +86,7 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const button = css`
-  width: 100%;
+  max-width: 360px;
 `;
 
 export const Conditions = styled.div`
