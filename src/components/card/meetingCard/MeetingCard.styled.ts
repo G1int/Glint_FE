@@ -30,7 +30,7 @@ export const MeetingTitle = styled.div`
     ${theme.fonts.subTitle_bold_14};
     max-height: 31px;
     width: 296px;
-    padding-top: 4px;
+    margin-top: 4px;
     text-overflow: ellipsis;
     overflow: hidden;
     display: -webkit-box;
@@ -41,7 +41,7 @@ export const MeetingTitle = styled.div`
 
 export const MeetingInfoWrapper = styled.div`
   height: 64px;
-  padding-top: 12px;
+  margin-top: 12px;
   display: flex;
   align-items: center;
 `;
@@ -82,31 +82,24 @@ export const PersonInfoWrapper = styled.div`
   `}
 `;
 
+export const PersonCapacity = styled.span`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_bold_14};
+    color: ${theme.colors.black};
+  `}}
+`;
+
 export const PersonInfo = styled.div`
-  display: flex;
-  align-items: center;
-  height: 28px;
+  ${({ theme }) => css`
+    color: ${theme.colors.gray700};
+    display: flex;
+    align-items: center;
+    height: 28px;
+  `}
 `;
 
 export const Highlight = styled.span`
   ${({ theme }) => css`
     color: ${theme.colors.pink900};
-  `}
-`;
-
-export const Gray = styled.span`
-  ${({ theme }) => css`
-    color: ${theme.colors.gray700};
-  `}
-`;
-
-export const More = styled.div`
-  ${({ theme }) => css`
-    ${theme.fonts.subTitle_semibold_16};
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
   `}
 `;
