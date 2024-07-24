@@ -38,6 +38,10 @@ export const IconContent = styled.button`
   }
 `;
 
+export const InputFile = styled.input`
+  display: none;
+`;
+
 export const InfoWrapper = styled.div`
   display: flex;
   justify-content: center;

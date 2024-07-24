@@ -8,6 +8,7 @@ interface TextareaProps {
   placeholder?: string;
   maxLength?: number;
   disabled?: boolean;
+  defaultValue?: string;
   handleChange?: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
   handleFocus?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
   handleBlur?: (e: React.FocusEvent<HTMLTextAreaElement>) => void;
@@ -21,6 +22,7 @@ const Textarea = React.forwardRef(
       placeholder,
       maxLength,
       disabled,
+      defaultValue,
       handleChange,
       handleFocus,
       handleBlur,
@@ -35,6 +37,7 @@ const Textarea = React.forwardRef(
         placeholder={placeholder}
         maxLength={maxLength}
         disabled={disabled}
+        defaultValue={defaultValue}
         onChange={handleChange}
         onFocus={handleFocus}
         onBlur={handleBlur}

@@ -22,13 +22,15 @@ const Home = () => {
     <S.HomeWrapper>
       <S.ContentWrapper>
         <S.MainContent>
-          <Badge css={S.badge} variant="smPink">
-            {
+          <Badge
+            css={S.badge}
+            variant="smPink"
+            label={
               PEOPEL_CAPACITY_RADIOS.find(
                 ({ key }) => key === `${data?.peopleCapacity}`
-              )?.label
+              )?.label ?? "-"
             }
-          </Badge>
+          />
           <span>{data?.title}</span>
           <span>{data?.description}</span>
         </S.MainContent>
@@ -38,9 +40,7 @@ const Home = () => {
             <S.Desc>정확한 장소는 함께 정해보세요!</S.Desc>
             <div>
               {data?.locations.map((location) => (
-                <Badge key={location} variant="mdWhite">
-                  {location}
-                </Badge>
+                <Badge key={location} variant="mdWhite" label={location} />
               ))}
             </div>
           </S.TitleWrapper>

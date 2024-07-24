@@ -6,12 +6,13 @@ import { Footer } from "./footer";
 
 const Layout = () => {
   const location = useLocation();
-  // TODO: 로그인, 회원가입, 채팅 - Footer X
+  // TODO: 로그인, 회원가입, 채팅, Auth - Footer X
   const hideFooterPath = [
     "/",
     "/signup",
     "/meeting",
     "/myProfile",
+    "/glint/auth/kakao/callback",
     "/createRoom",
   ];
 

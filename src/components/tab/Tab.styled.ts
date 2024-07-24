@@ -18,14 +18,16 @@ export const TabLabelWrapper = styled.div<{ columns: number }>`
 
 export const TabButton = styled.button<{ isSelected: boolean }>`
   ${({ theme, isSelected }) => css`
-    ${theme.fonts.subTitle_bold_16};
+    ${isSelected
+      ? theme.fonts.subTitle_bold_16
+      : theme.fonts.subTitle_regular_16};
     position: relative;
     display: flex;
     justify-content: center;
     align-self: center;
     width: 100%;
     padding: 17px 0;
-    color: ${isSelected && `3px solid ${theme.colors.pink900}`};
+    color: ${isSelected ? theme.colors.pink900 : theme.colors.gray800};
 
     &::after {
       content: "";

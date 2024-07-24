@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./Tag.styled";
 import { Input, Badge } from "components";
-import { TagCloseIcon } from "assets";
+import { TagCloseGrayIcon } from "assets";
 import { useToast } from "hooks";
 
-const Tag = () => {
+interface TagProps {
+  handleChange: (value: string[]) => void;
+  data?: string[];
+}
+
+const Tag = ({ handleChange, data }: TagProps) => {
   const { addToast } = useToast();
   const [tagList, setTagList] = useState<string[]>([]);
-  const [tagItem, setTagItem] = useState<string>("");
+  const [tagItem, setTagItem] = useState("");
+
+  useEffect(() => {
+    if (data) {
+      setTagList(data);
+    }
+  }, [data]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (
@@ -17,8 +28,10 @@ const Tag = () => {
       e.nativeEvent.isComposing === false
     ) {
       if (tagList.length <= 10) {
-        setTagList([...tagList, tagItem.trim()]);
+        const newTagList = [...tagList, tagItem.trim()];
+        setTagList(newTagList);
         setTagItem("");
+        handleChange(newTagList);
       } else {
         // TODO: 문구 확인
         addToast({ content: "태그는 10개까지 작성 가능합니다." });
@@ -27,7 +40,9 @@ const Tag = () => {
   };
 
   const handleDelete = (index: number) => {
-    setTagList(tagList.filter((_, i) => i !== index));
+    const newTagList = tagList.filter((_, i) => i !== index);
+    setTagList(newTagList);
+    handleChange(newTagList);
   };
 
   return (
@@ -42,10 +57,13 @@ const Tag = () => {
         css={S.input}
       />
       {tagList.map((tag, index) => (
-        <Badge css={S.badge} key={index}>
-          {tag}
-          <TagCloseIcon onClick={() => handleDelete(index)} />
-        </Badge>
+        <Badge
+          css={S.badge}
+          key={index}
+          label={tag}
+          icon={<TagCloseGrayIcon onClick={() => handleDelete(index)} />}
+          variant="mdWhite"
+        />
       ))}
     </S.TagContainer>
   );

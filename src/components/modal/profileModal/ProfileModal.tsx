@@ -9,8 +9,8 @@ interface ProfileModalProps {
   img?: string;
   name?: string;
   age?: string;
-  company?: string;
-  school?: string;
+  work?: string | null;
+  university?: string | null;
   introduceInfo?: {
     introduce: string;
     basicInfo: string[];
@@ -24,8 +24,8 @@ const ProfileModal = ({
   img,
   name,
   age,
-  company,
-  school,
+  work,
+  university,
 }: ProfileModalProps) => {
   const navigate = useNavigate();
   const { handleCloseModal } = useModal();
@@ -54,16 +54,16 @@ const ProfileModal = ({
                 {name} ({age})
               </span>
               <S.InfoContent>
-                {company && (
+                {work && (
                   <>
                     <CompanyIcon />
-                    <span>{company}</span>
+                    <span>{work}</span>
                   </>
                 )}
-                {school && (
+                {university && (
                   <>
                     <SchoolIcon />
-                    <span>{school}</span>
+                    <span>{university}</span>
                   </>
                 )}
               </S.InfoContent>
@@ -87,9 +87,12 @@ const ProfileModal = ({
               <S.IntroduceContent>
                 {introduceInfo.basicInfo.length > 0 ? (
                   introduceInfo.basicInfo.map((item, index) => (
-                    <Badge key={index} css={S.badge}>
-                      #{item}
-                    </Badge>
+                    <Badge
+                      key={index}
+                      css={S.badge}
+                      label={`#${item}`}
+                      variant="mdWhite"
+                    />
                   ))
                 ) : (
                   <S.NoContent>입력 내용이 없어요</S.NoContent>
@@ -101,9 +104,12 @@ const ProfileModal = ({
               <S.IntroduceContent>
                 {introduceInfo.keywords.length > 0 ? (
                   introduceInfo.keywords.map((item, index) => (
-                    <Badge key={index} css={S.badge}>
-                      #{item}
-                    </Badge>
+                    <Badge
+                      key={index}
+                      css={S.badge}
+                      label={`#${item}`}
+                      variant="mdWhite"
+                    />
                   ))
                 ) : (
                   <S.NoContent>입력 내용이 없어요</S.NoContent>

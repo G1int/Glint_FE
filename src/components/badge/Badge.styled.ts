@@ -4,15 +4,15 @@ import styled from "@emotion/styled";
 export const Badge = styled.button<{
   isSelected?: boolean;
   isClickable: boolean;
-  variant?: "smPink" | "smNavy" | "mdNavy" | "mdWhite";
+  variant: "smPink" | "smNavy" | "mdNavy" | "mdWhite";
 }>`
   ${({ isSelected, isClickable, theme, variant }) => css`
     ${variant === "smPink" || variant === "smNavy"
       ? theme.fonts.caption_regular_10
-      : variant === "mdNavy" || isSelected
+      : isSelected || variant === "mdNavy"
       ? theme.fonts.caption_bold_12
       : theme.fonts.caption_regular_12};
-    height: ${variant === "smPink" || variant === "smNavy" ? "18px" : "36px"};
+    height: ${variant === "smPink" || variant === "smNavy" ? "18px" : "38px"};
     width: fit-content;
     display: flex;
     align-items: center;
@@ -20,7 +20,9 @@ export const Badge = styled.button<{
     border: 1px solid
       ${variant === "smPink"
         ? theme.colors.pink900
-        : (isSelected && isClickable) || variant === "smNavy"
+        : (isSelected && isClickable) ||
+          variant === "smNavy" ||
+          variant === "mdNavy"
         ? theme.colors.navy900
         : theme.colors.gray600};
     border-radius: ${variant === "smPink" || variant === "smNavy"
@@ -31,7 +33,7 @@ export const Badge = styled.button<{
       : "9px 16px"};
     background-color: ${variant === "smPink"
       ? theme.colors.pink900
-      : isSelected || variant === "smNavy"
+      : isSelected || variant === "smNavy" || variant === "mdNavy"
       ? theme.colors.navy900
       : theme.colors.white};
     color: ${variant === "mdWhite"

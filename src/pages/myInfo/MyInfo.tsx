@@ -7,7 +7,6 @@ import {
   Toggle,
 } from "components";
 import * as S from "./MyInfo.styled";
-import Img from "assets/images/img_01.jpg";
 import {
   alarmTitle,
   AuthBadgeIcon,
@@ -15,23 +14,41 @@ import {
   FriendsManageIcon,
   MyProfileIcon,
 } from "assets";
-import React from "react";
-import { useModal } from "hooks";
-
-// TODO : 임시 데이터
-const info = {
-  location: "서울",
-  company: "신한은행",
-  job: "은행원",
-};
+import { useModal, useUserInfo } from "hooks";
 
 const MyInfo = () => {
   const { handleOpenModal } = useModal();
+  const { userDetail, userProfile } = useUserInfo();
+
+  const infoData: {
+    location?: string;
+    work?: string;
+    university?: string;
+  } = {
+    location: `${userProfile?.location?.locationState ?? ""} ${
+      userProfile?.location?.locationCity ?? ""
+    }`,
+    work: userProfile?.work?.workName ?? "",
+    university: `${userProfile?.university?.universityName ?? ""} ${
+      userProfile?.university?.universityDepartment ?? ""
+    }`,
+  };
 
   const handleMyProfile = () => {
-    // TODO: 임시데이터
     return handleOpenModal(
-      <ProfileModal img={Img} name="룰루랄라" age="29" company="삼성전자" />
+      <ProfileModal
+        img={userDetail?.profileImage}
+        name={userDetail?.nickname}
+        age={userDetail?.age}
+        work={userProfile?.work?.workName ?? null}
+        university={
+          userProfile?.university
+            ? `${userProfile.university.universityName ?? ""} ${
+                userProfile.university.universityDepartment ?? ""
+              }`
+            : null
+        }
+      />
     );
   };
 
@@ -39,8 +56,12 @@ const MyInfo = () => {
     <>
       <Header css={S.header}>내정보</Header>
       <S.Info>
-        {/* TODO: img 임의로 넣어놈 */}
-        <Profile name="룰루랄라" age="29" img={Img} info={info} />
+        <Profile
+          name={userDetail?.nickname ?? null}
+          age={userDetail?.age ?? null}
+          img={userDetail?.profileImage ?? null}
+          info={infoData}
+        />
       </S.Info>
       <S.Line />
       <S.ManageButtonWrapper>
