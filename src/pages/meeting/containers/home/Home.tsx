@@ -84,7 +84,7 @@ const Home = () => {
                   <span>{data?.femaleCondition.smoking[0].smokingName}</span>
                 </S.ConditionRow>
               )}
-              {checkRequired("femaleCondition", "DRINGING") && (
+              {checkRequired("femaleCondition", "DRINKGING") && (
                 <S.ConditionRow>
                   <span>흡연</span>
                   <span>{data?.femaleCondition.drinking[0].drinkingName}</span>
@@ -139,7 +139,7 @@ const Home = () => {
                   <span>{data?.maleCondition.smoking[0].smokingName}</span>
                 </S.ConditionRow>
               )}
-              {checkRequired("maleCondition", "DRINGING") && (
+              {checkRequired("maleCondition", "DRINKGING") && (
                 <S.ConditionRow>
                   <span>흡연</span>
                   <span>{data?.maleCondition.drinking[0].drinkingName}</span>
