@@ -75,6 +75,7 @@ export const ButtonWrapper = styled.div`
   ${({ theme }) => css`
     position: fixed;
     display: flex;
+    justify-content: center;
     width: 100%;
     bottom: 0;
     left: 0;
@@ -85,5 +86,48 @@ export const ButtonWrapper = styled.div`
 `;
 
 export const button = css`
-  width: 100%;
+  max-width: 360px;
+`;
+
+export const Conditions = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    padding: 20px;
+    background-color: ${theme.colors.gray400};
+  `}
+`;
+
+export const Condition = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
+
+export const ConditionRow = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    column-gap: 10px;
+    padding: 5.5px;
+
+    & > span {
+      ${theme.fonts.subTitle_regular_14};
+
+      &:first-of-type {
+        ${theme.fonts.subTitle_regular_14};
+        color: ${theme.colors.gray900};
+      }
+    }
+  `}
+`;
+
+export const Division = styled.hr`
+  ${({ theme }) => css`
+    width: 100%;
+    height: 1px;
+    margin: 12px 0;
+    border: 0;
+    background-color: ${theme.colors.gray600};
+  `}
 `;
