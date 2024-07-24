@@ -1,62 +1,80 @@
-import { useState } from "react";
 import * as S from "./Main.styled";
 import { Button, Header, MeetingCard } from "components";
-import { AddIcon, BellIcon, FilterIcon, LogoIcon, mainIconList } from "assets";
-import Img from "assets/images/img_01.jpg";
+import {
+  AddIcon,
+  BellIcon,
+  FilterIcon,
+  LogoIcon,
+  mainIconList,
+  MoreIcon,
+} from "assets";
 import { useToast } from "hooks";
+import { useGetMainNewMeetings } from "services";
+import { useEffect, useState } from "react";
+import { mainNewMeetingsItem } from "types";
 
 const Main = () => {
+  const [lastId, setLastId] = useState<number | null>(null);
+  const [meetingList, setMeetingList] = useState<mainNewMeetingsItem[]>([]);
+
+  const size = 2;
+
+  const { data } = useGetMainNewMeetings(lastId, size);
+
   const { addToast } = useToast();
-  // TODO: 예시코드-api연동 후 삭제
-  const [meetings, setMeetings] = useState<Array<{ id: number; img: string }>>([
-    { id: 1, img: Img },
-    { id: 2, img: Img },
-    { id: 3, img: Img },
-    { id: 4, img: Img },
-    { id: 5, img: Img },
-    { id: 6, img: Img },
-    { id: 7, img: Img },
-    { id: 8, img: Img },
-    { id: 9, img: Img },
-    { id: 10, img: Img },
-  ]);
+
+  useEffect(() => {
+    if (data?.meetings) {
+      setMeetingList((prevMeetings) => [...prevMeetings, ...data.meetings]);
+    }
+  }, [data]);
+
+  const handleMoreMeeting = () => {
+    if (data?.meetings && data.meetings.length > 0) {
+      setLastId(data.meetings[data.meetings.length - 1].meetingId);
+    }
+  };
 
   return (
-    <>
-      <S.Content>
-        <Header css={S.header}>
-          <LogoIcon css={S.logoIcon} />
-          <S.BellIconWrapper>
-            <Button
-              variant="icon"
-              onClick={() =>
-                addToast({
-                  content: "현재 개발중인 기능이에요. 조금만 기다려주세요:)",
-                })
-              }
-            >
-              <BellIcon />
-            </Button>
-          </S.BellIconWrapper>
-        </Header>
-        <S.MainIconContainer>
-          {mainIconList.map((item, index) => (
-            <S.MainIconWrapper key={index}>
-              {item.image}
-              {item.text}
-            </S.MainIconWrapper>
-          ))}
-        </S.MainIconContainer>
-        <S.TitleWrapper>
-          <S.Title>New 미팅</S.Title>
-          <FilterIcon />
-        </S.TitleWrapper>
-        <MeetingCard meetingList={meetings} count={2} />
-        <Button variant="icon" css={S.addIcon}>
-          <AddIcon />
-        </Button>
-      </S.Content>
-    </>
+    <S.Content>
+      <Header css={S.header}>
+        <LogoIcon css={S.logoIcon} />
+        <S.BellIconWrapper>
+          <Button
+            variant="icon"
+            onClick={() =>
+              addToast({
+                content: "현재 개발중인 기능이에요. 조금만 기다려주세요:)",
+              })
+            }
+          >
+            <BellIcon />
+          </Button>
+        </S.BellIconWrapper>
+      </Header>
+      <S.MainIconContainer>
+        {mainIconList.map((item, index) => (
+          <S.MainIconWrapper key={index}>
+            {item.image}
+            {item.text}
+          </S.MainIconWrapper>
+        ))}
+      </S.MainIconContainer>
+      <S.TitleWrapper>
+        <S.Title>New 미팅</S.Title>
+        <FilterIcon />
+      </S.TitleWrapper>
+      <MeetingCard meetingList={meetingList} />
+      {meetingList.length >= size && data && data?.meetings.length >= size && (
+        <S.More onClick={handleMoreMeeting}>
+          더보기
+          <MoreIcon />
+        </S.More>
+      )}
+      <Button variant="icon" css={S.addIcon}>
+        <AddIcon />
+      </Button>
+    </S.Content>
   );
 };
 
