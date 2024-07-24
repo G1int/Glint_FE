@@ -65,7 +65,7 @@ const Main = () => {
         <FilterIcon />
       </S.TitleWrapper>
       <MeetingCard meetingList={meetingList} />
-      {meetingList.length >= 2 && data && data?.meetings.length > 1 && (
+      {meetingList.length >= size && data && data?.meetings.length >= size && (
         <S.More onClick={handleMoreMeeting}>
           더보기
           <MoreIcon />
