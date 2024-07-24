@@ -78,3 +78,14 @@ export const addIcon = css`
   height: 56px;
   background-color: transparent;
 `;
+
+export const More = styled.div`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_semibold_16};
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  `}
+`;
