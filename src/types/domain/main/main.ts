@@ -1,4 +1,4 @@
-export interface mainNewMeetingsItem {
+export interface meetingsItem {
   meetingId: number;
   maleCount: number;
   femaleCount: number;
@@ -17,6 +17,6 @@ export interface mainNewMeetingsItem {
   peopleCapacity: number;
 }
 
-export interface mainNewMeetingsResponse {
-  meetings: mainNewMeetingsItem[];
+export interface meetingsResponse {
+  meetings: meetingsItem[];
 }

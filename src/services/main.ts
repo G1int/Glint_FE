@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { getMainNewMeetingsAPI } from "apis";
-import { mainNewMeetingsResponse } from "types";
+import { meetingsResponse } from "types";
 
 export const useGetMainNewMeetings = (lastId: number | null, size: number) => {
-  return useQuery<mainNewMeetingsResponse>({
+  return useQuery<meetingsResponse>({
     queryKey: ["newMeetings", lastId, size],
     queryFn: () => getMainNewMeetingsAPI(lastId, size),
     enabled: !!size,
