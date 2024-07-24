@@ -1,4 +1,4 @@
-import { meetingsResponse } from "types";
+import { getMeetingListResponse } from "types";
 import { ax } from "./axios";
 
 export const getMainNewMeetingsAPI = async (
@@ -11,7 +11,7 @@ export const getMainNewMeetingsAPI = async (
     url += `&lastId=${lastId}`;
   }
 
-  const { data } = await ax.get<meetingsResponse>(url);
+  const { data } = await ax.get<getMeetingListResponse>(url);
 
   return data;
 };

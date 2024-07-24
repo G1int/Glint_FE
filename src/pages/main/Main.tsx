@@ -11,11 +11,11 @@ import {
 import { useToast } from "hooks";
 import { useGetMainNewMeetings } from "services";
 import { useEffect, useState } from "react";
-import { mainNewMeetingsItem } from "types";
+import { meetingListItem } from "types";
 
 const Main = () => {
   const [lastId, setLastId] = useState<number | null>(null);
-  const [meetingList, setMeetingList] = useState<mainNewMeetingsItem[]>([]);
+  const [meetingList, setMeetingList] = useState<meetingListItem[]>([]);
 
   const size = 2;
 
