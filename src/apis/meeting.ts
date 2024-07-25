@@ -33,3 +33,24 @@ export const getMyMeetingAPI = async (
 
   return data;
 };
+
+export const getSearchMeeting = async (
+  keyword: string,
+  limit: number,
+  lastMeetingId: number | null
+) => {
+  const params: { keyword: string; limit: number; lastMeetingId?: number } = {
+    keyword: keyword,
+    limit: limit,
+  };
+
+  if (lastMeetingId !== null) {
+    params.lastMeetingId = lastMeetingId;
+  }
+
+  const { data } = await ax.get<getMeetingListResponse>(`/meetings/search`, {
+    params: params,
+  });
+
+  return data;
+};

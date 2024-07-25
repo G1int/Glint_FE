@@ -1,6 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 
-import { getChatsAPI, getMeetingAPI, getMyMeetingAPI } from "apis";
+import {
+  getChatsAPI,
+  getMeetingAPI,
+  getMyMeetingAPI,
+  getSearchMeeting,
+} from "apis";
 import type { chatsResponse, getMeetingListResponse } from "types";
 
 export const useGetChats = (roomId: string) => {
@@ -27,5 +32,17 @@ export const useGetMyMeeting = (
     queryKey: ["myMeeting", status, userId, lastMeetingId, limit],
     queryFn: () => getMyMeetingAPI(status, userId, lastMeetingId, limit),
     enabled: !!status && !!userId && !!limit,
+  });
+};
+
+export const useGetSearchMeeting = (
+  keyword: string,
+  limit: number,
+  lastMeetingId: number | null
+) => {
+  return useQuery<getMeetingListResponse>({
+    queryKey: ["searchMeeting", keyword, limit, lastMeetingId],
+    queryFn: () => getSearchMeeting(keyword, limit, lastMeetingId),
+    enabled: false,
   });
 };
