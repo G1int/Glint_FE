@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { Badge, Button } from "components";
 import { useToast } from "hooks";
 import { useGetMeeting, usePostAttendMeetingRoom } from "services";
-import { PEOPEL_CAPACITY_RADIOS } from "assets";
+import { PEOPEL_CAPACITY_RADIOS, UnlockIcon } from "assets";
 import { Profile } from "./containers";
 import * as S from "./Home.styled";
 
@@ -76,49 +76,65 @@ const Home = () => {
               <S.Title>✅ 참가조건</S.Title>
               <S.Division />
               <S.Condition>
-                {checkRequired("maleCondition", "AFFILIATION") && (
-                  <S.ConditionRow>
-                    <span>회사/학교</span>
-                    {data?.maleCondition.affiliation.map((item) => (
-                      <span key={item}>#{item} </span>
-                    ))}
-                  </S.ConditionRow>
-                )}
-                {checkRequired("maleCondition", "AGE") && (
-                  <S.ConditionRow>
-                    <span>나이</span>
-                    <span>
-                      {data?.maleCondition.minAge}~{data?.maleCondition.maxAge}
-                      세 사이
-                    </span>
-                  </S.ConditionRow>
-                )}
-                {checkRequired("maleCondition", "HEIGHT") && (
-                  <S.ConditionRow>
-                    <span>키</span>
-                    <span>
-                      {data?.maleCondition.minHeight}~
-                      {data?.maleCondition.maxHeight}cm 사이
-                    </span>
-                  </S.ConditionRow>
-                )}
-                {checkRequired("maleCondition", "SMOKING") && (
-                  <S.ConditionRow>
-                    <span>흡연</span>
-                    <span>{data?.maleCondition.smoking[0].smokingName}</span>
-                  </S.ConditionRow>
-                )}
-                {checkRequired("maleCondition", "DRINKGING") && (
-                  <S.ConditionRow>
-                    <span>음주</span>
-                    <span>{data?.maleCondition.drinking[0].drinkingName}</span>
-                  </S.ConditionRow>
-                )}
-                {checkRequired("maleCondition", "RELIGION") && (
-                  <S.ConditionRow>
-                    <span>종교</span>
-                    <span>{data?.maleCondition.religion[0].religionName}</span>
-                  </S.ConditionRow>
+                {data?.maleCondition.selectConditions &&
+                data?.maleCondition.selectConditions.length > 0 ? (
+                  <>
+                    {checkRequired("maleCondition", "AFFILIATION") && (
+                      <S.ConditionRow>
+                        <span>회사/학교</span>
+                        {data?.maleCondition.affiliation.map((item) => (
+                          <span key={item}>#{item} </span>
+                        ))}
+                      </S.ConditionRow>
+                    )}
+                    {checkRequired("maleCondition", "AGE") && (
+                      <S.ConditionRow>
+                        <span>나이</span>
+                        <span>
+                          {data?.maleCondition.minAge}~
+                          {data?.maleCondition.maxAge}세 사이
+                        </span>
+                      </S.ConditionRow>
+                    )}
+                    {checkRequired("maleCondition", "HEIGHT") && (
+                      <S.ConditionRow>
+                        <span>키</span>
+                        <span>
+                          {data?.maleCondition.minHeight}~
+                          {data?.maleCondition.maxHeight}cm 사이
+                        </span>
+                      </S.ConditionRow>
+                    )}
+                    {checkRequired("maleCondition", "SMOKING") && (
+                      <S.ConditionRow>
+                        <span>흡연</span>
+                        <span>
+                          {data?.maleCondition.smoking[0].smokingName}
+                        </span>
+                      </S.ConditionRow>
+                    )}
+                    {checkRequired("maleCondition", "DRINKGING") && (
+                      <S.ConditionRow>
+                        <span>음주</span>
+                        <span>
+                          {data?.maleCondition.drinking[0].drinkingName}
+                        </span>
+                      </S.ConditionRow>
+                    )}
+                    {checkRequired("maleCondition", "RELIGION") && (
+                      <S.ConditionRow>
+                        <span>종교</span>
+                        <span>
+                          {data?.maleCondition.religion[0].religionName}
+                        </span>
+                      </S.ConditionRow>
+                    )}
+                  </>
+                ) : (
+                  <S.UnlockWrapper>
+                    <span>모두 환영</span>
+                    <UnlockIcon />
+                  </S.UnlockWrapper>
                 )}
               </S.Condition>
             </S.Conditions>
@@ -137,49 +153,65 @@ const Home = () => {
             <S.Title>✅ 참가조건</S.Title>
             <S.Division />
             <S.Condition>
-              {checkRequired("femaleCondition", "AFFILIATION") && (
-                <S.ConditionRow>
-                  <span>회사/학교</span>
-                  {data?.femaleCondition.affiliation.map((item) => (
-                    <span key={item}>#{item} </span>
-                  ))}
-                </S.ConditionRow>
-              )}
-              {checkRequired("femaleCondition", "AGE") && (
-                <S.ConditionRow>
-                  <span>나이</span>
-                  <span>
-                    {data?.femaleCondition.minAge}~
-                    {data?.femaleCondition.maxAge}세 사이
-                  </span>
-                </S.ConditionRow>
-              )}
-              {checkRequired("femaleCondition", "HEIGHT") && (
-                <S.ConditionRow>
-                  <span>키</span>
-                  <span>
-                    {data?.femaleCondition.minHeight}~
-                    {data?.femaleCondition.maxHeight}cm 사이
-                  </span>
-                </S.ConditionRow>
-              )}
-              {checkRequired("femaleCondition", "SMOKING") && (
-                <S.ConditionRow>
-                  <span>흡연</span>
-                  <span>{data?.femaleCondition.smoking[0].smokingName}</span>
-                </S.ConditionRow>
-              )}
-              {checkRequired("femaleCondition", "DRINKGING") && (
-                <S.ConditionRow>
-                  <span>음주</span>
-                  <span>{data?.femaleCondition.drinking[0].drinkingName}</span>
-                </S.ConditionRow>
-              )}
-              {checkRequired("femaleCondition", "RELIGION") && (
-                <S.ConditionRow>
-                  <span>종교</span>
-                  <span>{data?.femaleCondition.religion[0].religionName}</span>
-                </S.ConditionRow>
+              {data?.femaleCondition.selectConditions &&
+              data?.femaleCondition.selectConditions.length > 0 ? (
+                <>
+                  {checkRequired("femaleCondition", "AFFILIATION") && (
+                    <S.ConditionRow>
+                      <span>회사/학교</span>
+                      {data?.femaleCondition.affiliation.map((item) => (
+                        <span key={item}>#{item} </span>
+                      ))}
+                    </S.ConditionRow>
+                  )}
+                  {checkRequired("femaleCondition", "AGE") && (
+                    <S.ConditionRow>
+                      <span>나이</span>
+                      <span>
+                        {data?.femaleCondition.minAge}~
+                        {data?.femaleCondition.maxAge}세 사이
+                      </span>
+                    </S.ConditionRow>
+                  )}
+                  {checkRequired("femaleCondition", "HEIGHT") && (
+                    <S.ConditionRow>
+                      <span>키</span>
+                      <span>
+                        {data?.femaleCondition.minHeight}~
+                        {data?.femaleCondition.maxHeight}cm 사이
+                      </span>
+                    </S.ConditionRow>
+                  )}
+                  {checkRequired("femaleCondition", "SMOKING") && (
+                    <S.ConditionRow>
+                      <span>흡연</span>
+                      <span>
+                        {data?.femaleCondition.smoking[0].smokingName}
+                      </span>
+                    </S.ConditionRow>
+                  )}
+                  {checkRequired("femaleCondition", "DRINKGING") && (
+                    <S.ConditionRow>
+                      <span>음주</span>
+                      <span>
+                        {data?.femaleCondition.drinking[0].drinkingName}
+                      </span>
+                    </S.ConditionRow>
+                  )}
+                  {checkRequired("femaleCondition", "RELIGION") && (
+                    <S.ConditionRow>
+                      <span>종교</span>
+                      <span>
+                        {data?.femaleCondition.religion[0].religionName}
+                      </span>
+                    </S.ConditionRow>
+                  )}{" "}
+                </>
+              ) : (
+                <S.UnlockWrapper>
+                  <span>모두 환영</span>
+                  <UnlockIcon />
+                </S.UnlockWrapper>
               )}
             </S.Condition>
           </S.Conditions>

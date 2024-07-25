@@ -44,5 +44,6 @@ export { ReactComponent as TagCloseWhiteIcon } from "./ic_tagCloseWhite.svg";
 export { ReactComponent as ThirtiesIcon } from "./ic_thirties.svg";
 export { ReactComponent as TwentiesIcon } from "./ic_twenties.svg";
 export { ReactComponent as UniversityStudentIcon } from "./ic_universityStudent.svg";
+export { ReactComponent as UnlockIcon } from "./ic_unlock.svg";
 export { ReactComponent as UserIcon } from "./ic_user.svg";
 export { ReactComponent as WriteIcon } from "./ic_write.svg";

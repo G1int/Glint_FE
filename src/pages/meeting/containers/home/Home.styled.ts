@@ -45,6 +45,20 @@ export const MainContent = styled.div`
   `}
 `;
 
+export const UnlockWrapper = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > span {
+      ${theme.fonts.subTitle_semibold_14};
+      width: 100%;
+      color: ${theme.colors.gray900};
+    }
+  `}
+`;
+
 export const Content = styled.div`
   height: 100%;
 `;
