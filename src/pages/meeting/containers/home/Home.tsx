@@ -2,14 +2,20 @@ import React from "react";
 import { useParams } from "react-router-dom";
 
 import { Badge, Button } from "components";
-import { useGetMeeting } from "services";
+import { useToast } from "hooks";
+import { useGetMeeting, usePostAttendMeetingRoom } from "services";
 import { PEOPEL_CAPACITY_RADIOS } from "assets";
-import * as S from "./Home.styled";
 import { Profile } from "./containers";
+import * as S from "./Home.styled";
 
 const Home = () => {
   const { meetingId } = useParams();
+  const userId = sessionStorage.getItem("id")!;
+
   const { data } = useGetMeeting(meetingId!);
+  const { mutate: mutatePostAttendMeetingRoom } = usePostAttendMeetingRoom();
+
+  const { addToast } = useToast();
 
   const maleUsers = data?.users.filter((user) => user.gender === "MALE");
   const femaleUsers = data?.users.filter((user) => user.gender === "FEMALE");
@@ -19,6 +25,19 @@ const Home = () => {
     condition: string
   ) => {
     return data?.[gender].selectConditions.includes(condition);
+  };
+
+  const handleAttendClick = () => {
+    const req = { meetingId: meetingId!, userId: userId };
+
+    mutatePostAttendMeetingRoom(req, {
+      onSuccess: () => {
+        addToast({ content: "참가신청 완료! 방장의 승인을 기다려주세요." });
+      },
+      onError: () => {
+        addToast({ content: "참가조건에 맞지 않는 미팅이에요." });
+      },
+    });
   };
 
   return (
@@ -172,7 +191,7 @@ const Home = () => {
         </S.Content>
       </S.ContentWrapper>
       <S.ButtonWrapper>
-        <Button css={S.button} variant="lgPink">
+        <Button css={S.button} variant="lgPink" onClick={handleAttendClick}>
           참가 신청
         </Button>
       </S.ButtonWrapper>

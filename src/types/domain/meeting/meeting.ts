@@ -81,3 +81,8 @@ export interface meetingListItem {
 export interface getMeetingListResponse {
   meetings: meetingListItem[];
 }
+
+export interface postAttendMeetingRoomQuery {
+  meetingId: string;
+  userId: string;
+}
