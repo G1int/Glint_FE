@@ -1,17 +1,29 @@
 import { Badge } from "components/badge";
 import * as S from "./MeetingCard.styled";
 import { meetingListItem } from "types";
+import { useNavigate } from "react-router-dom";
 
 interface MeetingCardProps {
   meetingList: meetingListItem[];
 }
 
 const MeetingCard = ({ meetingList }: MeetingCardProps) => {
+  const navigate = useNavigate();
+
+  const handleClickMeeting = (meetingId: number) => {
+    if (meetingId) {
+      navigate(`/meeting/${meetingId}`);
+    }
+  };
+
   return (
     <S.MeetingWrapper>
       {meetingList &&
         meetingList.map((item, index) => (
-          <S.MeetingContainer key={index}>
+          <S.MeetingContainer
+            key={index}
+            onClick={() => handleClickMeeting(item.meetingId)}
+          >
             <S.BadgeWrapper>
               <Badge
                 variant="smPink"
