@@ -1,4 +1,8 @@
-import type { chatsResponse, GetMeetingResponse } from "types";
+import type {
+  chatsResponse,
+  GetMeetingResponse,
+  getMeetingListResponse,
+} from "types";
 import { ax } from "./axios";
 
 export const getChatsAPI = async (roomId: string) => {
@@ -9,6 +13,23 @@ export const getChatsAPI = async (roomId: string) => {
 
 export const getMeetingAPI = async (meetingId: string) => {
   const { data } = await ax.get<GetMeetingResponse>(`meetings/${meetingId}`);
+
+  return data;
+};
+
+export const getMyMeetingAPI = async (
+  status: "WAITING" | "ACCEPTED",
+  userId: string,
+  lastMeetingId: number | null,
+  limit: number
+) => {
+  let url = `/meetings/users/${userId}?status=${status}&limit=${limit}`;
+
+  if (lastMeetingId !== null) {
+    url += `&lastMeetingId=${lastMeetingId}`;
+  }
+
+  const { data } = await ax.get<getMeetingListResponse>(url);
 
   return data;
 };

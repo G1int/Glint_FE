@@ -1,17 +1,17 @@
-import { meetingsResponse } from "types";
+import { getMeetingListResponse } from "types";
 import { ax } from "./axios";
 
 export const getMainNewMeetingsAPI = async (
-  lastId: number | null,
-  size: number
+  lastMeetingId: number | null,
+  limit: number
 ) => {
-  let url = `/meetings/new?size=${size}`;
+  let url = `/meetings/new?limit=${limit}`;
 
-  if (lastId !== null) {
-    url += `&lastId=${lastId}`;
+  if (lastMeetingId !== null) {
+    url += `&lastMeetingId=${lastMeetingId}`;
   }
 
-  const { data } = await ax.get<meetingsResponse>(url);
+  const { data } = await ax.get<getMeetingListResponse>(url);
 
   return data;
 };

@@ -57,3 +57,26 @@ export interface GetMeetingResponse {
   peopleCapacity: number;
   status: "WAITING" | "ACCEPTED";
 }
+
+export interface meetingListItem {
+  meetingId: number;
+  maleCount: number;
+  femaleCount: number;
+  maleAgeRange: {
+    minAge: number;
+    maxAge: number;
+  };
+  femaleAgeRange: {
+    minAge: number;
+    maxAge: number;
+  };
+  title: string;
+  status: "WAITING" | "ACCEPTED";
+  meetingImage: string;
+  locations: string[];
+  peopleCapacity: number;
+}
+
+export interface getMeetingListResponse {
+  meetings: meetingListItem[];
+}
