@@ -13,7 +13,6 @@ interface ProfileProps {
 const Profile = ({ leaderId, peopleCapacity, users }: ProfileProps) => {
   if (!users || !peopleCapacity) return null;
 
-  console.log(users);
   return (
     <S.ProfileWrapper>
       {users.map((user) => (
@@ -30,29 +29,33 @@ const Profile = ({ leaderId, peopleCapacity, users }: ProfileProps) => {
           </S.InfoWrapper>
         </S.Profile>
       ))}
-      {Array.from({ length: 4 - users.length }, (_, i) => (
-        <>
-          {i - (peopleCapacity - users.length) ? (
-            <S.WaitingBox key={i}>
-              <MeetingWaitingIcon />
-              <S.WaitingInfoText>
-                입장을
-                <br />
-                기다리는 중이에요
-              </S.WaitingInfoText>
-            </S.WaitingBox>
-          ) : (
-            <S.EmptyBox key={i}>
-              <InfoIcon />
-              <S.WaitingInfoText>
-                최대 참여인원이
-                <br />
-                3명으로 설정된 방이예요
-              </S.WaitingInfoText>
-            </S.EmptyBox>
-          )}
-        </>
-      ))}
+      {Array.from({ length: 4 - users.length }, (_, i) => {
+        const isLast = i === 4 - users.length - 1;
+
+        return (
+          <>
+            {!isLast ? (
+              <S.WaitingBox key={i}>
+                <MeetingWaitingIcon />
+                <S.WaitingInfoText>
+                  입장을
+                  <br />
+                  기다리는 중이에요
+                </S.WaitingInfoText>
+              </S.WaitingBox>
+            ) : (
+              <S.EmptyBox key={i}>
+                <InfoIcon />
+                <S.WaitingInfoText>
+                  최대 참여인원이
+                  <br />
+                  3명으로 설정된 방이예요
+                </S.WaitingInfoText>
+              </S.EmptyBox>
+            )}
+          </>
+        );
+      })}
     </S.ProfileWrapper>
   );
 };
