@@ -12,13 +12,16 @@ export const HomeWrapper = styled.div`
 export const ContentWrapper = styled.div`
   ${({ theme }) => css`
     height: 100%;
+    padding-bottom: 80px;
 
     & > div {
       display: flex;
       flex-direction: column;
       height: fit-content;
-      border-bottom: 8px solid ${theme.colors.gray300};
       padding: 24px 20px;
+    }
+    & > div:not(:last-of-type) {
+      border-bottom: 8px solid ${theme.colors.gray300};
     }
   `}
 `;
@@ -93,6 +96,7 @@ export const Conditions = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
+    margin-bottom: 24px;
     border-radius: 8px;
     padding: 20px;
     background-color: ${theme.colors.gray400};

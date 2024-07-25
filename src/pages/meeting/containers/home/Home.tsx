@@ -5,10 +5,14 @@ import { Badge, Button } from "components";
 import { useGetMeeting } from "services";
 import { PEOPEL_CAPACITY_RADIOS } from "assets";
 import * as S from "./Home.styled";
+import { Profile } from "./containers";
 
 const Home = () => {
   const { meetingId } = useParams();
   const { data } = useGetMeeting(meetingId!);
+
+  const maleUsers = data?.users.filter((user) => user.gender === "MALE");
+  const femaleUsers = data?.users.filter((user) => user.gender === "FEMALE");
 
   const checkRequired = (
     gender: "maleCondition" | "femaleCondition",
@@ -37,12 +41,74 @@ const Home = () => {
           <S.TitleWrapper>
             <S.Title>미팅 희망 지역</S.Title>
             <S.Desc>정확한 장소는 함께 정해보세요!</S.Desc>
-            <div>
-              {data?.locations.map((location) => (
-                <Badge key={location} variant="mdWhite" label={location} />
-              ))}
-            </div>
           </S.TitleWrapper>
+          <div>
+            {data?.locations.map((location) => (
+              <Badge key={location} variant="mdWhite" label={location} />
+            ))}
+          </div>
+        </S.Content>
+        <S.Content>
+          <div>
+            <S.TitleWrapper>
+              <S.Title>남자</S.Title>
+            </S.TitleWrapper>
+            <S.Conditions>
+              <S.Title>✅ 참가조건</S.Title>
+              <S.Division />
+              <S.Condition>
+                {checkRequired("maleCondition", "AFFILIATION") && (
+                  <S.ConditionRow>
+                    <span>회사/학교</span>
+                    {data?.maleCondition.affiliation.map((item) => (
+                      <span key={item}>#{item} </span>
+                    ))}
+                  </S.ConditionRow>
+                )}
+                {checkRequired("maleCondition", "AGE") && (
+                  <S.ConditionRow>
+                    <span>나이</span>
+                    <span>
+                      {data?.maleCondition.minAge}~{data?.maleCondition.maxAge}
+                      세 사이
+                    </span>
+                  </S.ConditionRow>
+                )}
+                {checkRequired("maleCondition", "HEIGHT") && (
+                  <S.ConditionRow>
+                    <span>키</span>
+                    <span>
+                      {data?.maleCondition.minHeight}~
+                      {data?.maleCondition.maxHeight}cm 사이
+                    </span>
+                  </S.ConditionRow>
+                )}
+                {checkRequired("maleCondition", "SMOKING") && (
+                  <S.ConditionRow>
+                    <span>흡연</span>
+                    <span>{data?.maleCondition.smoking[0].smokingName}</span>
+                  </S.ConditionRow>
+                )}
+                {checkRequired("maleCondition", "DRINKGING") && (
+                  <S.ConditionRow>
+                    <span>음주</span>
+                    <span>{data?.maleCondition.drinking[0].drinkingName}</span>
+                  </S.ConditionRow>
+                )}
+                {checkRequired("maleCondition", "RELIGION") && (
+                  <S.ConditionRow>
+                    <span>종교</span>
+                    <span>{data?.maleCondition.religion[0].religionName}</span>
+                  </S.ConditionRow>
+                )}
+              </S.Condition>
+            </S.Conditions>
+            <Profile
+              leaderId={data?.leaderUserId}
+              peopleCapacity={data?.peopleCapacity}
+              users={maleUsers}
+            />
+          </div>
         </S.Content>
         <S.Content>
           <S.TitleWrapper>
@@ -86,73 +152,23 @@ const Home = () => {
               )}
               {checkRequired("femaleCondition", "DRINKGING") && (
                 <S.ConditionRow>
-                  <span>흡연</span>
+                  <span>음주</span>
                   <span>{data?.femaleCondition.drinking[0].drinkingName}</span>
                 </S.ConditionRow>
               )}
               {checkRequired("femaleCondition", "RELIGION") && (
                 <S.ConditionRow>
-                  <span>흡연</span>
+                  <span>종교</span>
                   <span>{data?.femaleCondition.religion[0].religionName}</span>
                 </S.ConditionRow>
               )}
             </S.Condition>
           </S.Conditions>
-        </S.Content>
-        <S.Content>
-          <S.TitleWrapper>
-            <S.Title>남자</S.Title>
-          </S.TitleWrapper>
-          <S.Conditions>
-            <S.Title>✅ 참가조건</S.Title>
-            <S.Division />
-            <S.Condition>
-              {checkRequired("maleCondition", "AFFILIATION") && (
-                <S.ConditionRow>
-                  <span>회사/학교</span>
-                  {data?.maleCondition.affiliation.map((item) => (
-                    <span key={item}>#{item} </span>
-                  ))}
-                </S.ConditionRow>
-              )}
-              {checkRequired("maleCondition", "AGE") && (
-                <S.ConditionRow>
-                  <span>나이</span>
-                  <span>
-                    {data?.maleCondition.minAge}~{data?.maleCondition.maxAge}세
-                    사이
-                  </span>
-                </S.ConditionRow>
-              )}
-              {checkRequired("maleCondition", "HEIGHT") && (
-                <S.ConditionRow>
-                  <span>키</span>
-                  <span>
-                    {data?.maleCondition.minHeight}~
-                    {data?.maleCondition.maxHeight}cm 사이
-                  </span>
-                </S.ConditionRow>
-              )}
-              {checkRequired("maleCondition", "SMOKING") && (
-                <S.ConditionRow>
-                  <span>흡연</span>
-                  <span>{data?.maleCondition.smoking[0].smokingName}</span>
-                </S.ConditionRow>
-              )}
-              {checkRequired("maleCondition", "DRINKGING") && (
-                <S.ConditionRow>
-                  <span>흡연</span>
-                  <span>{data?.maleCondition.drinking[0].drinkingName}</span>
-                </S.ConditionRow>
-              )}
-              {checkRequired("maleCondition", "RELIGION") && (
-                <S.ConditionRow>
-                  <span>흡연</span>
-                  <span>{data?.maleCondition.religion[0].religionName}</span>
-                </S.ConditionRow>
-              )}
-            </S.Condition>
-          </S.Conditions>
+          <Profile
+            leaderId={data?.leaderUserId}
+            peopleCapacity={data?.peopleCapacity}
+            users={femaleUsers}
+          />
         </S.Content>
       </S.ContentWrapper>
       <S.ButtonWrapper>
