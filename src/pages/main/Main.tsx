@@ -14,12 +14,12 @@ import { useEffect, useState } from "react";
 import { meetingListItem } from "types";
 
 const Main = () => {
-  const [lastId, setLastId] = useState<number | null>(null);
+  const [lastMeetingId, setLastMeetingId] = useState<number | null>(null);
   const [meetingList, setMeetingList] = useState<meetingListItem[]>([]);
 
-  const size = 2;
+  const limit = 2;
 
-  const { data } = useGetMainNewMeetings(lastId, size);
+  const { data } = useGetMainNewMeetings(lastMeetingId, limit);
 
   const { addToast } = useToast();
 
@@ -31,7 +31,7 @@ const Main = () => {
 
   const handleMoreMeeting = () => {
     if (data?.meetings && data.meetings.length > 0) {
-      setLastId(data.meetings[data.meetings.length - 1].meetingId);
+      setLastMeetingId(data.meetings[data.meetings.length - 1].meetingId);
     }
   };
 
@@ -65,12 +65,14 @@ const Main = () => {
         <FilterIcon />
       </S.TitleWrapper>
       <MeetingCard meetingList={meetingList} />
-      {meetingList.length >= size && data && data?.meetings.length >= size && (
-        <S.More onClick={handleMoreMeeting}>
-          더보기
-          <MoreIcon />
-        </S.More>
-      )}
+      {meetingList.length >= limit &&
+        data &&
+        data?.meetings.length >= limit && (
+          <S.More onClick={handleMoreMeeting}>
+            더보기
+            <MoreIcon />
+          </S.More>
+        )}
       <Button variant="icon" css={S.addIcon}>
         <AddIcon />
       </Button>
