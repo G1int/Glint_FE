@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useGetKakaoInfo, useGetUser } from "services/user";
+import * as P from "pages";
 
 const Auth = () => {
   const navigate = useNavigate();
@@ -46,8 +47,7 @@ const Auth = () => {
     }
   }, [sessionId, user, userError]);
 
-  // TODO: Spinner 추가?
-  return <div>login</div>;
+  return <P.Loading />;
 };
 
 export default Auth;
