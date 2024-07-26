@@ -12,13 +12,16 @@ export const HomeWrapper = styled.div`
 export const ContentWrapper = styled.div`
   ${({ theme }) => css`
     height: 100%;
+    padding-bottom: 80px;
 
     & > div {
       display: flex;
       flex-direction: column;
       height: fit-content;
-      border-bottom: 8px solid ${theme.colors.gray300};
       padding: 24px 20px;
+    }
+    & > div:not(:last-of-type) {
+      border-bottom: 8px solid ${theme.colors.gray300};
     }
   `}
 `;
@@ -38,6 +41,20 @@ export const MainContent = styled.div`
 
     span:last-of-type {
       ${theme.fonts.subTitle_regular_14};
+    }
+  `}
+`;
+
+export const UnlockWrapper = styled.div`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > span {
+      ${theme.fonts.subTitle_semibold_14};
+      width: 100%;
+      color: ${theme.colors.gray900};
     }
   `}
 `;
@@ -93,6 +110,7 @@ export const Conditions = styled.div`
   ${({ theme }) => css`
     display: flex;
     flex-direction: column;
+    margin-bottom: 24px;
     border-radius: 8px;
     padding: 20px;
     background-color: ${theme.colors.gray400};

@@ -1,8 +1,9 @@
-import {
-  type chatsResponse,
-  type GetMeetingResponse,
-  type getMeetingListResponse,
-  type getSearchMeetingResponse,
+import type {
+  chatsResponse,
+  GetMeetingResponse,
+  getMeetingListResponse,
+  getSearchMeetingResponse,
+  postAttendMeetingRoomQuery,
 } from "types";
 import { ax } from "./axios";
 
@@ -55,6 +56,16 @@ export const getSearchMeetingAPI = async (
     {
       params: params,
     }
+  );
+
+  return data;
+};
+
+export const postAttendMeetingRoomAPI = async (
+  req: postAttendMeetingRoomQuery
+) => {
+  const { data } = await ax.post(
+    `/meetings/${req.meetingId}/join/users/${req.userId}`
   );
 
   return data;

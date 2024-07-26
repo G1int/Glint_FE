@@ -1,12 +1,15 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 import {
   getChatsAPI,
   getMeetingAPI,
   getMyMeetingAPI,
   getSearchMeetingAPI,
+  postAttendMeetingRoomAPI,
 } from "apis";
+
 import {
+  type postAttendMeetingRoomQuery,
   type chatsResponse,
   type getMeetingListResponse,
   type getSearchMeetingResponse,
@@ -49,5 +52,12 @@ export const useGetSearchMeeting = (
     queryKey: ["searchMeeting", keyword, limit, lastMeetingId, userId],
     queryFn: () => getSearchMeetingAPI(keyword, limit, lastMeetingId, userId),
     enabled: false,
+  });
+};
+
+export const usePostAttendMeetingRoom = () => {
+  return useMutation({
+    mutationFn: (req: postAttendMeetingRoomQuery) =>
+      postAttendMeetingRoomAPI(req),
   });
 };
