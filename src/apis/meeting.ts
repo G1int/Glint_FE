@@ -1,7 +1,8 @@
-import type {
-  chatsResponse,
-  GetMeetingResponse,
-  getMeetingListResponse,
+import {
+  type chatsResponse,
+  type GetMeetingResponse,
+  type getMeetingListResponse,
+  type getSearchMeetingResponse,
 } from "types";
 import { ax } from "./axios";
 
@@ -34,10 +35,11 @@ export const getMyMeetingAPI = async (
   return data;
 };
 
-export const getSearchMeeting = async (
+export const getSearchMeetingAPI = async (
   keyword: string,
   limit: number,
-  lastMeetingId: number | null
+  lastMeetingId: number | null,
+  userId: string
 ) => {
   const params: { keyword: string; limit: number; lastMeetingId?: number } = {
     keyword: keyword,
@@ -48,9 +50,12 @@ export const getSearchMeeting = async (
     params.lastMeetingId = lastMeetingId;
   }
 
-  const { data } = await ax.get<getMeetingListResponse>(`/meetings/search`, {
-    params: params,
-  });
+  const { data } = await ax.get<getSearchMeetingResponse>(
+    `/meetings/search?userId=${userId}`,
+    {
+      params: params,
+    }
+  );
 
   return data;
 };
