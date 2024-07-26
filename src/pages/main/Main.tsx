@@ -12,8 +12,11 @@ import { useToast } from "hooks";
 import { useGetMainNewMeetings } from "services";
 import { useEffect, useState } from "react";
 import { meetingListItem } from "types";
+import { useNavigate } from "react-router-dom";
 
 const Main = () => {
+  const navigate = useNavigate();
+
   const [lastMeetingId, setLastMeetingId] = useState<number | null>(null);
   const [meetingList, setMeetingList] = useState<meetingListItem[]>([]);
 
@@ -32,6 +35,12 @@ const Main = () => {
   const handleMoreMeeting = () => {
     if (data?.meetings && data.meetings.length > 0) {
       setLastMeetingId(data.meetings[data.meetings.length - 1].meetingId);
+    }
+  };
+
+  const handleClickKeyword = (keyword: string) => {
+    if (keyword) {
+      navigate("/search", { state: keyword });
     }
   };
 
@@ -54,7 +63,10 @@ const Main = () => {
       </Header>
       <S.MainIconContainer>
         {mainIconList.map((item, index) => (
-          <S.MainIconWrapper key={index}>
+          <S.MainIconWrapper
+            key={index}
+            onClick={() => handleClickKeyword(item.text)}
+          >
             {item.image}
             {item.text}
           </S.MainIconWrapper>
@@ -73,7 +85,11 @@ const Main = () => {
             <MoreIcon />
           </S.More>
         )}
-      <Button variant="icon" css={S.addIcon}>
+      <Button
+        variant="icon"
+        css={S.addIcon}
+        onClick={() => navigate("/createRoom")}
+      >
         <AddIcon />
       </Button>
     </S.Content>

@@ -47,6 +47,7 @@ export const ButtonWrapper = styled.span`
 export const searchIcon = css`
   position: absolute;
   right: 6px;
+  top: 0px;
 `;
 
 export const PopularSearchWrapper = styled.div`
@@ -97,6 +98,7 @@ export const CurrentSearchItem = styled.div`
     height: 20px;
     width: 312px;
     align-items: center;
+    cursor: pointer;
   `}
 `;
 
@@ -128,5 +130,16 @@ export const Highlight = styled.span`
   ${({ theme }) => css`
     ${theme.fonts.subTitle_semibold_14};
     color: ${theme.colors.pink900};
+  `}
+`;
+
+export const More = styled.div`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_semibold_16};
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
   `}
 `;

@@ -1,42 +1,75 @@
-import { Badge, Input, LocationModal, MeetingCard } from "components";
+import { useEffect, useState } from "react";
+import { Badge, Button, Input, LocationModal, MeetingCard } from "components";
+import { CircleCloseIcon, FilterIcon, MoreIcon, SearchBlackIcon } from "assets";
+import {
+  useDeleteCurrentSearchKeyword,
+  useGetCurrentSearchKeyword,
+  useGetSearchMeeting,
+} from "services";
+import { meetingListItem } from "types";
+import { useModal, useToast } from "hooks";
 import * as S from "./Search.styled";
-import { CircleCloseIcon, FilterIcon, SearchBlackIcon } from "assets";
-import { useState } from "react";
-import Img from "assets/images/img_01.jpg";
-import { useModal } from "hooks";
+import { useRecoilValue } from "recoil";
+import { userIdSelector } from "atoms";
+import { useLocation } from "react-router-dom";
+
 const Search = () => {
-  const { handleOpenModal, handleCloseModal } = useModal();
-  // TODO: 예시코드-api연동 후 삭제
-  const [meetings, setMeetings] = useState<Array<{ id: number; img: string }>>([
-    { id: 1, img: Img },
-    { id: 2, img: Img },
-    { id: 3, img: Img },
-    { id: 4, img: Img },
-    { id: 5, img: Img },
-    { id: 6, img: Img },
-    { id: 7, img: Img },
-    { id: 8, img: Img },
-    { id: 9, img: Img },
-    { id: 10, img: Img },
-  ]);
-  const [searchList, setSearchList] = useState<string[]>([]);
-  const [searchItem, setSearchItem] = useState("");
+  const { state } = useLocation();
+
+  const [keyword, setKeyword] = useState("");
+  const [lastMeetingId, setLastMeetingId] = useState<number | null>(null);
+  const [meetingList, setMeetingList] = useState<meetingListItem[]>([]);
   const [isSearching, setIsSearching] = useState(false);
 
+  const limit = 3;
+  const userId = useRecoilValue(userIdSelector);
+
+  const { data, refetch } = useGetSearchMeeting(
+    keyword,
+    limit,
+    lastMeetingId,
+    userId!
+  );
+  const { data: searchKeyword, refetch: searchKeywordRefetch } =
+    useGetCurrentSearchKeyword(userId!, null);
+  const { mutate: deleteSearchKeywordMutation } =
+    useDeleteCurrentSearchKeyword();
+
+  const { handleOpenModal, handleCloseModal } = useModal();
+  const { addToast } = useToast();
+
   const handleSearch = () => {
-    if (searchItem && !searchList.includes(searchItem)) {
-      setSearchList([...searchList, searchItem]);
+    if (!keyword) {
+      addToast({ content: "검색어를 입력해주세요." });
+    } else {
+      setIsSearching(true);
+      setLastMeetingId(null);
     }
-    setIsSearching(true);
   };
 
   const handleClearSearch = () => {
-    setSearchItem("");
+    setKeyword("");
     setIsSearching(false);
+    setMeetingList([]);
+    setLastMeetingId(null);
+    searchKeywordRefetch();
   };
 
-  const handleDelete = (index: number) => {
-    setSearchList(searchList.filter((_, i) => i !== index));
+  const handleCurrentKeyword = (currentKeyword: string) => {
+    setKeyword(currentKeyword);
+    setIsSearching(true);
+    setMeetingList([]);
+    setLastMeetingId(null);
+  };
+
+  const handleDeleteKeyword = (keywordId: number) => {
+    deleteSearchKeywordMutation(keywordId);
+  };
+
+  const handleMoreMeeting = () => {
+    if (data && data.meetings && data.meetings.length > 0) {
+      setLastMeetingId(data.meetings[data.meetings.length - 1].meetingId);
+    }
   };
 
   const handleFilter = () => {
@@ -52,32 +85,74 @@ const Search = () => {
       />
     );
   };
+
+  useEffect(() => {
+    if (data && data.meetings) {
+      setMeetingList((prevMeetings) => [...prevMeetings, ...data.meetings]);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    // Main에서 키워드 누르고 들어올 때
+    if (state) {
+      setKeyword(state);
+      setIsSearching(true);
+    }
+  }, [state]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        await refetch();
+      } catch (error) {
+        addToast({
+          content: "데이터 호출에 문제가 생겼습니다.다시 시도해주세요.",
+        });
+        console.error("검색 API 호출 중 오류 발생:", error);
+      }
+    };
+
+    if ((isSearching && keyword) || lastMeetingId) {
+      fetchData();
+    }
+  }, [isSearching, keyword, lastMeetingId]);
+
   return isSearching ? (
     <>
       <S.SearchContainer>
         <S.InputContainer>
           <Input
             css={S.input}
-            value={searchItem}
-            handleChange={(e) => setSearchItem(e.target.value)}
+            value={keyword}
+            handleChange={(e) => setKeyword(e.target.value.toString())}
             placeholder="검색어를 입력해주세요."
           />
           <S.ButtonWrapper>
-            <CircleCloseIcon onClick={handleClearSearch} />
-            <SearchBlackIcon onClick={handleSearch} />
+            <Button variant="icon" onClick={handleClearSearch}>
+              <CircleCloseIcon />
+            </Button>
+            <Button variant="icon" onClick={handleSearch}>
+              <SearchBlackIcon />
+            </Button>
           </S.ButtonWrapper>
         </S.InputContainer>
       </S.SearchContainer>
       <S.SearchSubResult>
-        <S.Highlight>109</S.Highlight>건
+        <S.Highlight>{data?.totalCount}</S.Highlight>건
         <S.FilterWrapper>
           미팅 희망 지역
           <FilterIcon onClick={handleFilter} />
         </S.FilterWrapper>
       </S.SearchSubResult>
-      {/* <S.SearchResultContainer> //TODO: 에러나서 주석처리
-        <MeetingCard count={5} meetingList={meetings} />
-      </S.SearchResultContainer> */}
+      <S.SearchResultContainer>
+        <MeetingCard meetingList={meetingList} />
+        {data && data.totalCount > meetingList.length && (
+          <S.More onClick={handleMoreMeeting}>
+            더보기
+            <MoreIcon />
+          </S.More>
+        )}
+      </S.SearchResultContainer>
     </>
   ) : (
     <>
@@ -85,29 +160,40 @@ const Search = () => {
         <S.InputContainer>
           <Input
             css={S.input}
-            handleChange={(e) => setSearchItem(e.target.value)}
+            handleChange={(e) => setKeyword(e.target.value.toString())}
             placeholder="검색어를 입력해주세요."
-            value={searchItem}
+            value={keyword}
           />
-          <SearchBlackIcon css={S.searchIcon} onClick={handleSearch} />
+          <Button variant="icon" onClick={handleSearch}>
+            <SearchBlackIcon css={S.searchIcon} />
+          </Button>
         </S.InputContainer>
       </S.SearchContainer>
       <S.PopularSearchWrapper>
         <S.Title>인기검색어</S.Title>
         <S.BadgeWrapper>
+          {/* TODO: 인기검색어 확인 */}
           {["대기업", "스타트업", "4:4", "전문직"].map((item, index) => (
-            <Badge label={item} key={index} variant="mdWhite" css={S.badge} />
+            <Badge
+              label={item}
+              key={index}
+              variant="mdWhite"
+              css={S.badge}
+              handleClick={() => handleCurrentKeyword(item)}
+            />
           ))}
         </S.BadgeWrapper>
       </S.PopularSearchWrapper>
       <S.Line />
       <S.CurrentSearchWrapper>
         <S.Title>최근검색어</S.Title>
-        {searchList.length > 0 ? (
-          searchList.map((item, index) => (
+        {searchKeyword && searchKeyword?.searchKeywords.length > 0 ? (
+          searchKeyword?.searchKeywords.map((item, index) => (
             <S.CurrentSearchItem key={index}>
-              {item}
-              <CircleCloseIcon onClick={() => handleDelete(index)} />
+              <span onClick={() => handleCurrentKeyword(item.keyword)}>
+                {item.keyword}
+              </span>
+              <CircleCloseIcon onClick={() => handleDeleteKeyword(item.id)} />
             </S.CurrentSearchItem>
           ))
         ) : (
