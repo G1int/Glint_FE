@@ -20,7 +20,6 @@ const Search = () => {
   const [lastMeetingId, setLastMeetingId] = useState<number | null>(null);
   const [meetingList, setMeetingList] = useState<meetingListItem[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [keywordId, setKeywordId] = useState<number>();
 
   const limit = 3;
   const userId = useRecoilValue(userIdSelector);
@@ -33,8 +32,7 @@ const Search = () => {
   );
   const { data: searchKeyword, refetch: searchKeywordRefetch } =
     useGetCurrentSearchKeyword(userId!, null);
-  const { data: deleteSearchKeyword, refetch: deleteSearchKeywordRefetch } =
-    useDeleteCurrentSearchKeyword(keywordId!);
+  const deleteSearchKeywordMutation = useDeleteCurrentSearchKeyword();
 
   const { handleOpenModal, handleCloseModal } = useModal();
   const { addToast } = useToast();
@@ -63,8 +61,8 @@ const Search = () => {
     setLastMeetingId(null);
   };
 
-  const handleDelete = (keywordId: number) => {
-    setKeywordId(keywordId);
+  const handleDeleteKeyword = (keywordId: number) => {
+    deleteSearchKeywordMutation.mutate(keywordId);
   };
 
   const handleMoreMeeting = () => {
@@ -100,16 +98,6 @@ const Search = () => {
       setIsSearching(true);
     }
   }, [state]);
-
-  useEffect(() => {
-    if (keywordId) {
-      deleteSearchKeywordRefetch();
-    }
-    if (deleteSearchKeyword !== undefined) {
-      // 최근검색어 삭제 후 최근검색어 리스트 다시불러오기
-      searchKeywordRefetch();
-    }
-  }, [keywordId, deleteSearchKeyword]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -204,7 +192,7 @@ const Search = () => {
               <span onClick={() => handleCurrentKeyword(item.keyword)}>
                 {item.keyword}
               </span>
-              <CircleCloseIcon onClick={() => handleDelete(item.id)} />
+              <CircleCloseIcon onClick={() => handleDeleteKeyword(item.id)} />
             </S.CurrentSearchItem>
           ))
         ) : (

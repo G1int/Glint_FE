@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { deleteCurrentKeywordAPI, getCurrentSearchKeywordAPI } from "apis";
 import { type getCurrentSearchKeywordResponse } from "types";
 
@@ -13,10 +13,18 @@ export const useGetCurrentSearchKeyword = (
   });
 };
 
-export const useDeleteCurrentSearchKeyword = (searchKeywordId: number) => {
-  return useQuery({
-    queryKey: ["deleteCurrentKeyword", searchKeywordId],
-    queryFn: () => deleteCurrentKeywordAPI(searchKeywordId),
-    enabled: !!searchKeywordId,
+export const useDeleteCurrentSearchKeyword = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (searchKeywordId: number) =>
+      deleteCurrentKeywordAPI(searchKeywordId),
+    onSuccess: () => {
+      // 성공 시, currentKeyword 무효화 -> 업데이트
+      queryClient.invalidateQueries({ queryKey: ["currentKeyword"] });
+    },
+    onError: (error) => {
+      console.error("Failed to delete search keyword:", error);
+    },
   });
 };
