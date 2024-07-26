@@ -1,21 +1,40 @@
 import { useEffect, useState } from "react";
 import { Badge, Button, Input, LocationModal, MeetingCard } from "components";
 import { CircleCloseIcon, FilterIcon, MoreIcon, SearchBlackIcon } from "assets";
-import { useGetSearchMeeting } from "services";
+import {
+  useDeleteCurrentSearchKeyword,
+  useGetCurrentSearchKeyword,
+  useGetSearchMeeting,
+} from "services";
 import { meetingListItem } from "types";
 import { useModal, useToast } from "hooks";
 import * as S from "./Search.styled";
+import { useRecoilValue } from "recoil";
+import { userIdSelector } from "atoms";
+import { useLocation } from "react-router-dom";
 
 const Search = () => {
+  const { state } = useLocation();
+
   const [keyword, setKeyword] = useState("");
   const [lastMeetingId, setLastMeetingId] = useState<number | null>(null);
   const [meetingList, setMeetingList] = useState<meetingListItem[]>([]);
-  const [searchList, setSearchList] = useState<string[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [keywordId, setKeywordId] = useState<number>();
 
   const limit = 3;
+  const userId = useRecoilValue(userIdSelector);
 
-  const { data, refetch } = useGetSearchMeeting(keyword, limit, lastMeetingId);
+  const { data, refetch } = useGetSearchMeeting(
+    keyword,
+    limit,
+    lastMeetingId,
+    userId!
+  );
+  const { data: searchKeyword, refetch: searchKeywordRefetch } =
+    useGetCurrentSearchKeyword(userId!, null);
+  const { data: deleteSearchKeyword, refetch: deleteSearchKeywordRefetch } =
+    useDeleteCurrentSearchKeyword(keywordId!);
 
   const { handleOpenModal, handleCloseModal } = useModal();
   const { addToast } = useToast();
@@ -24,9 +43,6 @@ const Search = () => {
     if (!keyword) {
       addToast({ content: "검색어를 입력해주세요." });
     } else {
-      if (keyword && !searchList.includes(keyword)) {
-        setSearchList([...searchList, keyword]);
-      }
       setIsSearching(true);
       setLastMeetingId(null);
     }
@@ -37,6 +53,7 @@ const Search = () => {
     setIsSearching(false);
     setMeetingList([]);
     setLastMeetingId(null);
+    searchKeywordRefetch();
   };
 
   const handleCurrentKeyword = (currentKeyword: string) => {
@@ -46,11 +63,11 @@ const Search = () => {
     setLastMeetingId(null);
   };
 
-  const handleDelete = (index: number) => {
-    setSearchList(searchList.filter((_, i) => i !== index));
+  const handleDelete = (keywordId: number) => {
+    setKeywordId(keywordId);
   };
 
-  const handleMore = () => {
+  const handleMoreMeeting = () => {
     if (data && data.meetings && data.meetings.length > 0) {
       setLastMeetingId(data.meetings[data.meetings.length - 1].meetingId);
     }
@@ -75,6 +92,24 @@ const Search = () => {
       setMeetingList((prevMeetings) => [...prevMeetings, ...data.meetings]);
     }
   }, [data]);
+
+  useEffect(() => {
+    // Main에서 키워드 누르고 들어올 때
+    if (state) {
+      setKeyword(state);
+      setIsSearching(true);
+    }
+  }, [state]);
+
+  useEffect(() => {
+    if (keywordId) {
+      deleteSearchKeywordRefetch();
+    }
+    if (deleteSearchKeyword !== undefined) {
+      // 최근검색어 삭제 후 최근검색어 리스트 다시불러오기
+      searchKeywordRefetch();
+    }
+  }, [keywordId, deleteSearchKeyword]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -114,7 +149,7 @@ const Search = () => {
         </S.InputContainer>
       </S.SearchContainer>
       <S.SearchSubResult>
-        <S.Highlight>{meetingList.length}</S.Highlight>건
+        <S.Highlight>{data?.totalCount}</S.Highlight>건
         <S.FilterWrapper>
           미팅 희망 지역
           <FilterIcon onClick={handleFilter} />
@@ -122,14 +157,12 @@ const Search = () => {
       </S.SearchSubResult>
       <S.SearchResultContainer>
         <MeetingCard meetingList={meetingList} />
-        {meetingList.length >= limit &&
-          data &&
-          data?.meetings.length >= limit && (
-            <S.More onClick={handleMore}>
-              더보기
-              <MoreIcon />
-            </S.More>
-          )}
+        {data && data.totalCount > meetingList.length && (
+          <S.More onClick={handleMoreMeeting}>
+            더보기
+            <MoreIcon />
+          </S.More>
+        )}
       </S.SearchResultContainer>
     </>
   ) : (
@@ -152,18 +185,26 @@ const Search = () => {
         <S.BadgeWrapper>
           {/* TODO: 인기검색어 확인 */}
           {["대기업", "스타트업", "4:4", "전문직"].map((item, index) => (
-            <Badge label={item} key={index} variant="mdWhite" css={S.badge} />
+            <Badge
+              label={item}
+              key={index}
+              variant="mdWhite"
+              css={S.badge}
+              handleClick={() => handleCurrentKeyword(item)}
+            />
           ))}
         </S.BadgeWrapper>
       </S.PopularSearchWrapper>
       <S.Line />
       <S.CurrentSearchWrapper>
         <S.Title>최근검색어</S.Title>
-        {searchList.length > 0 ? (
-          searchList.map((item, index) => (
+        {searchKeyword && searchKeyword?.searchKeywords.length > 0 ? (
+          searchKeyword?.searchKeywords.map((item, index) => (
             <S.CurrentSearchItem key={index}>
-              <span onClick={() => handleCurrentKeyword(item)}>{item}</span>
-              <CircleCloseIcon onClick={() => handleDelete(index)} />
+              <span onClick={() => handleCurrentKeyword(item.keyword)}>
+                {item.keyword}
+              </span>
+              <CircleCloseIcon onClick={() => handleDelete(item.id)} />
             </S.CurrentSearchItem>
           ))
         ) : (
