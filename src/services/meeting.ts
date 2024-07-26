@@ -4,12 +4,15 @@ import {
   getChatsAPI,
   getMeetingAPI,
   getMyMeetingAPI,
+  getSearchMeetingAPI,
   postAttendMeetingRoomAPI,
 } from "apis";
-import type {
-  chatsResponse,
-  getMeetingListResponse,
-  postAttendMeetingRoomQuery,
+
+import {
+  type postAttendMeetingRoomQuery,
+  type chatsResponse,
+  type getMeetingListResponse,
+  type getSearchMeetingResponse,
 } from "types";
 
 export const useGetChats = (roomId: string) => {
@@ -36,6 +39,19 @@ export const useGetMyMeeting = (
     queryKey: ["myMeeting", status, userId, lastMeetingId, limit],
     queryFn: () => getMyMeetingAPI(status, userId, lastMeetingId, limit),
     enabled: !!status && !!userId && !!limit,
+  });
+};
+
+export const useGetSearchMeeting = (
+  keyword: string,
+  limit: number,
+  lastMeetingId: number | null,
+  userId: string
+) => {
+  return useQuery<getSearchMeetingResponse>({
+    queryKey: ["searchMeeting", keyword, limit, lastMeetingId, userId],
+    queryFn: () => getSearchMeetingAPI(keyword, limit, lastMeetingId, userId),
+    enabled: false,
   });
 };
 

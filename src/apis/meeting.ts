@@ -2,6 +2,7 @@ import type {
   chatsResponse,
   GetMeetingResponse,
   getMeetingListResponse,
+  getSearchMeetingResponse,
   postAttendMeetingRoomQuery,
 } from "types";
 import { ax } from "./axios";
@@ -31,6 +32,31 @@ export const getMyMeetingAPI = async (
   }
 
   const { data } = await ax.get<getMeetingListResponse>(url);
+
+  return data;
+};
+
+export const getSearchMeetingAPI = async (
+  keyword: string,
+  limit: number,
+  lastMeetingId: number | null,
+  userId: string
+) => {
+  const params: { keyword: string; limit: number; lastMeetingId?: number } = {
+    keyword: keyword,
+    limit: limit,
+  };
+
+  if (lastMeetingId !== null) {
+    params.lastMeetingId = lastMeetingId;
+  }
+
+  const { data } = await ax.get<getSearchMeetingResponse>(
+    `/meetings/search?userId=${userId}`,
+    {
+      params: params,
+    }
+  );
 
   return data;
 };

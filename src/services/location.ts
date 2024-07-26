@@ -1,17 +1,17 @@
 import { useQuery } from "@tanstack/react-query";
-import { getCitiesApi, getStatesApi } from "apis/location";
+import { getCitiesAPI, getStatesAPI } from "apis";
 
 export const useGetStates = () => {
   return useQuery({
     queryKey: ["states"],
-    queryFn: () => getStatesApi(),
+    queryFn: () => getStatesAPI(),
   });
 };
 
 export const useGetCities = (state: string) => {
   return useQuery({
     queryKey: ["cities", state],
-    queryFn: () => getCitiesApi(state),
+    queryFn: () => getCitiesAPI(state),
     enabled: !!state,
   });
 };
