@@ -86,3 +86,20 @@ export interface postAttendMeetingRoomQuery {
   meetingId: string;
   userId: string;
 }
+
+export interface getMeetingJoinsQuery {
+  meetingId: string;
+  query?: { lastJoinMeetingId: string };
+}
+
+export interface getMeetingJoinsResponse {
+  userJoinMeetings: {
+    joinMeetingId: number;
+    userId: number;
+    profileImage: string;
+    nickname: string;
+    age: number;
+    gender: (typeof GENDER_RADIOS)[number]["key"];
+    affiliation: string;
+  }[];
+}

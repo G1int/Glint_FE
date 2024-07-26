@@ -31,6 +31,7 @@ export const UserInfo = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
+  margin-left: 12px;
 `;
 
 export const Name = styled.span`
@@ -48,4 +49,11 @@ export const Job = styled.span`
 export const ButtonWrapper = styled.div`
   display: flex;
   column-gap: 8px;
+`;
+
+export const Img = styled.img`
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
 `;
