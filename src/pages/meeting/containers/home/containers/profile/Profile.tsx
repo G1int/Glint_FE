@@ -33,9 +33,9 @@ const Profile = ({ leaderId, peopleCapacity, users }: ProfileProps) => {
         const isLast = i === 4 - users.length - 1;
 
         return (
-          <>
+          <React.Fragment key={i}>
             {!isLast ? (
-              <S.WaitingBox key={i}>
+              <S.WaitingBox>
                 <MeetingWaitingIcon />
                 <S.WaitingInfoText>
                   입장을
@@ -44,7 +44,7 @@ const Profile = ({ leaderId, peopleCapacity, users }: ProfileProps) => {
                 </S.WaitingInfoText>
               </S.WaitingBox>
             ) : (
-              <S.EmptyBox key={i}>
+              <S.EmptyBox>
                 <InfoIcon />
                 <S.WaitingInfoText>
                   최대 참여인원이
@@ -53,7 +53,7 @@ const Profile = ({ leaderId, peopleCapacity, users }: ProfileProps) => {
                 </S.WaitingInfoText>
               </S.EmptyBox>
             )}
-          </>
+          </React.Fragment>
         );
       })}
     </S.ProfileWrapper>
