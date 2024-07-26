@@ -49,6 +49,7 @@ export interface GetMeetingResponse {
       nickname: string;
       gender: (typeof GENDER_RADIOS)[number]["key"];
       affiliation: string;
+      age: number;
     }
   ];
   locations: string[];
@@ -79,4 +80,9 @@ export interface meetingListItem {
 
 export interface getMeetingListResponse {
   meetings: meetingListItem[];
+}
+
+export interface postAttendMeetingRoomQuery {
+  meetingId: string;
+  userId: string;
 }

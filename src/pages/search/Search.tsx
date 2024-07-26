@@ -75,9 +75,9 @@ const Search = () => {
           <FilterIcon onClick={handleFilter} />
         </S.FilterWrapper>
       </S.SearchSubResult>
-      <S.SearchResultContainer>
+      {/* <S.SearchResultContainer> //TODO: 에러나서 주석처리
         <MeetingCard count={5} meetingList={meetings} />
-      </S.SearchResultContainer>
+      </S.SearchResultContainer> */}
     </>
   ) : (
     <>
