@@ -1,9 +1,10 @@
+import { buttonVariant } from "types";
 import * as S from "./Button.styled";
 
 interface ButtonProps {
   className?: string;
   children?: React.ReactNode;
-  variant?: "smPink" | "mdPink" | "lgPink" | "mdWhite" | "underline" | "icon";
+  variant?: buttonVariant;
   disabled?: boolean;
   onClick?: () => void;
 }
