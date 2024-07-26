@@ -2,13 +2,11 @@ import { useQuery } from "@tanstack/react-query";
 
 import {
   getChatsAPI,
-  getCurrentSearchKeyword,
   getMeetingAPI,
   getMyMeetingAPI,
-  getSearchMeeting,
+  getSearchMeetingAPI,
 } from "apis";
 import {
-  getCurrentSearchKeywordResponse,
   type chatsResponse,
   type getMeetingListResponse,
   type getSearchMeetingResponse,
@@ -49,18 +47,7 @@ export const useGetSearchMeeting = (
 ) => {
   return useQuery<getSearchMeetingResponse>({
     queryKey: ["searchMeeting", keyword, limit, lastMeetingId, userId],
-    queryFn: () => getSearchMeeting(keyword, limit, lastMeetingId, userId),
+    queryFn: () => getSearchMeetingAPI(keyword, limit, lastMeetingId, userId),
     enabled: false,
-  });
-};
-
-export const useGetCurrentSearchKeyword = (
-  userId: string,
-  limit: number | null
-) => {
-  return useQuery<getCurrentSearchKeywordResponse>({
-    queryKey: ["currentKeyword", userId, limit],
-    queryFn: () => getCurrentSearchKeyword(userId, limit),
-    enabled: !!userId,
   });
 };
