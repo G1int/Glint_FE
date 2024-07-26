@@ -1,11 +1,17 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 
 import { BackLayout, Tab } from "components";
-import { Application, Chatting, Home } from "./containers";
+import { useGetMeeting } from "services";
 import * as S from "./Meeting.styled";
+import { Application, Chatting, Home } from "./containers";
 
 const Meeting = () => {
-  const isOwner = false;
+  const { meetingId } = useParams();
+  const userId = sessionStorage.getItem("id")!;
+  const { data } = useGetMeeting(meetingId!);
+
+  const isOwner = `${data?.leaderUserId}` === userId;
 
   const tabs = [
     { label: "홈", query: "home", component: <Home /> },
