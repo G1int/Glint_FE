@@ -80,3 +80,19 @@ export interface meetingListItem {
 export interface getMeetingListResponse {
   meetings: meetingListItem[];
 }
+
+export interface getSearchMeetingResponse {
+  meetings: meetingListItem[];
+  totalCount: number;
+}
+
+export interface getCurrentSearchKeywordItem {
+  id: number;
+  keyword: string;
+  userId: string;
+  createAt: string;
+}
+
+export interface getCurrentSearchKeywordResponse {
+  searchKeywords: getCurrentSearchKeywordItem[];
+}
