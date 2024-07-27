@@ -8,11 +8,13 @@ import { formatDateTime } from "utils";
 import { SOCKET_URL } from "config";
 import type { chatsResponseItem } from "types";
 import * as S from "./Chatting.styled";
+import { ChatIcon } from "assets";
 
 interface ChattingProps {
   meetingId?: string;
+  isJoined: boolean;
 }
-const Chatting = ({ meetingId }: ChattingProps) => {
+const Chatting = ({ meetingId, isJoined }: ChattingProps) => {
   const [chatMessageList, setChatMessageList] = useState<chatsResponseItem[]>(
     []
   );
@@ -91,51 +93,66 @@ const Chatting = ({ meetingId }: ChattingProps) => {
   }, [chatMessageList]);
 
   return (
-    <S.Chatting>
-      <S.ChatBox>
-        <S.ChatInfo>
-          대화는 모든 인원이 모이면 시작해주세요.
-          <br />
-          간단한 인사를 나눈 후에 시간과 장소를 정해보세요.
-          <br />
-          깊은 대화는 직접 만나서 나누길 추천드려요.
-        </S.ChatInfo>
-        <S.ChatList>
-          {chatMessageList?.map((msg, idx) => (
-            <S.ChatMessageBox
-              key={idx}
-              ref={listRef}
-              isMe={isMyChat(msg.userId)}
-            >
-              {!isMyChat(msg.userId) && (
-                <S.Img src={msg.userProfileImageUrl ?? ""} />
-              )}
-              <S.ChatInfoBox isMe={isMyChat(msg.userId)}>
-                {!isMyChat(msg.userId) && <S.Name>{msg.nickname}</S.Name>}
-                <S.ChatContent isMe={isMyChat(msg.userId)}>
-                  {msg.message}
-                </S.ChatContent>
-                <S.Date isMe={isMyChat(msg.userId)}>
-                  {formatDateTime(msg.sendDate)}
-                </S.Date>
-              </S.ChatInfoBox>
-            </S.ChatMessageBox>
-          ))}
-        </S.ChatList>
-      </S.ChatBox>
-      <S.InputWrapper>
-        <Input
-          css={S.input}
-          type="text"
-          value={newMessage}
-          placeholder="메세지를 입력해주세요."
-          handleChange={(e) => setNewMessage(e.target.value)}
-        />
-        <Button variant="smPink" onClick={sendMessage}>
-          전송
-        </Button>
-      </S.InputWrapper>
-    </S.Chatting>
+    <>
+      {isJoined ? (
+        <S.Chatting>
+          <S.ChatBox>
+            <S.ChatInfo>
+              대화는 모든 인원이 모이면 시작해주세요.
+              <br />
+              간단한 인사를 나눈 후에 시간과 장소를 정해보세요.
+              <br />
+              깊은 대화는 직접 만나서 나누길 추천드려요.
+            </S.ChatInfo>
+            <S.ChatList>
+              {chatMessageList?.map((msg, idx) => (
+                <S.ChatMessageBox
+                  key={idx}
+                  ref={listRef}
+                  isMe={isMyChat(msg.userId)}
+                >
+                  {!isMyChat(msg.userId) && (
+                    <S.Img src={msg.userProfileImageUrl ?? ""} />
+                  )}
+                  <S.ChatInfoBox isMe={isMyChat(msg.userId)}>
+                    {!isMyChat(msg.userId) && <S.Name>{msg.nickname}</S.Name>}
+                    <S.ChatContent isMe={isMyChat(msg.userId)}>
+                      {msg.message}
+                    </S.ChatContent>
+                    <S.Date isMe={isMyChat(msg.userId)}>
+                      {formatDateTime(msg.sendDate)}
+                    </S.Date>
+                  </S.ChatInfoBox>
+                </S.ChatMessageBox>
+              ))}
+            </S.ChatList>
+          </S.ChatBox>
+          <S.InputWrapper>
+            <Input
+              css={S.input}
+              type="text"
+              value={newMessage}
+              placeholder="메세지를 입력해주세요."
+              handleChange={(e) => setNewMessage(e.target.value)}
+            />
+            <Button variant="smPink" onClick={sendMessage}>
+              전송
+            </Button>
+          </S.InputWrapper>
+        </S.Chatting>
+      ) : (
+        <S.EmptyChatWrapper>
+          <S.ChatIconBox>
+            <ChatIcon />
+          </S.ChatIconBox>
+          <S.EmptyChatText>
+            미팅 참가
+            <br />
+            신청 목록이 없어요.
+          </S.EmptyChatText>
+        </S.EmptyChatWrapper>
+      )}
+    </>
   );
 };
 

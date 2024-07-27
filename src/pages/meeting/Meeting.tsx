@@ -13,15 +13,14 @@ const Meeting = () => {
   const { data } = useGetMeeting(meetingId!);
 
   const isOwner = `${data?.leaderUserId}` === userId;
-
-  console.log(isOwner, data?.leaderUserId, userId);
+  const isJoined = !!data?.users.find((user) => `${user.id}` === userId);
 
   const tabs = [
     { label: "홈", query: "home", component: <Home data={data} /> },
     {
       label: "채팅",
       query: "chatting",
-      component: <Chatting meetingId={`${data?.id}`} />,
+      component: <Chatting meetingId={`${data?.id}`} isJoined={isJoined} />,
     },
     { label: "신청목록", query: "join", component: <Join /> },
   ];

@@ -119,3 +119,29 @@ export const ChatInfoBox = styled.div<{ isMe: boolean }>`
     padding-left: ${!isMe && "12px"};
   `}
 `;
+
+export const EmptyChatWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: 33%; //NOTE: 위치값이 맞지 않아 임의로 %처리함
+`;
+
+export const EmptyChatText = styled.span`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_regular_16};
+    color: ${theme.colors.gray900};
+    text-align: center;
+  `}
+`;
+
+export const ChatIconBox = styled.div`
+  ${({ theme }) => css`
+    margin-bottom: 16px;
+    border-radius: 50%;
+    padding: 22px;
+    background-color: ${theme.colors.gray300};
+  `}
+`;

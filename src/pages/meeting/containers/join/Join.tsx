@@ -75,7 +75,7 @@ const Join = () => {
       ) : (
         <S.EmptyUserJoinMeetingWrapper>
           <S.StickerBox>
-            // <StickerIcon />
+            <StickerIcon />
           </S.StickerBox>
           <S.EmptyUserText>
             미팅 참가
