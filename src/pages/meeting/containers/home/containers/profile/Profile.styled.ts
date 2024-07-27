@@ -60,7 +60,7 @@ export const Age = styled.span`
 
 export const InfoWrapper = styled.div`
   position: absolute;
-  bottom: 0;
+  top: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
