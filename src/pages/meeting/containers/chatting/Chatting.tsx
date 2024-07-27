@@ -9,7 +9,10 @@ import { SOCKET_URL } from "config";
 import type { chatsResponseItem } from "types";
 import * as S from "./Chatting.styled";
 
-const Chatting = () => {
+interface ChattingProps {
+  meetingId?: string;
+}
+const Chatting = ({ meetingId }: ChattingProps) => {
   const [chatMessageList, setChatMessageList] = useState<chatsResponseItem[]>(
     []
   );
@@ -18,10 +21,9 @@ const Chatting = () => {
   const client = useRef<CompatClient>();
   const listRef = useRef<HTMLDivElement>(null);
 
-  const roomId = 1; //TODO: 임시 추가 방코드
   const myId = sessionStorage.getItem("id");
 
-  const { data } = useGetChats(`${roomId}`);
+  const { data } = useGetChats(meetingId!);
 
   const scrollToListBottom = () => {
     if (window.innerWidth <= 375) {
@@ -29,7 +31,7 @@ const Chatting = () => {
     }
     listRef.current?.scrollIntoView({ behavior: "smooth" });
   };
-  const isMyChat = (userId: string) => {
+  const isMyChat = (userId: number) => {
     return +userId === +myId!;
   };
 
@@ -45,7 +47,7 @@ const Chatting = () => {
       {},
       () => {
         client.current?.subscribe(
-          `/sub/chatrooms/${roomId}`,
+          `/sub/chatrooms/${meetingId}`,
           (message: IMessage) => {
             const receivedMessage = JSON.parse(message.body);
             setChatMessageList((prevList) => [...prevList, receivedMessage]);
@@ -64,12 +66,12 @@ const Chatting = () => {
     if (!newMessage.trim()) return;
 
     client.current!.send(
-      `/pub/chatrooms/${roomId}`,
+      `/pub/chatrooms/${meetingId}`,
       {},
       JSON.stringify({
         userId: myId,
         message: newMessage,
-        chatroomId: roomId,
+        chatroomId: meetingId,
         sendDate: dayjs().format("YYYY-MM-DD HH:mm:ss"),
       })
     );
@@ -82,7 +84,7 @@ const Chatting = () => {
 
     setChatMessageList(data.chats.reverse());
     connectHandler();
-  }, [roomId, data]);
+  }, [meetingId, data]);
 
   useEffect(() => {
     scrollToListBottom();

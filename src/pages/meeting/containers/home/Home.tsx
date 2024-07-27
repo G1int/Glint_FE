@@ -3,16 +3,20 @@ import { useParams } from "react-router-dom";
 
 import { Badge, Button } from "components";
 import { useToast } from "hooks";
-import { useGetMeeting, usePostAttendMeetingRoom } from "services";
+import { usePostAttendMeetingRoom } from "services";
 import { PEOPEL_CAPACITY_RADIOS, UnlockIcon } from "assets";
+import { GetMeetingResponse } from "types";
 import { Profile } from "./containers";
 import * as S from "./Home.styled";
 
-const Home = () => {
+interface HomeProps {
+  data?: GetMeetingResponse;
+}
+
+const Home = ({ data }: HomeProps) => {
   const { meetingId } = useParams();
   const userId = sessionStorage.getItem("id")!;
 
-  const { data } = useGetMeeting(meetingId!);
   const { mutate: mutatePostAttendMeetingRoom } = usePostAttendMeetingRoom();
 
   const { addToast } = useToast();
@@ -139,7 +143,7 @@ const Home = () => {
               </S.Condition>
             </S.Conditions>
             <Profile
-              leaderId={data?.leaderUserId}
+              leaderId={`${data?.leaderUserId}`}
               peopleCapacity={data?.peopleCapacity}
               users={maleUsers}
             />
@@ -216,7 +220,7 @@ const Home = () => {
             </S.Condition>
           </S.Conditions>
           <Profile
-            leaderId={data?.leaderUserId}
+            leaderId={`${data?.leaderUserId}`}
             peopleCapacity={data?.peopleCapacity}
             users={femaleUsers}
           />

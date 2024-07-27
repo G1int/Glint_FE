@@ -5,7 +5,7 @@ import { GetMeetingResponse } from "types";
 import { CircleStartIcon, InfoIcon, MeetingWaitingIcon } from "assets";
 
 interface ProfileProps {
-  leaderId?: number;
+  leaderId?: string;
   peopleCapacity?: number;
   users?: Array<GetMeetingResponse["users"][number]>; //NOTE: 타입 에러로 위와 같이 설정함
 }
@@ -20,7 +20,7 @@ const Profile = ({ leaderId, peopleCapacity, users }: ProfileProps) => {
           <S.Img src={user.profileImage} alt={user.nickname} />
           <S.InfoWrapper>
             <S.ProfileMainInfo>
-              {leaderId === user.id && <CircleStartIcon />}
+              {leaderId === `${user.id}` && <CircleStartIcon />}
               <S.Name>{user.nickname}</S.Name>
               <S.Age>{user.age}세</S.Age>
             </S.ProfileMainInfo>

@@ -17,7 +17,7 @@ export const useDeleteCurrentSearchKeyword = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (searchKeywordId: number) =>
+    mutationFn: (searchKeywordId: string) =>
       deleteCurrentKeywordAPI(searchKeywordId),
     onSuccess: () => {
       // 성공 시, currentKeyword 무효화 -> 업데이트
