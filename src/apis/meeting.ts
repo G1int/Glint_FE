@@ -55,12 +55,15 @@ export const getSearchMeetingAPI = async (
     params.lastMeetingId = lastMeetingId;
   }
 
-  const { data } = await ax.get<getSearchMeetingResponse>(
-    `/meetings/search?userId=${userId}`,
-    {
-      params: params,
-    }
-  );
+  let url = `/meetings/search`;
+
+  if (userId !== null) {
+    url += `&userId=${userId}`;
+  }
+
+  const { data } = await ax.get<getSearchMeetingResponse>(url, {
+    params: params,
+  });
 
   return data;
 };

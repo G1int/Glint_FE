@@ -1,6 +1,12 @@
 import { useEffect, useState } from "react";
 import { Badge, Button, Input, LocationModal, MeetingCard } from "components";
-import { CircleCloseIcon, FilterIcon, MoreIcon, SearchBlackIcon } from "assets";
+import {
+  BigSearchIcon,
+  CircleCloseIcon,
+  FilterIcon,
+  MoreIcon,
+  SearchBlackIcon,
+} from "assets";
 import {
   useDeleteCurrentSearchKeyword,
   useGetCurrentSearchKeyword,
@@ -137,14 +143,21 @@ const Search = () => {
         </S.InputContainer>
       </S.SearchContainer>
       <S.SearchSubResult>
-        <S.Highlight>{data?.totalCount}</S.Highlight>건
+        <S.Highlight>{data?.totalCount ? data?.totalCount : 0}</S.Highlight>건
         <S.FilterWrapper>
           미팅 희망 지역
           <FilterIcon onClick={handleFilter} />
         </S.FilterWrapper>
       </S.SearchSubResult>
       <S.SearchResultContainer>
-        <MeetingCard meetingList={meetingList} />
+        {meetingList.length === 0 ? (
+          <S.NoSearchMeeting>
+            <BigSearchIcon />
+            <div>검색된 미팅이 없어요.</div>
+          </S.NoSearchMeeting>
+        ) : (
+          <MeetingCard meetingList={meetingList} />
+        )}
         {data && data.totalCount > meetingList.length && (
           <S.More onClick={handleMoreMeeting}>
             더보기

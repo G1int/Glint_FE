@@ -37,7 +37,6 @@ const Carousel = ({ className, info }: CarouselProps) => {
     <S.CarouselWrapper className={className}>
       <S.CarouselContainer>
         {/* 이전 */}
-        {/* TODO: ArrowIcon 디자인 체크*/}
         {index > 0 && (
           <S.PrevButton onClick={handleMoveTo(-1)}>
             <ChevronRightIcon css={S.prevIcon} />
