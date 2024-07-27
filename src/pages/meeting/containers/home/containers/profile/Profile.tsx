@@ -1,8 +1,8 @@
 import React from "react";
 
-import * as S from "./Profile.styled";
-import { GetMeetingResponse } from "types";
 import { CircleStartIcon, InfoIcon, MeetingWaitingIcon } from "assets";
+import type { GetMeetingResponse } from "types";
+import * as S from "./Profile.styled";
 
 interface ProfileProps {
   leaderId?: string;
