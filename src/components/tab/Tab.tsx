@@ -43,7 +43,9 @@ const Tab = ({ className, tabList, tabs }: TabProps) => {
           </S.TabButton>
         ))}
       </S.TabLabelWrapper>
-      {tabs.find((tab) => tab.label === currentTab)?.component}
+      <S.TabContent>
+        {tabs.find((tab) => tab.label === currentTab)?.component}
+      </S.TabContent>
     </S.Tab>
   );
 };

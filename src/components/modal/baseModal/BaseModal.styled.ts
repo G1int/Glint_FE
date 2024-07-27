@@ -6,6 +6,8 @@ export const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100000;
+  overflow: hidden;
 `;
 
 export const ModalContainer = styled.dialog`

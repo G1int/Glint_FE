@@ -2,7 +2,7 @@ import { GENDER_RADIOS } from "assets";
 
 export interface chatsResponseItem {
   id: number;
-  userId: string;
+  userId: number;
   chatRoomId: number;
   nickname: string;
   message: string;
@@ -88,7 +88,7 @@ export interface getSearchMeetingResponse {
 }
 
 export interface getCurrentSearchKeywordItem {
-  id: number;
+  id: string;
   keyword: string;
   userId: string;
   createAt: string;
@@ -97,7 +97,18 @@ export interface getCurrentSearchKeywordItem {
 export interface getCurrentSearchKeywordResponse {
   searchKeywords: getCurrentSearchKeywordItem[];
 }
+
 export interface postAttendMeetingRoomQuery {
+  meetingId: string;
+  userId: string;
+}
+
+export interface putOutMeetingQuery {
+  meetingId: string;
+  userId: string;
+}
+
+export interface putJoinMeetingQuery {
   meetingId: string;
   userId: string;
 }

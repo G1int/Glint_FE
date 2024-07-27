@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 
 import {
   getChatsAPI,
@@ -7,6 +7,9 @@ import {
   getMyMeetingAPI,
   getSearchMeetingAPI,
   postAttendMeetingRoomAPI,
+  putAcceptJoinMeetingAPI,
+  putOutMeetingAPI,
+  putRejectJoinMeetingAPI,
 } from "apis";
 
 import type {
@@ -15,11 +18,13 @@ import type {
   getMeetingJoinsQuery,
   getMeetingListResponse,
   getSearchMeetingResponse,
+  putOutMeetingQuery,
+  putJoinMeetingQuery,
 } from "types";
 
 export const useGetChats = (roomId: string) => {
   return useQuery<chatsResponse>({
-    queryKey: ["chats", roomId],
+    queryKey: ["chats"],
     queryFn: () => getChatsAPI(roomId),
   });
 };
@@ -66,7 +71,37 @@ export const usePostAttendMeetingRoom = () => {
 
 export const useGetMeetingJoins = (req: getMeetingJoinsQuery) => {
   return useQuery({
-    queryKey: ["meeting", req],
+    queryKey: ["meetingJoin", req.meetingId],
     queryFn: () => getMeetingJoinsAPI(req),
+  });
+};
+
+export const useOutMeeting = () => {
+  return useMutation({
+    mutationFn: (req: putOutMeetingQuery) => putOutMeetingAPI(req),
+  });
+};
+
+export const useRejectJoinMeeting = (meetingId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (req: putJoinMeetingQuery) => putRejectJoinMeetingAPI(req),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["meeting", meetingId] });
+      queryClient.invalidateQueries({ queryKey: ["meetingJoin", meetingId] });
+    },
+  });
+};
+
+export const useAcceptJoinMeeting = (meetingId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (req: putJoinMeetingQuery) => putAcceptJoinMeetingAPI(req),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["meeting", meetingId] });
+      queryClient.invalidateQueries({ queryKey: ["meetingJoin", meetingId] });
+    },
   });
 };

@@ -5,6 +5,7 @@ export const Join = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 16px;
+  padding: 0 20px 24px;
 `;
 
 export const button = css`

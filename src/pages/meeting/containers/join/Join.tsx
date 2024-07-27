@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { Button } from "components";
-import { useGetMeetingJoins } from "services";
+import {
+  useAcceptJoinMeeting,
+  useGetMeetingJoins,
+  useRejectJoinMeeting,
+} from "services";
 import { MoreIcon, StickerIcon } from "assets";
 import type { getMeetingJoinsResponse } from "types";
 import * as S from "./Join.styled";
@@ -23,7 +27,10 @@ const Join = () => {
     !lastJoinMeetingId ? req : queryReq
   );
 
-  const handleRefetchMoreJoin = () => {
+  const { mutate: mutateRejectJoinMeeting } = useRejectJoinMeeting(meetingId!);
+  const { mutate: mutateAcceptJoinMeeting } = useAcceptJoinMeeting(meetingId!);
+
+  const handleRefetchMoreJoin = (): void => {
     if (!data) return;
 
     const lastJoinMeetingId =
@@ -32,6 +39,27 @@ const Join = () => {
     setLastJoinMeetingId(lastJoinMeetingId);
 
     refetch();
+  };
+
+  const handleRejectJoinMeeting = (userId: number) => () => {
+    if (!userId) return;
+
+    const joinReq = {
+      meetingId: meetingId!,
+      userId: String(userId),
+    };
+    mutateRejectJoinMeeting(joinReq);
+  };
+
+  const handleAcceptJoinMeeting = (userId: number) => () => {
+    if (!userId) return;
+
+    const joinReq = {
+      meetingId: meetingId!,
+      userId: String(userId),
+    };
+
+    mutateAcceptJoinMeeting(joinReq);
   };
 
   useEffect(() => {
@@ -55,10 +83,18 @@ const Join = () => {
                 <S.Job>{user.affiliation || "-"}</S.Job>
               </S.UserInfo>
               <S.ButtonWrapper>
-                <Button css={S.button} variant="xsWhite">
+                <Button
+                  css={S.button}
+                  variant="xsWhite"
+                  onClick={handleRejectJoinMeeting(user.userId)}
+                >
                   거절
                 </Button>
-                <Button css={S.button} variant="xsPink">
+                <Button
+                  css={S.button}
+                  variant="xsPink"
+                  onClick={handleAcceptJoinMeeting(user.userId)}
+                >
                   수락
                 </Button>
               </S.ButtonWrapper>
@@ -75,7 +111,7 @@ const Join = () => {
       ) : (
         <S.EmptyUserJoinMeetingWrapper>
           <S.StickerBox>
-            // <StickerIcon />
+            <StickerIcon />
           </S.StickerBox>
           <S.EmptyUserText>
             미팅 참가

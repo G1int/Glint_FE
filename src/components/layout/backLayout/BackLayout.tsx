@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 
 import { WriteIcon, BackIcon, OutIcon, ShareIcon } from "assets";
 import * as S from "./BackLayout.styled";
-import { useToast } from "hooks";
 
 interface BackLayoutProps {
   className?: string;
@@ -15,6 +14,8 @@ interface BackLayoutProps {
   children: React.ReactNode;
   handleClickBack?: () => void;
   handleClickEdit?: () => void;
+  handleClickExit?: () => void;
+  handleClickShare?: () => void;
 }
 
 const BackLayout = ({
@@ -27,19 +28,13 @@ const BackLayout = ({
   children,
   handleClickEdit,
   handleClickBack,
+  handleClickExit,
+  handleClickShare,
 }: BackLayoutProps) => {
   const navigate = useNavigate();
 
-  const { addToast } = useToast();
-
   const onClickBack = (): void => {
     navigate(-1); // 바로 이전 페이지로 이동, '/main' 등 직접 지정도 당연히 가능
-  };
-  const handleClickShare = () => {
-    addToast({ content: "현재 개발중인 기능이에요. 조금만 기다려주세요:)" });
-  };
-  const handleClickExit = () => {
-    console.log("방나가기 api 연동 예정");
   };
 
   return (

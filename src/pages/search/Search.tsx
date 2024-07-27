@@ -67,7 +67,7 @@ const Search = () => {
     setLastMeetingId(null);
   };
 
-  const handleDeleteKeyword = (keywordId: number) => {
+  const handleDeleteKeyword = (keywordId: string) => {
     mutateDeleteKeyword(keywordId);
   };
 
