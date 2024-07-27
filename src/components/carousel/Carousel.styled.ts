@@ -40,10 +40,9 @@ export const CurrentState = styled.button<{ index: boolean }>`
 
 export const Button = styled.button`
   position: absolute;
-  transform: translateY(-50%);
   z-index: 100;
   cursor: pointer;
-  top: 330px;
+  top: 336px;
 `;
 
 export const PrevButton = styled(Button)`
