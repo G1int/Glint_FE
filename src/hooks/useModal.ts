@@ -8,12 +8,16 @@ const useModal = () => {
   const backgroundRef = useRef<HTMLDivElement>(null);
 
   const handleOpenModal = (modal: React.ReactNode) => {
+    document.body.style.overflowY = "hidden"; //NOTE: 모달 열었을 때 뒤쪽 스크롤 움직이지 않도록 고정
+
     const newModal = [...modalDataState];
     newModal.push(modal);
     setModalDataState(newModal);
   };
 
   const handleCloseModal = () => {
+    document.body.style.overflowY = "auto";
+
     const newModal = [...modalDataState];
     newModal.pop();
     setModalDataState(newModal);
