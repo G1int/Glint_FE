@@ -28,13 +28,11 @@ instance.interceptors.response.use(
     const authHeader = response.headers["authorization"];
     if (authHeader) {
       const accessToken = authHeader.replace(/^Bearer\s+/i, "");
-      console.log("accessToken", accessToken);
       sessionStorage.setItem("accessToken", accessToken);
     }
     const refreshHeader = response.headers["refreshtoken"];
     if (refreshHeader) {
       const refreshToken = refreshHeader.replace(/^Bearer\s+/i, "");
-      console.log("refreshToken", refreshToken);
       sessionStorage.setItem("refreshToken", refreshToken);
     }
     return response;
