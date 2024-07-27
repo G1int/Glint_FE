@@ -5,9 +5,9 @@ import { Button } from "components";
 import { useGetMeetingJoins } from "services";
 import { MoreIcon, StickerIcon } from "assets";
 import type { getMeetingJoinsResponse } from "types";
-import * as S from "./Application.styled";
+import * as S from "./Join.styled";
 
-const Application = () => {
+const Join = () => {
   const { meetingId } = useParams();
   const [lastJoinMeetingId, setLastJoinMeetingId] = useState<number | null>(
     null
@@ -43,10 +43,10 @@ const Application = () => {
   return (
     <>
       {userJoinMeetings.length ? (
-        <S.Application>
+        <S.Join>
           <S.Title>참가신청 목록</S.Title>
           {userJoinMeetings.map((user) => (
-            <S.ApplicationBox key={user.userId}>
+            <S.JoinBox key={user.userId}>
               <S.Img src={user.profileImage} alt={user.nickname} />
               <S.UserInfo>
                 <S.Name>
@@ -62,7 +62,7 @@ const Application = () => {
                   수락
                 </Button>
               </S.ButtonWrapper>
-            </S.ApplicationBox>
+            </S.JoinBox>
           ))}
           {data?.userJoinMeetings.length === 3 && (
             // TODO: 해당 신청목록이 마지막 리스트인지 알 수 없음 api 확인 필요
@@ -71,7 +71,7 @@ const Application = () => {
               <MoreIcon />
             </S.MoreButton>
           )}
-        </S.Application>
+        </S.Join>
       ) : (
         <S.EmptyUserJoinMeetingWrapper>
           <S.StickerBox>
@@ -88,4 +88,4 @@ const Application = () => {
   );
 };
 
-export default Application;
+export default Join;

@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const Application = styled.div`
+export const Join = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 16px;
@@ -17,7 +17,7 @@ export const Title = styled.div`
   `}
 `;
 
-export const ApplicationBox = styled.div`
+export const JoinBox = styled.div`
   ${({ theme }) => css`
     display: grid;
     grid-template-columns: 44px 1fr 96px;

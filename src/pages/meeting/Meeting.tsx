@@ -3,8 +3,8 @@ import { useParams } from "react-router-dom";
 
 import { BackLayout, Tab } from "components";
 import { useGetMeeting } from "services";
+import { Join, Chatting, Home } from "./containers";
 import * as S from "./Meeting.styled";
-import { Application, Chatting, Home } from "./containers";
 
 const Meeting = () => {
   const { meetingId } = useParams();
@@ -16,7 +16,7 @@ const Meeting = () => {
   const tabs = [
     { label: "홈", query: "home", component: <Home /> },
     { label: "채팅", query: "chatting", component: <Chatting /> },
-    { label: "신청목록", query: "application", component: <Application /> },
+    { label: "신청목록", query: "join", component: <Join /> },
   ];
 
   return (
