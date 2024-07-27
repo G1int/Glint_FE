@@ -11,7 +11,6 @@ const Footer = () => {
     navigate(path);
   };
 
-  // TODO: path 임의지정
   const footerArr = [
     { icon: <HomeIcon />, text: "홈", path: "/main" },
     { icon: <SearchGrayIcon />, text: "검색", path: "/search" },
