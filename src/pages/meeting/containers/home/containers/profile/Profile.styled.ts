@@ -31,15 +31,35 @@ export const Profile = styled.div`
   `}
 `;
 
-export const Img = styled.img`
+export const ImgContainer = styled.div<{ isBlur: boolean }>`
   position: absolute;
   top: 0;
-  display: flex;
   width: 100%;
   height: 100px;
   border-radius: 12px 12px 0 0;
   overflow: hidden;
+  ${({ isBlur }) =>
+    isBlur &&
+    css`
+      &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        backdrop-filter: blur(10px);
+        z-index: 1;
+      }
+    `}
+`;
+
+export const Img = styled.img`
+  width: 100%;
+  height: 100%;
   object-fit: cover;
+  position: relative;
+  z-index: 0;
 `;
 
 export const ProfileMainInfo = styled.div`
