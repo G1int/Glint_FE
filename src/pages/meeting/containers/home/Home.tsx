@@ -123,7 +123,7 @@ const Home = ({ data }: HomeProps) => {
                         </span>
                       </S.ConditionRow>
                     )}
-                    {checkRequired("maleCondition", "DRINKGING") && (
+                    {checkRequired("maleCondition", "DRINKING") && (
                       <S.ConditionRow>
                         <span>음주</span>
                         <span>
@@ -200,7 +200,7 @@ const Home = ({ data }: HomeProps) => {
                       </span>
                     </S.ConditionRow>
                   )}
-                  {checkRequired("femaleCondition", "DRINKGING") && (
+                  {checkRequired("femaleCondition", "DRINKING") && (
                     <S.ConditionRow>
                       <span>음주</span>
                       <span>
