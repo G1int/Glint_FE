@@ -66,7 +66,7 @@ export const usePostAttendMeetingRoom = () => {
 
 export const useGetMeetingJoins = (req: getMeetingJoinsQuery) => {
   return useQuery({
-    queryKey: ["meeting"],
+    queryKey: ["meeting", req],
     queryFn: () => getMeetingJoinsAPI(req),
   });
 };

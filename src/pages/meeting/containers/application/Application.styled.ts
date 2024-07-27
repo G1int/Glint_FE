@@ -57,3 +57,41 @@ export const Img = styled.img`
   border-radius: 50%;
   object-fit: cover;
 `;
+
+export const EmptyUserJoinMeetingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: 33%; //NOTE: 위치값이 맞지 않아 임의로 %처리함
+`;
+
+export const EmptyUserText = styled.span`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_regular_16};
+    color: ${theme.colors.gray900};
+    text-align: center;
+  `}
+`;
+
+export const StickerBox = styled.div`
+  ${({ theme }) => css`
+    margin-bottom: 16px;
+    border-radius: 50%;
+    padding: 24px;
+    background-color: ${theme.colors.gray300};
+  `}
+`;
+
+export const MoreButton = styled.button`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_semibold_16};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 4px;
+    height: 48px;
+    width: 100%;
+  `}
+`;
