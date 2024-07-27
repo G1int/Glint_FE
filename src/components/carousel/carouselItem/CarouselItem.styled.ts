@@ -22,12 +22,13 @@ export const ContentWrapper = styled.div`
 `;
 
 export const Title = styled.span`
-  font-size: 32px;
-  line-height: 38px;
+  ${({ theme }) => css`
+    ${theme.fonts.subCopy_light_32};
 
-  strong {
-    font-weight: bold;
-  }
+    strong {
+      ${theme.fonts.subCopy_bold_32};
+    }
+  `}
 `;
 
 export const Content = styled.span`
