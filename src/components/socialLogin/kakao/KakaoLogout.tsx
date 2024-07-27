@@ -1,17 +1,20 @@
-import axios from "axios";
 import { Button } from "components/buttons";
 import { ConfirmModal } from "components/modal";
-import { useModal } from "hooks";
+import { useModal, useToast } from "hooks";
 import { useNavigate } from "react-router-dom";
+import { usePutLogout } from "services";
 
 interface KakaoLogoutProps {
   className?: string;
 }
 
 const KakaoLogout = ({ className }: KakaoLogoutProps) => {
-  const accessToken = sessionStorage.getItem("accessToken");
   const navigate = useNavigate();
+
+  const { mutate: mutatePutLogout } = usePutLogout();
+
   const { handleOpenModal, handleCloseModal } = useModal();
+  const { addToast } = useToast();
 
   const handleLogout = () => {
     handleOpenModal(
@@ -26,30 +29,18 @@ const KakaoLogout = ({ className }: KakaoLogoutProps) => {
   };
 
   const handleKaKaoLogout = () => {
-    axios
-      .post(
-        "https://kapi.kakao.com/v1/user/logout",
-        {},
-        {
-          headers: {
-            "Content-Type": "application/x-www-form-urlencoded",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      )
-      .then(() => {
+    mutatePutLogout(undefined, {
+      onSuccess: () => {
         handleCloseModal();
         sessionStorage.clear();
         navigate("/");
-      })
-      .catch((err) => {
+      },
+      onError: (error) => {
         handleCloseModal();
-        console.error(err);
-        // 이미 만료된 토큰일 경우
-        if (err.response.data.code === -401) {
-          navigate("/");
-        }
-      });
+        addToast({ content: "로그아웃에 실패했습니다.다시 시도해주세요." });
+        console.error("로그아웃 API 실패:", error);
+      },
+    });
   };
   return (
     <Button variant="underline" onClick={handleLogout} className={className}>
