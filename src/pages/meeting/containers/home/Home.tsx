@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import { Badge, Button } from "components";
 import { useToast } from "hooks";
@@ -11,6 +11,7 @@ import * as S from "./Home.styled";
 const Home = () => {
   const { meetingId } = useParams();
   const userId = sessionStorage.getItem("id")!;
+  const navigate = useNavigate();
 
   const { data } = useGetMeeting(meetingId!);
   const { mutate: mutatePostAttendMeetingRoom } = usePostAttendMeetingRoom();
@@ -28,16 +29,21 @@ const Home = () => {
   };
 
   const handleAttendClick = () => {
-    const req = { meetingId: meetingId!, userId: userId };
+    if (userId) {
+      const req = { meetingId: meetingId!, userId: userId };
 
-    mutatePostAttendMeetingRoom(req, {
-      onSuccess: () => {
-        addToast({ content: "참가신청 완료! 방장의 승인을 기다려주세요." });
-      },
-      onError: () => {
-        addToast({ content: "참가조건에 맞지 않는 미팅이에요." });
-      },
-    });
+      mutatePostAttendMeetingRoom(req, {
+        onSuccess: () => {
+          addToast({ content: "참가신청 완료! 방장의 승인을 기다려주세요." });
+        },
+        onError: () => {
+          addToast({ content: "참가조건에 맞지 않는 미팅이에요." });
+        },
+      });
+    } else {
+      addToast({ content: "로그인이 필요한 서비스 입니다." });
+      navigate("/");
+    }
   };
 
   return (

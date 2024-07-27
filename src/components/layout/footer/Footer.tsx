@@ -2,13 +2,23 @@ import { Button } from "components/buttons";
 import * as S from "./Footer.styled";
 import { HomeIcon, MyInfoIcon, MyMeetingIcon, SearchGrayIcon } from "assets";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userIdSelector } from "atoms";
+import { useToast } from "hooks";
 
 const Footer = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const { addToast } = useToast();
+  const userId = useRecoilValue(userIdSelector);
 
   const handleClickFooter = (path: string) => {
-    navigate(path);
+    if (!userId && (path === "/myMeeting" || path === "/myInfo")) {
+      addToast({ content: "로그인이 필요한 서비스 입니다." });
+      navigate("/");
+    } else {
+      navigate(path);
+    }
   };
 
   const footerArr = [
