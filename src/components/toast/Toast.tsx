@@ -9,8 +9,10 @@ function Toast() {
 
   return (
     <S.Toast>
-      {toasts.map((toast) => (
-        <ToastItem key={toast.id} {...toast} />
+      {toasts.map((toast, index) => (
+        <S.ToastItemWrapper key={toast.id} index={index}>
+          <ToastItem {...toast} />
+        </S.ToastItemWrapper>
       ))}
     </S.Toast>
   );

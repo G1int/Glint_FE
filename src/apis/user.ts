@@ -23,3 +23,15 @@ export const getUserInfoAPI = async (userId: string) => {
 
   return data;
 };
+
+export const putLogoutAPI = async () => {
+  const { data } = await ax.put(`/auth/logout`);
+
+  return data;
+};
+
+export const deleteUserAPI = async (userId: string) => {
+  const { data } = await ax.delete(`/users/${userId}`);
+
+  return data;
+};

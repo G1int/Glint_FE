@@ -13,6 +13,8 @@ import { useGetMainNewMeetings } from "services";
 import { useEffect, useState } from "react";
 import { meetingListItem } from "types";
 import { useNavigate } from "react-router-dom";
+import { useRecoilValue } from "recoil";
+import { userIdSelector } from "atoms";
 
 const Main = () => {
   const navigate = useNavigate();
@@ -25,6 +27,7 @@ const Main = () => {
   const { data } = useGetMainNewMeetings(lastMeetingId, limit);
 
   const { addToast } = useToast();
+  const userId = useRecoilValue(userIdSelector);
 
   useEffect(() => {
     if (data?.meetings) {
@@ -41,6 +44,15 @@ const Main = () => {
   const handleClickKeyword = (keyword: string) => {
     if (keyword) {
       navigate("/search", { state: keyword });
+    }
+  };
+
+  const handleAddIcon = () => {
+    if (userId) {
+      navigate("/createRoom");
+    } else {
+      addToast({ content: "로그인이 필요한 서비스 입니다." });
+      navigate("/");
     }
   };
 
@@ -85,11 +97,7 @@ const Main = () => {
             <MoreIcon />
           </S.More>
         )}
-      <Button
-        variant="icon"
-        css={S.addIcon}
-        onClick={() => navigate("/createRoom")}
-      >
+      <Button variant="icon" css={S.addIcon} onClick={handleAddIcon}>
         <AddIcon />
       </Button>
     </S.Content>
