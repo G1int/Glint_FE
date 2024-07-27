@@ -20,8 +20,9 @@ const Meeting = () => {
   ];
 
   return (
-    <BackLayout css={S.backLayout} isMeeting isOwner hasTopContent>
+    <BackLayout isMeeting isOwner hasTopContent>
       <Tab
+        css={S.tab}
         tabList={isOwner ? ["홈", "채팅", "신청목록"] : ["홈", "채팅"]}
         tabs={tabs}
       />
