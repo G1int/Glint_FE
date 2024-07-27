@@ -27,8 +27,8 @@ const Join = () => {
     !lastJoinMeetingId ? req : queryReq
   );
 
-  const { mutate: rejectJoinMeeting } = useRejectJoinMeeting();
-  const { mutate: acceptJoinMeeting } = useAcceptJoinMeeting();
+  const { mutate: rejectJoinMeeting } = useRejectJoinMeeting(meetingId!);
+  const { mutate: acceptJoinMeeting } = useAcceptJoinMeeting(meetingId!);
 
   const handleRefetchMoreJoin = (): void => {
     if (!data) return;

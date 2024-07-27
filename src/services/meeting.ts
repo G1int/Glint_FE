@@ -71,7 +71,7 @@ export const usePostAttendMeetingRoom = () => {
 
 export const useGetMeetingJoins = (req: getMeetingJoinsQuery) => {
   return useQuery({
-    queryKey: ["meeting", req],
+    queryKey: ["meetingJoin", req.meetingId],
     queryFn: () => getMeetingJoinsAPI(req),
   });
 };
@@ -82,24 +82,26 @@ export const useOutMeeting = () => {
   });
 };
 
-export const useRejectJoinMeeting = () => {
+export const useRejectJoinMeeting = (meetingId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (req: putJoinMeetingQuery) => putRejectJoinMeetingAPI(req),
-    onSuccess: (res) =>
-      queryClient.invalidateQueries({ queryKey: ["meeting", res.meetingId] }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["meeting", meetingId] });
+      queryClient.invalidateQueries({ queryKey: ["meetingJoin", meetingId] });
+    },
   });
 };
 
-export const useAcceptJoinMeeting = () => {
+export const useAcceptJoinMeeting = (meetingId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (req: putJoinMeetingQuery) => putAcceptJoinMeetingAPI(req),
     onSuccess: () => {
-      //TODO  확인 필요
-      queryClient.invalidateQueries({ queryKey: ["meeting"] });
+      queryClient.invalidateQueries({ queryKey: ["meeting", meetingId] });
+      queryClient.invalidateQueries({ queryKey: ["meetingJoin", meetingId] });
     },
   });
 };
