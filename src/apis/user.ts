@@ -23,3 +23,9 @@ export const getUserInfoAPI = async (userId: string) => {
 
   return data;
 };
+
+export const putLogoutAPI = async () => {
+  const { data } = await ax.put(`/auth/logout`);
+
+  return data;
+};
