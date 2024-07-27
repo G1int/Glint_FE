@@ -41,6 +41,7 @@ export { ReactComponent as SmallAuthBadgeIcon } from "./ic_smallAuthBadge.svg";
 export { ReactComponent as SmallChevronRightIcon } from "./ic_smallChevronRight.svg";
 export { ReactComponent as SpinnerInnerIcon } from "./ic_spinnerInner.svg";
 export { ReactComponent as SpecializedJobIcon } from "./ic_specializedJob.svg";
+export { ReactComponent as StickerIcon } from "./ic_sticker.svg";
 export { ReactComponent as TagCloseGrayIcon } from "./ic_tagCloseGray.svg";
 export { ReactComponent as TagCloseWhiteIcon } from "./ic_tagCloseWhite.svg";
 export { ReactComponent as ThirtiesIcon } from "./ic_thirties.svg";
