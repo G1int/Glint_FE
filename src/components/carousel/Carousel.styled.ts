@@ -7,6 +7,12 @@ export const CarouselWrapper = styled.div`
   align-items: center;
   row-gap: 12px;
   position: relative;
+
+  // TODO: 반응형 확인
+  // 세로 길이가 800px 이상일 때 마진 조정
+  @media (min-height: 801px) {
+    margin-bottom: 40px;
+  }
 `;
 
 export const CarouselContainer = styled.div`
