@@ -27,8 +27,8 @@ const Join = () => {
     !lastJoinMeetingId ? req : queryReq
   );
 
-  const { mutate: rejectJoinMeeting } = useRejectJoinMeeting(meetingId!);
-  const { mutate: acceptJoinMeeting } = useAcceptJoinMeeting(meetingId!);
+  const { mutate: mutateRejectJoinMeeting } = useRejectJoinMeeting(meetingId!);
+  const { mutate: mutateAcceptJoinMeeting } = useAcceptJoinMeeting(meetingId!);
 
   const handleRefetchMoreJoin = (): void => {
     if (!data) return;
@@ -48,7 +48,7 @@ const Join = () => {
       meetingId: meetingId!,
       userId: String(userId),
     };
-    rejectJoinMeeting(joinReq);
+    mutateRejectJoinMeeting(joinReq);
   };
 
   const handleAcceptJoinMeeting = (userId: number) => () => {
@@ -59,7 +59,7 @@ const Join = () => {
       userId: String(userId),
     };
 
-    acceptJoinMeeting(joinReq);
+    mutateAcceptJoinMeeting(joinReq);
   };
 
   useEffect(() => {

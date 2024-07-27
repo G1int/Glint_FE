@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
 
+import { userIdSelector } from "atoms";
 import { CircleStartIcon, InfoIcon, MeetingWaitingIcon } from "assets";
 import type { GetMeetingResponse } from "types";
 import * as S from "./Profile.styled";
@@ -11,13 +13,25 @@ interface ProfileProps {
 }
 
 const Profile = ({ leaderId, peopleCapacity, users }: ProfileProps) => {
+  const [isBlur, setIsBlur] = useState(false);
+
+  const userId = useRecoilValue(userIdSelector);
+
+  useEffect(() => {
+    if (!userId) {
+      setIsBlur(true);
+    }
+  }, [userId]);
+
   if (!users || !peopleCapacity) return null;
 
   return (
     <S.ProfileWrapper>
       {users.map((user) => (
         <S.Profile key={user.id}>
-          <S.Img src={user.profileImage} alt={user.nickname} />
+          <S.ImgContainer isBlur={isBlur}>
+            <S.Img src={user.profileImage} alt={user.nickname} />
+          </S.ImgContainer>
           <S.InfoWrapper>
             <S.ProfileMainInfo>
               {leaderId === `${user.id}` && <CircleStartIcon />}

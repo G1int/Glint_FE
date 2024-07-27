@@ -28,7 +28,6 @@ const Chatting = ({ isJoined }: ChattingProps) => {
 
   const { data } = useGetChats(meetingId!);
 
-  console.log(data);
   const scrollToListBottom = () => {
     if (window.innerWidth <= 375) {
       return;
