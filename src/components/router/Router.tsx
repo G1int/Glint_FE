@@ -29,6 +29,9 @@ const Router = ({ children }: RouterProps) => {
             <Route path="/createRoom" element={<P.CreateRoom />} />
             <Route path="/myMeeting" element={<P.MyMeeting />} />
           </Route>
+          <Route path="/loading" element={<P.Loading />} />
+          <Route path="/404" element={<P.Error404 />} />
+          <Route path="/*" element={<P.Error404 />} />
         </Route>
       </Routes>
     </BrowserRouter>
