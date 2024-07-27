@@ -14,7 +14,7 @@ export const glintLandings = [
         친구와 함께 보다 편안한 만남
       </>
     ),
-    img: "/images/landing/landing_01.svg",
+    img: "/images/landing/landing_01.webp",
   },
   {
     id: 2,
@@ -32,7 +32,7 @@ export const glintLandings = [
         인증을 거친 안전하고 검증된 만남
       </>
     ),
-    img: "/images/landing/landing_02.svg",
+    img: "/images/landing/landing_02.webp",
   },
   {
     id: 3,
@@ -50,6 +50,6 @@ export const glintLandings = [
         만족도가 높은 만남
       </>
     ),
-    img: "/images/landing/landing_03.svg",
+    img: "/images/landing/landing_03.webp",
   },
 ];
