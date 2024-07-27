@@ -1,20 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import dayjs from "dayjs";
 import { CompatClient, IMessage, Stomp } from "@stomp/stompjs";
+import { useParams } from "react-router-dom";
 
 import { Button, Input } from "components";
 import { useGetChats } from "services";
 import { formatDateTime } from "utils";
+import { ChatIcon } from "assets";
 import { SOCKET_URL } from "config";
 import type { chatsResponseItem } from "types";
 import * as S from "./Chatting.styled";
-import { ChatIcon } from "assets";
 
 interface ChattingProps {
-  meetingId?: string;
   isJoined: boolean;
 }
-const Chatting = ({ meetingId, isJoined }: ChattingProps) => {
+const Chatting = ({ isJoined }: ChattingProps) => {
+  const { meetingId } = useParams();
   const [chatMessageList, setChatMessageList] = useState<chatsResponseItem[]>(
     []
   );
@@ -27,6 +28,7 @@ const Chatting = ({ meetingId, isJoined }: ChattingProps) => {
 
   const { data } = useGetChats(meetingId!);
 
+  console.log(data);
   const scrollToListBottom = () => {
     if (window.innerWidth <= 375) {
       return;
@@ -52,6 +54,7 @@ const Chatting = ({ meetingId, isJoined }: ChattingProps) => {
           `/sub/chatrooms/${meetingId}`,
           (message: IMessage) => {
             const receivedMessage = JSON.parse(message.body);
+            console.log(message);
             setChatMessageList((prevList) => [...prevList, receivedMessage]);
           }
         );
@@ -79,6 +82,12 @@ const Chatting = ({ meetingId, isJoined }: ChattingProps) => {
     );
 
     setNewMessage("");
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      sendMessage();
+    }
   };
 
   useEffect(() => {
@@ -134,6 +143,7 @@ const Chatting = ({ meetingId, isJoined }: ChattingProps) => {
               value={newMessage}
               placeholder="메세지를 입력해주세요."
               handleChange={(e) => setNewMessage(e.target.value)}
+              handleKeyDown={(e) => handleKeyDown(e)}
             />
             <Button variant="smPink" onClick={sendMessage}>
               전송

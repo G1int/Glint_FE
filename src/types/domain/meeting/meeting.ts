@@ -97,7 +97,18 @@ export interface getCurrentSearchKeywordItem {
 export interface getCurrentSearchKeywordResponse {
   searchKeywords: getCurrentSearchKeywordItem[];
 }
+
 export interface postAttendMeetingRoomQuery {
+  meetingId: string;
+  userId: string;
+}
+
+export interface putOutMeetingQuery {
+  meetingId: string;
+  userId: string;
+}
+
+export interface putJoinMeetingQuery {
   meetingId: string;
   userId: string;
 }
