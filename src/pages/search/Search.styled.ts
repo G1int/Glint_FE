@@ -108,6 +108,19 @@ export const SearchResultContainer = styled.div`
   padding-bottom: 64px;
 `;
 
+export const NoSearchMeeting = styled.div`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_regular_16};
+    color: ${theme.colors.gray900};
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    width: 360px;
+    position: absolute;
+    top: 335px;
+  `}
+`;
 export const SearchSubResult = styled.div`
   ${({ theme }) => css`
     ${theme.fonts.subTitle_regular_14};
