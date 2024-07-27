@@ -143,7 +143,7 @@ const Search = () => {
         </S.InputContainer>
       </S.SearchContainer>
       <S.SearchSubResult>
-        <S.Highlight>{data?.totalCount}</S.Highlight>건
+        <S.Highlight>{data?.totalCount ? data?.totalCount : 0}</S.Highlight>건
         <S.FilterWrapper>
           미팅 희망 지역
           <FilterIcon onClick={handleFilter} />
