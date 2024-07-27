@@ -1,20 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <script
+      defer
+      src="https://cdn.swygbro.com/public/widget/swyg-widget.js"
+    ></script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="favicon.ico" />
+    <!-- IOS -->
+    <link rel="apple-touch-icon" href="/images/logo_square_192.png" />
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Glint</title>
-</head>
+    <!-- ANDROID -->
+    <link rel="shortcut icon" href="/images/logo_square_180.png" />
+    <!-- TODO: 기획 확정되고 나서 수정 필요 -->
+    <meta name="description" content="새로운 사람을 만날 수 있는 Glint" />
+    <meta name="keywords" content="미팅, 채팅, 연애" />
+    <meta property="og:site_name" content="Glint" />
+    <meta property="og:title" content="Glint" />
+    <meta
+      property="og:description"
+      content="새로운 사람을 만날 수 있는 Glint"
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.glint.swygbro.com" />
+    <meta property="og:image" content="logo/logo.png" />
+    <title>Glint</title>
+  </head>
 
-<!-- kakao login (rest api) -->
-<script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
+  <!-- kakao login (rest api) -->
+  <script src="https://developers.kakao.com/sdk/js/kakao.min.js"></script>
 
-<body>
-  <div id="root"></div>
-  <div id="modal-root"></div>
-  <script type="module" src="/src/main.tsx"></script>
-</body>
-
+  <body>
+    <div id="root"></div>
+    <div id="modal-root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
 </html>
