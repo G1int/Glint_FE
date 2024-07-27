@@ -32,8 +32,7 @@ const Search = () => {
   );
   const { data: searchKeyword, refetch: searchKeywordRefetch } =
     useGetCurrentSearchKeyword(userId!, null);
-  const { mutate: deleteSearchKeywordMutation } =
-    useDeleteCurrentSearchKeyword();
+  const { mutate: mutateDeleteKeyword } = useDeleteCurrentSearchKeyword();
 
   const { handleOpenModal, handleCloseModal } = useModal();
   const { addToast } = useToast();
@@ -63,7 +62,7 @@ const Search = () => {
   };
 
   const handleDeleteKeyword = (keywordId: number) => {
-    deleteSearchKeywordMutation(keywordId);
+    mutateDeleteKeyword(keywordId);
   };
 
   const handleMoreMeeting = () => {

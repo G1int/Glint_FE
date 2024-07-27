@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 import {
+  deleteUserAPI,
   getKakaoInfoAPI,
   getUserAPI,
   getUserInfoAPI,
@@ -37,5 +38,11 @@ export const useGetUserInfo = (userId: string) => {
 export const usePutLogout = () => {
   return useMutation({
     mutationFn: () => putLogoutAPI(),
+  });
+};
+
+export const useDeleteUser = (userId: string) => {
+  return useMutation({
+    mutationFn: () => deleteUserAPI(userId),
   });
 };

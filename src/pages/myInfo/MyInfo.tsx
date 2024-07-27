@@ -1,5 +1,6 @@
 import {
   Button,
+  ConfirmModal,
   Header,
   KakaoLogout,
   Profile,
@@ -14,11 +15,21 @@ import {
   FriendsManageIcon,
   MyProfileIcon,
 } from "assets";
-import { useModal, useUserInfo } from "hooks";
+import { useModal, useToast, useUserInfo } from "hooks";
+import { useDeleteUser } from "services";
+import { useRecoilValue } from "recoil";
+import { userIdSelector } from "atoms";
+import { useNavigate } from "react-router-dom";
 
 const MyInfo = () => {
-  const { handleOpenModal } = useModal();
+  const navigate = useNavigate();
+
+  const userId = useRecoilValue(userIdSelector);
+  const { handleOpenModal, handleCloseModal } = useModal();
+  const { addToast } = useToast();
+
   const { userDetail, userProfile } = useUserInfo();
+  const { mutate: mutateDeleteUser } = useDeleteUser(userId!);
 
   const infoData: {
     location?: string;
@@ -50,6 +61,40 @@ const MyInfo = () => {
         }
       />
     );
+  };
+
+  const handleWithdrawal = () => {
+    handleOpenModal(
+      <ConfirmModal
+        title="회원 탈퇴를 진행하시겠어요?"
+        content={
+          <>
+            회원 탈퇴 시 계정 복구는 불가능하니
+            <br />
+            주의해주세요!
+          </>
+        }
+        confirmLabel="탈퇴하기"
+        cancelLabel="취소"
+        handleCloseClick={handleCloseModal}
+        handleConfirmClick={handleDeleteUser}
+      />
+    );
+  };
+
+  const handleDeleteUser = () => {
+    mutateDeleteUser(undefined, {
+      onSuccess: () => {
+        handleCloseModal();
+        sessionStorage.clear();
+        navigate("/");
+      },
+      onError: (error) => {
+        handleCloseModal();
+        addToast({ content: "회원탈퇴에 실패했습니다.다시 시도해주세요." });
+        console.error("회원탈퇴 API 실패:", error);
+      },
+    });
   };
 
   return (
@@ -99,7 +144,11 @@ const MyInfo = () => {
       ))}
       <S.OutButtonWrapper>
         <KakaoLogout css={S.outButton} />
-        <Button variant="underline" css={S.outButton}>
+        <Button
+          variant="underline"
+          css={S.outButton}
+          onClick={handleWithdrawal}
+        >
           회원탈퇴
         </Button>
       </S.OutButtonWrapper>
