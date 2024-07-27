@@ -4,6 +4,7 @@ export { ReactComponent as AuthBadgeIcon } from "./ic_authBadge.svg";
 export { ReactComponent as BackIcon } from "./ic_back.svg";
 export { ReactComponent as BellIcon } from "./ic_bell.svg";
 export { ReactComponent as CameraIcon } from "./ic_camera.svg";
+export { ReactComponent as ChatIcon } from "./ic_chat.svg";
 export { ReactComponent as CheckIcon } from "./ic_check.svg";
 export { ReactComponent as ChevronRightIcon } from "./ic_chevronRight.svg";
 export { ReactComponent as CircleCloseIcon } from "./ic_circleClose.svg";

@@ -36,9 +36,9 @@ export const Badge = styled.button<{
       : isSelected || variant === "smNavy" || variant === "mdNavy"
       ? theme.colors.navy900
       : theme.colors.white};
-    color: ${variant === "mdWhite"
+    color: ${variant === "mdWhite" && !isSelected
       ? theme.colors.black
-      : (isSelected || !isClickable) && theme.colors.white};
+      : theme.colors.white};
     cursor: ${!isClickable && "default"};
 
     &:hover {

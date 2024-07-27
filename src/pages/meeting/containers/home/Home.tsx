@@ -3,17 +3,21 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { Badge, Button } from "components";
 import { useToast } from "hooks";
-import { useGetMeeting, usePostAttendMeetingRoom } from "services";
+import { usePostAttendMeetingRoom } from "services";
 import { PEOPEL_CAPACITY_RADIOS, UnlockIcon } from "assets";
+import { GetMeetingResponse } from "types";
 import { Profile } from "./containers";
 import * as S from "./Home.styled";
 
-const Home = () => {
+interface HomeProps {
+  data?: GetMeetingResponse;
+}
+
+const Home = ({ data }: HomeProps) => {
   const { meetingId } = useParams();
   const userId = sessionStorage.getItem("id")!;
   const navigate = useNavigate();
 
-  const { data } = useGetMeeting(meetingId!);
   const { mutate: mutatePostAttendMeetingRoom } = usePostAttendMeetingRoom();
 
   const { addToast } = useToast();
@@ -119,7 +123,7 @@ const Home = () => {
                         </span>
                       </S.ConditionRow>
                     )}
-                    {checkRequired("maleCondition", "DRINKGING") && (
+                    {checkRequired("maleCondition", "DRINKING") && (
                       <S.ConditionRow>
                         <span>음주</span>
                         <span>
@@ -145,7 +149,7 @@ const Home = () => {
               </S.Condition>
             </S.Conditions>
             <Profile
-              leaderId={data?.leaderUserId}
+              leaderId={`${data?.leaderUserId}`}
               peopleCapacity={data?.peopleCapacity}
               users={maleUsers}
             />
@@ -196,7 +200,7 @@ const Home = () => {
                       </span>
                     </S.ConditionRow>
                   )}
-                  {checkRequired("femaleCondition", "DRINKGING") && (
+                  {checkRequired("femaleCondition", "DRINKING") && (
                     <S.ConditionRow>
                       <span>음주</span>
                       <span>
@@ -222,7 +226,7 @@ const Home = () => {
             </S.Condition>
           </S.Conditions>
           <Profile
-            leaderId={data?.leaderUserId}
+            leaderId={`${data?.leaderUserId}`}
             peopleCapacity={data?.peopleCapacity}
             users={femaleUsers}
           />

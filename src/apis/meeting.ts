@@ -6,6 +6,8 @@ import type {
   postAttendMeetingRoomQuery,
   getMeetingJoinsQuery,
   getMeetingJoinsResponse,
+  putOutMeetingQuery,
+  putJoinMeetingQuery,
 } from "types";
 import { ax } from "./axios";
 
@@ -79,6 +81,30 @@ export const getMeetingJoinsAPI = async (req: getMeetingJoinsQuery) => {
     {
       params: req.query,
     }
+  );
+
+  return data;
+};
+
+export const putOutMeetingAPI = async (req: putOutMeetingQuery) => {
+  const { data } = await ax.put(
+    `/meetings/${req.meetingId}/users/${req.userId}/out`
+  );
+
+  return data;
+};
+
+export const putRejectJoinMeetingAPI = async (req: putJoinMeetingQuery) => {
+  const { data } = await ax.put(
+    `/meetings/${req.meetingId}/join/users/${req.userId}/reject`
+  );
+
+  return data;
+};
+
+export const putAcceptJoinMeetingAPI = async (req: putJoinMeetingQuery) => {
+  const { data } = await ax.put(
+    `/meetings/${req.meetingId}/join/users/${req.userId}/accept`
   );
 
   return data;

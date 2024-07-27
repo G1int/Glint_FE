@@ -1,7 +1,12 @@
 import { css } from "@emotion/react";
-import styled from "@emotion/styled";
 
 export const backLayout = css`
   display: flex;
   justify-content: center;
+`;
+
+export const tab = css`
+  & > div:last-of-type {
+    margin-top: calc(80px + 54px + 24px);
+  }
 `;

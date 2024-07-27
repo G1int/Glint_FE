@@ -2,17 +2,23 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const Tab = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
 `;
 
 //TODO: 디자인 생성되면 일괄 css 수정 필요
 export const TabLabelWrapper = styled.div<{ columns: number }>`
-  ${({ columns }) => css`
+  ${({ theme, columns }) => css`
+    position: fixed;
+    top: 80px;
     display: grid;
     grid-template-columns: repeat(${columns}, 1fr);
+    max-width: 360px;
     width: 100%;
     margin-bottom: 24px;
+    background-color: ${theme.colors.white};
+    z-index: 10000;
   `}
 `;
 
@@ -38,4 +44,8 @@ export const TabButton = styled.button<{ isSelected: boolean }>`
       background-color: ${isSelected && theme.colors.pink900};
     }
   `}
+`;
+
+export const TabContent = styled.div`
+  margin-top: calc(54px + 24px);
 `;

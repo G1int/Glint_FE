@@ -203,7 +203,7 @@ const CreateRoom = () => {
                   {SELECT_CONDITIONS.map((select) => (
                     <Badge
                       key={select.key}
-                      variant="mdNavy"
+                      variant="mdWhite"
                       isSelected={watch(
                         "maleConditions.selectConditions"
                       ).includes(select.key)}
@@ -292,11 +292,10 @@ const CreateRoom = () => {
                 <strong>동성</strong>(자유롭게 선택해주세요)
               </S.Desc>
               <S.BadgeWrapper>
-                {/* TODO: variant 수정 예정 */}
                 {SELECT_CONDITIONS.map((select) => (
                   <Badge
                     key={select.key}
-                    variant="mdNavy"
+                    variant="mdWhite"
                     isSelected={watch(
                       "femaleConditions.selectConditions"
                     ).includes(select.key)}

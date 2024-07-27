@@ -15,7 +15,7 @@ export const getCurrentSearchKeywordAPI = async (
   return data;
 };
 
-export const deleteCurrentKeywordAPI = async (searchKeywordId: number) => {
+export const deleteCurrentKeywordAPI = async (searchKeywordId: string) => {
   const { data } = await ax.delete(`/search-keywords/${searchKeywordId}`);
 
   return data;
