@@ -5,6 +5,7 @@ export const CreateRoom = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  margin-top: 80px;
 `;
 
 export const CreateRoomWrapper = styled.div`
