@@ -149,3 +149,8 @@ export const Division = styled.hr`
     background-color: ${theme.colors.gray600};
   `}
 `;
+
+export const LocationBox = styled.div`
+  display: flex;
+  gap: 8px;
+`;
