@@ -177,3 +177,11 @@ export const RequiredBox = styled.div`
 export const RequiredContent = styled.div`
   display: flex;
 `;
+
+export const badge = css`
+  column-gap: 4px;
+
+  & > svg {
+    cursor: pointer;
+  }
+`;

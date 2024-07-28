@@ -1,5 +1,4 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
 
 import {
   BackLayout,
@@ -8,58 +7,33 @@ import {
   FormInput,
   FormRadioButton,
   Textarea,
+  MultiLocationModal,
 } from "components";
-import { PEOPEL_CAPACITY_RADIOS, SELECT_CONDITIONS, SELECT_DATA } from "assets";
-import { usePostCreateRoom } from "services";
-import type { createRoomForm } from "types";
+import { useModal, useToast } from "hooks";
+import {
+  SmallChevronRightIcon,
+  PEOPEL_CAPACITY_RADIOS,
+  SELECT_CONDITIONS,
+  SELECT_DATA,
+  TagCloseWhiteIcon,
+} from "assets";
+import type { locationInfo } from "types";
+import { useCreateRoom } from "./hooks";
 import * as S from "./CreateRoom.styled";
 
-const initForm = {
-  peopleCapacity: "2",
-  title: "",
-  description: "",
-  locationIds: null,
-  maleConditions: {
-    selectConditions: [],
-    affiliation: [],
-    religions: "",
-    smoking: "",
-    drinking: "",
-    age: {
-      minAge: 19,
-      maxAge: 50,
-    },
-    height: {
-      minHeight: 100,
-      maxHeight: 250,
-    },
-  },
-  femaleConditions: {
-    selectConditions: [],
-    affiliation: [],
-    religions: "",
-    smoking: "",
-    drinking: "",
-    age: {
-      minAge: 0,
-      maxAge: 50,
-    },
-    height: {
-      minHeight: 100,
-      maxHeight: 250,
-    },
-  },
-};
-
 const CreateRoom = () => {
-  const { mutate: postCreateRoom } = usePostCreateRoom();
+  const [locations, setLocations] = useState<locationInfo[]>([]);
 
-  const { watch, setValue, register, handleSubmit } = useForm<createRoomForm>({
-    defaultValues: initForm,
-    mode: "onTouched",
-  });
-
-  const myId = sessionStorage.getItem("id");
+  const {
+    watch,
+    setValue,
+    register,
+    handleSubmit,
+    handleSelectConditions,
+    handleClickButton,
+  } = useCreateRoom();
+  const { handleOpenModal, handleCloseModal } = useModal();
+  const { addToast } = useToast();
 
   const religionData = SELECT_DATA.find(
     (item) => item.title === "종교"
@@ -71,74 +45,41 @@ const CreateRoom = () => {
     (item) => item.title === "음주"
   )?.options;
 
-  const handleSelectConditions =
-    (
-      name: "maleConditions" | "femaleConditions",
-      value: (typeof SELECT_CONDITIONS)[number]["key"]
-    ) =>
-    (): void => {
-      const currentBadges = watch(`${name}.selectConditions`);
-      const filteredBadges = watch(`${name}.selectConditions`).filter(
-        (item) => item !== value
-      );
-
-      if (currentBadges.includes(value)) {
-        setValue(`${name}.selectConditions`, filteredBadges);
+  const handleOpenLocationModal = () => {
+    const handleConfirmLocation = (
+      list: {
+        id: number;
+        locationName: string;
+      }[]
+    ) => {
+      if (!list.length) {
+        addToast({ content: "시/군/구를 선택해주세요." });
       } else {
-        setValue(`${name}.selectConditions`, [...currentBadges, value]);
+        setLocations(list);
+        setValue("locations", locations);
+        handleCloseModal();
       }
     };
 
-  const handleClickButton = (data: createRoomForm): void => {
-    const req = {
-      body: {
-        title: data.title,
-        description: data.description,
-        leaderUserId: myId!,
-        locationIds: [1, 2], //TODO: 임시 추가 아이디로 location 불러오는 api 연동 후 수정 예정
-        peopleCapacity: data.peopleCapacity,
-        maleConditions: {
-          selectConditions: data.maleConditions?.selectConditions,
-          affiliation: data.maleConditions?.affiliation,
-          minAge: data.maleConditions?.age.minAge ?? null,
-          maxAge: data.maleConditions?.age.maxAge ?? null,
-          maxHeight: data.maleConditions?.height.maxHeight ?? null,
-          minHeight: data.maleConditions?.height.minHeight ?? null,
-          religionIds: data.maleConditions?.religions
-            ? [+data.maleConditions?.religions]
-            : [],
-          smokingIds: data.maleConditions?.smoking
-            ? [+data.maleConditions?.smoking]
-            : [],
-          drinkingIds: data.maleConditions?.drinking
-            ? [+data.maleConditions?.drinking]
-            : [],
-        },
-        femaleConditions: {
-          selectConditions: data.femaleConditions?.selectConditions,
-          affiliation: data.femaleConditions?.affiliation,
-          minAge: data.femaleConditions?.age.minAge ?? null,
-          maxAge: data.femaleConditions?.age.maxAge ?? null,
-          maxHeight: data.femaleConditions?.height.maxHeight ?? null,
-          minHeight: data.femaleConditions?.height.minHeight ?? null,
-          religionIds: data.femaleConditions?.religions
-            ? [+data.femaleConditions?.religions]
-            : [],
-          smokingIds: data.femaleConditions?.smoking
-            ? [+data.femaleConditions?.smoking]
-            : [],
-          drinkingIds: data.femaleConditions?.drinking
-            ? [+data.femaleConditions?.drinking]
-            : [],
-        },
-      },
-    };
+    handleOpenModal(
+      <MultiLocationModal
+        title="어디서 만나는게 편하세요?"
+        highlight="최대 3개"
+        description="까지 선택할 수 있어요."
+        locations={locations}
+        handleCloseClick={handleCloseModal}
+        handleConfirmClick={handleConfirmLocation}
+        maxLength={3}
+      />
+    );
+  };
 
-    postCreateRoom(req, {
-      onSuccess: () => {
-        console.log("complete"); //TODO: 성공 시 이동하는 페이지에 대해 화면 설계서에 작성 X
-      },
-    });
+  const handleDeleteLocation = (deleteLocation: string) => () => {
+    const filteredLocations = locations.filter(
+      (location) => location.locationName !== deleteLocation
+    );
+
+    return setLocations(filteredLocations);
   };
 
   //TODO: 성별 데이터 받아와서 처리해야함 일단 이성 - male / 동성 - female로 적용함
@@ -182,12 +123,29 @@ const CreateRoom = () => {
             </S.MainContentBox>
           </S.MainContent>
           <S.MainContent>
-            {/* TODO: 수정 필요 */}
-            <S.RequiredContent>
-              <S.Title marginBottom={4}>미팅 희망 지역</S.Title>
-              <S.RequiredBox />
-            </S.RequiredContent>
-            <S.Desc marginBottom={8}>정확한 장소는 함께 정해보세요!</S.Desc>
+            <div>
+              <S.RequiredContent>
+                <S.Title marginBottom={4}>미팅 희망 지역</S.Title>
+                <S.RequiredBox />
+              </S.RequiredContent>
+              <S.Desc marginBottom={8}>정확한 장소는 함께 정해보세요!</S.Desc>
+              <button onClick={handleOpenLocationModal}>
+                선택하기 <SmallChevronRightIcon />
+              </button>
+            </div>
+            {locations.map((location) => (
+              <Badge
+                css={S.badge}
+                key={location.id}
+                variant="mdNavy"
+                label={location.locationName}
+                icon={
+                  <TagCloseWhiteIcon
+                    onClick={handleDeleteLocation(location.locationName)}
+                  />
+                }
+              />
+            ))}
           </S.MainContent>
           <S.MainContent>
             <S.SelectContent>
