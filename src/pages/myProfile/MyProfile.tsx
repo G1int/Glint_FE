@@ -128,6 +128,11 @@ const MyProfile = () => {
     };
   }, []);
 
+  // TODO: 기능 구현 후 삭제
+  const handleDoNotMake = () => {
+    addToast({ content: "현재 개발중인 기능이에요. 조금만 기다려주세요:)" });
+  };
+
   return (
     <S.Content>
       <S.Img src={userDetail?.profileImage} alt="profile img" />
@@ -140,7 +145,7 @@ const MyProfile = () => {
       <S.Line />
       <S.Container>
         <S.InfoTitle>회사/학교</S.InfoTitle>
-        <Button variant="icon" css={S.rightIcon}>
+        <Button variant="icon" css={S.rightIcon} onClick={handleDoNotMake}>
           <SmallChevronRightIcon />
         </Button>
       </S.Container>
