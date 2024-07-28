@@ -137,6 +137,7 @@ export const FilterWrapper = styled.span`
   gap: 24px;
   align-items: center;
   margin-left: 164px;
+  cursor: pointer;
 `;
 
 export const Highlight = styled.span`

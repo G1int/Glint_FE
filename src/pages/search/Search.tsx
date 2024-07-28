@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { Badge, Button, Input, LocationModal, MeetingCard } from "components";
+import {
+  Badge,
+  Button,
+  Input,
+  MeetingCard,
+  MultiLocationModal,
+} from "components";
 import {
   BigSearchIcon,
   CircleCloseIcon,
@@ -12,7 +18,7 @@ import {
   useGetCurrentSearchKeyword,
   useGetSearchMeeting,
 } from "services";
-import { meetingListItem } from "types";
+import { locationInfo, meetingListItem } from "types";
 import { useModal, useToast } from "hooks";
 import * as S from "./Search.styled";
 import { useRecoilValue } from "recoil";
@@ -28,6 +34,7 @@ const Search = () => {
   const [lastMeetingId, setLastMeetingId] = useState<number | null>(null);
   const [meetingList, setMeetingList] = useState<meetingListItem[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const [locations, setLocations] = useState<locationInfo[]>([]);
 
   const limit = 3;
   const userId = useRecoilValue(userIdSelector);
@@ -42,7 +49,7 @@ const Search = () => {
     useGetCurrentSearchKeyword(userId!, null);
   const { mutate: mutateDeleteKeyword } = useDeleteCurrentSearchKeyword();
 
-  // const { handleOpenModal, handleCloseModal } = useModal();
+  const { handleOpenModal, handleCloseModal } = useModal();
   const { addToast } = useToast();
 
   const handleSearch = () => {
@@ -89,20 +96,36 @@ const Search = () => {
   };
 
   const handleFilter = () => {
-    // TODO: LocalModal 수정 후 변경
+    // TODO: 기능 추가 후 삭제
     addToast({ content: "현재 개발중인 기능이에요. 조금만 기다려주세요:)" });
+  };
 
-    // TODO: handleConfirmClick 수정
-    // handleOpenModal(
-    //   <LocationModal
-    //     title="어디서 만나는게 편하세요?"
-    //     highlight="최대 5개"
-    //     description="까지 선택할 수 있어요."
-    //     handleCloseClick={handleCloseModal}
-    //     handleConfirmClick={() => console.log("ddd")}
-    //     maxLength={5}
-    //   />
-    // );
+  const handleOpenLocationModal = () => {
+    const handleConfirmLocation = (
+      list: {
+        id: number;
+        locationName: string;
+      }[]
+    ) => {
+      if (!list.length) {
+        addToast({ content: "시/군/구를 선택해주세요." });
+      } else {
+        setLocations(list);
+        handleCloseModal();
+      }
+    };
+
+    handleOpenModal(
+      <MultiLocationModal
+        title="어디서 만나는게 편하세요?"
+        highlight="최대 3개"
+        description="까지 선택할 수 있어요."
+        locations={locations}
+        handleCloseClick={handleCloseModal}
+        handleConfirmClick={handleConfirmLocation}
+        maxLength={3}
+      />
+    );
   };
 
   useEffect(() => {
@@ -159,7 +182,7 @@ const Search = () => {
       <S.SearchSubResult>
         <S.Highlight>{data?.totalCount ? data?.totalCount : 0}</S.Highlight>건
         <S.FilterWrapper>
-          미팅 희망 지역
+          <span onClick={handleOpenLocationModal}>미팅 희망 지역</span>
           <FilterIcon onClick={handleFilter} />
         </S.FilterWrapper>
       </S.SearchSubResult>
