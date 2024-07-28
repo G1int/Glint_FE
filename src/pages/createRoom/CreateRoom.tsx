@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
+import { Controller } from "react-hook-form";
 
 import { genderSelector } from "atoms";
 import {
@@ -10,6 +11,7 @@ import {
   FormRadioButton,
   Textarea,
   MultiLocationModal,
+  RangeSlider,
 } from "components";
 import { useModal, useToast } from "hooks";
 import {
@@ -31,6 +33,8 @@ const CreateRoom = () => {
   const {
     watch,
     setValue,
+    clearErrors,
+    control,
     register,
     handleSubmit,
     handleSelectConditions,
@@ -66,7 +70,6 @@ const CreateRoom = () => {
         addToast({ content: "시/군/구를 선택해주세요." });
       } else {
         setLocations(list);
-        setValue("locations", locations);
         handleCloseModal();
       }
     };
@@ -92,7 +95,14 @@ const CreateRoom = () => {
     return setLocations(filteredLocations);
   };
 
-  //TODO: 성별 데이터 받아와서 처리해야함 일단 이성 - male / 동성 - female로 적용함
+  useEffect(() => {
+    setValue("locations", locations);
+
+    if (watch("locations")?.length) {
+      clearErrors("locations");
+    }
+  }, [locations]);
+
   return (
     <BackLayout title="미팅 만들기" hasTopContent>
       <S.CreateRoom>
@@ -143,19 +153,31 @@ const CreateRoom = () => {
                 선택하기 <SmallChevronRightIcon />
               </button>
             </div>
-            {locations.map((location) => (
-              <Badge
-                css={S.badge}
-                key={location.id}
-                variant="mdNavy"
-                label={location.locationName}
-                icon={
-                  <TagCloseWhiteIcon
-                    onClick={handleDeleteLocation(location.locationName)}
-                  />
-                }
-              />
-            ))}
+            <Controller
+              name="locations"
+              control={control}
+              render={() => {
+                return (
+                  <>
+                    {locations.map((location) => (
+                      <Badge
+                        css={S.badge}
+                        key={location.id}
+                        variant="mdNavy"
+                        label={location.locationName}
+                        icon={
+                          <TagCloseWhiteIcon
+                            onClick={handleDeleteLocation(
+                              location.locationName
+                            )}
+                          />
+                        }
+                      />
+                    ))}
+                  </>
+                );
+              }}
+            />
           </S.MainContent>
           <S.MainContent>
             <S.SelectContent>
@@ -167,7 +189,6 @@ const CreateRoom = () => {
                   <strong>이성</strong>(최대 2개까지 선택해주세요)
                 </S.Desc>
                 <S.BadgeWrapper>
-                  {/* TODO: variant 수정 예정 */}
                   {SELECT_CONDITIONS.map((select) => (
                     <Badge
                       key={select.key}
@@ -201,18 +222,62 @@ const CreateRoom = () => {
               )}
               {watch(`${oppositeGender}.selectConditions`).includes("AGE") && (
                 <S.SelectContentBox>
-                  {/* TODO: 수정예정 */}
                   <S.SubTitle>나이</S.SubTitle>
-                  <input type="range"></input>
+                  <S.RangeText>
+                    만 {watch(`${oppositeGender}.age.minAge`)}~
+                    {watch(`${oppositeGender}.age.maxAge`)}세
+                  </S.RangeText>
+                  <Controller
+                    control={control}
+                    name={`${oppositeGender}.age`}
+                    render={() => {
+                      const handleChange = (min: number, max: number) => {
+                        if (!(max - min)) return;
+
+                        setValue(`${oppositeGender}.age.minAge`, min);
+                        setValue(`${oppositeGender}.age.maxAge`, max);
+                      };
+
+                      return (
+                        <RangeSlider
+                          min={19}
+                          max={50}
+                          handleValueChange={handleChange}
+                        />
+                      );
+                    }}
+                  />
                 </S.SelectContentBox>
               )}
               {watch(`${oppositeGender}.selectConditions`).includes(
                 "HEIGHT"
               ) && (
                 <S.SelectContentBox>
-                  {/* TODO: 수정예정 */}
                   <S.SubTitle>키</S.SubTitle>
-                  <input type="range"></input>
+                  <S.RangeText>
+                    {watch(`${oppositeGender}.height.minHeight`)}~
+                    {watch(`${oppositeGender}.height.maxHeight`)}cm
+                  </S.RangeText>
+                  <Controller
+                    control={control}
+                    name={`${oppositeGender}.height`}
+                    render={() => {
+                      const handleChange = (min: number, max: number) => {
+                        if (!(max - min)) return;
+
+                        setValue(`${oppositeGender}.height.minHeight`, min);
+                        setValue(`${oppositeGender}.height.maxHeight`, max);
+                      };
+
+                      return (
+                        <RangeSlider
+                          min={100}
+                          max={250}
+                          handleValueChange={handleChange}
+                        />
+                      );
+                    }}
+                  />
                 </S.SelectContentBox>
               )}
               {watch(`${oppositeGender}.selectConditions`).includes(
@@ -296,18 +361,62 @@ const CreateRoom = () => {
               )}
               {watch(`${currentGender}.selectConditions`).includes("AGE") && (
                 <S.SelectContentBox>
-                  {/* TODO: 수정예정 */}
                   <S.SubTitle>나이</S.SubTitle>
-                  <input type="range"></input>
+                  <S.RangeText>
+                    만 {watch(`${currentGender}.age.minAge`)}~
+                    {watch(`${currentGender}.age.maxAge`)}세
+                  </S.RangeText>
+                  <Controller
+                    control={control}
+                    name={`${currentGender}.age`}
+                    render={() => {
+                      const handleChange = (min: number, max: number) => {
+                        if (!(max - min)) return;
+
+                        setValue(`${currentGender}.age.minAge`, min);
+                        setValue(`${currentGender}.age.maxAge`, max);
+                      };
+
+                      return (
+                        <RangeSlider
+                          min={19}
+                          max={50}
+                          handleValueChange={handleChange}
+                        />
+                      );
+                    }}
+                  />
                 </S.SelectContentBox>
               )}
               {watch(`${currentGender}.selectConditions`).includes(
                 "HEIGHT"
               ) && (
                 <S.SelectContentBox>
-                  {/* TODO: 수정예정 */}
                   <S.SubTitle>키</S.SubTitle>
-                  <input type="range"></input>
+                  <S.RangeText>
+                    {watch(`${currentGender}.height.minHeight`)}~
+                    {watch(`${currentGender}.height.maxHeight`)}cm
+                  </S.RangeText>
+                  <Controller
+                    control={control}
+                    name={`${currentGender}.height`}
+                    render={() => {
+                      const handleChange = (min: number, max: number) => {
+                        if (!(max - min)) return;
+
+                        setValue(`${currentGender}.height.minHeight`, min);
+                        setValue(`${currentGender}.height.maxHeight`, max);
+                      };
+
+                      return (
+                        <RangeSlider
+                          min={100}
+                          max={250}
+                          handleValueChange={handleChange}
+                        />
+                      );
+                    }}
+                  />
                 </S.SelectContentBox>
               )}
               {watch(`${currentGender}.selectConditions`).includes(

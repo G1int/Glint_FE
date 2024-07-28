@@ -185,3 +185,10 @@ export const badge = css`
     cursor: pointer;
   }
 `;
+
+export const RangeText = styled.span`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_bold_16};
+    margin-bottom: 16px;
+  `}
+`;

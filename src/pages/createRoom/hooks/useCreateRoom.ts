@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 import { SELECT_CONDITIONS } from "assets";
 import { usePostCreateRoom } from "services";
 import type { createRoomForm } from "types";
-import { useNavigate } from "react-router-dom";
 
 const initForm = {
   peopleCapacity: "2",
@@ -32,7 +32,7 @@ const initForm = {
     smoking: "",
     drinking: "",
     age: {
-      minAge: 0,
+      minAge: 19,
       maxAge: 50,
     },
     height: {
@@ -45,10 +45,11 @@ const initForm = {
 const useCreateRoom = () => {
   const navigate = useNavigate();
 
-  const { watch, setValue, register, handleSubmit } = useForm<createRoomForm>({
-    defaultValues: initForm,
-    mode: "onTouched",
-  });
+  const { watch, setValue, clearErrors, register, control, handleSubmit } =
+    useForm<createRoomForm>({
+      defaultValues: initForm,
+      mode: "onTouched",
+    });
 
   const myId = sessionStorage.getItem("id");
 
@@ -129,6 +130,8 @@ const useCreateRoom = () => {
   return {
     watch,
     setValue,
+    clearErrors,
+    control,
     register,
     handleSubmit,
     handleSelectConditions,

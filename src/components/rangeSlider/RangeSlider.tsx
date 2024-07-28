@@ -39,6 +39,7 @@ const RangeSlider = ({ min, max, handleValueChange }: RangeSliderProps) => {
     }
   }, [minValue, maxValue]);
 
+  //TODO: min, max 로직 수정 필요
   return (
     <S.SliderContainer>
       <S.SliderWrapper>
