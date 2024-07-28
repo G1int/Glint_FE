@@ -54,15 +54,15 @@ const MultiLocationModal = ({
         (selected) => selected.locationName !== locationName
       );
 
-      return setSelectedList(filteredSelectedList);
-    }
-
-    if (maxLength !== 0 && selectedList.length >= maxLength) {
-      addToast({
-        content: `지역은 최대 ${maxLength}개까지 선택 가능합니다.`,
-      });
+      setSelectedList(filteredSelectedList);
     } else {
-      setSelectedList((prev) => [...prev, { id, locationName }]);
+      if (maxLength !== 0 && selectedList.length >= maxLength) {
+        addToast({
+          content: `지역은 최대 ${maxLength}개까지 선택 가능합니다.`,
+        });
+      } else {
+        setSelectedList((prev) => [...prev, { id, locationName }]);
+      }
     }
   };
 
@@ -73,8 +73,8 @@ const MultiLocationModal = ({
   useEffect(() => {
     if (!cities) return;
 
-    setReverseCities(cities.locations.reverse());
-  }, [isSuccessCities]);
+    setReverseCities([...cities.locations].reverse());
+  }, [isSuccessCities, selectedState]);
 
   return (
     <BaseModal className={className} css={S.bottomModal}>
