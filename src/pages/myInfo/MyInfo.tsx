@@ -74,7 +74,7 @@ const MyInfo = () => {
             주의해주세요!
           </>
         }
-        confirmLabel="탈퇴하기"
+        confirmLabel="회원탈퇴"
         cancelLabel="취소"
         handleCloseClick={handleCloseModal}
         handleConfirmClick={handleDeleteUser}
