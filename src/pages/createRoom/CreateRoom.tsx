@@ -213,6 +213,7 @@ const CreateRoom = () => {
               {watch(`${oppositeGender}.selectConditions`).includes(
                 "AFFILIATION"
               ) && (
+                // TODO: 서버 데이터 확인하여 처리 필요
                 <S.SelectContentBox>
                   <S.SubTitle>회사 / 학교</S.SubTitle>
                   <FormInput
@@ -351,7 +352,7 @@ const CreateRoom = () => {
               )}
               {watch(`${currentGender}.selectConditions`).includes(
                 "AFFILIATION"
-              ) && (
+              ) && ( // TODO: 서버 데이터 확인하여 처리 필요
                 <S.SelectContentBox>
                   <S.SubTitle>회사 / 학교</S.SubTitle>
                   <FormInput
