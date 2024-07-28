@@ -18,9 +18,11 @@ import * as S from "./Search.styled";
 import { useRecoilValue } from "recoil";
 import { userIdSelector } from "atoms";
 import { useLocation } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Search = () => {
   const { state } = useLocation();
+  const queryClient = useQueryClient();
 
   const [keyword, setKeyword] = useState("");
   const [lastMeetingId, setLastMeetingId] = useState<number | null>(null);
@@ -40,7 +42,7 @@ const Search = () => {
     useGetCurrentSearchKeyword(userId!, null);
   const { mutate: mutateDeleteKeyword } = useDeleteCurrentSearchKeyword();
 
-  const { handleOpenModal, handleCloseModal } = useModal();
+  // const { handleOpenModal, handleCloseModal } = useModal();
   const { addToast } = useToast();
 
   const handleSearch = () => {
@@ -68,7 +70,16 @@ const Search = () => {
   };
 
   const handleDeleteKeyword = (keywordId: string) => {
-    mutateDeleteKeyword(keywordId);
+    mutateDeleteKeyword(keywordId, {
+      onSuccess: () => {
+        // 성공 시, currentKeyword 무효화 -> 업데이트
+        queryClient.invalidateQueries({ queryKey: ["currentKeyword"] });
+      },
+      onError: (error) => {
+        addToast({ content: "키워드 삭제에 실패했습니다. 다시 시도해주세요." });
+        console.error("키워드 삭제 API 실패:", error);
+      },
+    });
   };
 
   const handleMoreMeeting = () => {
@@ -78,17 +89,20 @@ const Search = () => {
   };
 
   const handleFilter = () => {
+    // TODO: LocalModal 수정 후 변경
+    addToast({ content: "현재 개발중인 기능이에요. 조금만 기다려주세요:)" });
+
     // TODO: handleConfirmClick 수정
-    handleOpenModal(
-      <LocationModal
-        title="어디서 만나는게 편하세요?"
-        highlight="최대 5개"
-        description="까지 선택할 수 있어요."
-        handleCloseClick={handleCloseModal}
-        handleConfirmClick={() => console.log("ddd")}
-        maxLength={5}
-      />
-    );
+    // handleOpenModal(
+    //   <LocationModal
+    //     title="어디서 만나는게 편하세요?"
+    //     highlight="최대 5개"
+    //     description="까지 선택할 수 있어요."
+    //     handleCloseClick={handleCloseModal}
+    //     handleConfirmClick={() => console.log("ddd")}
+    //     maxLength={5}
+    //   />
+    // );
   };
 
   useEffect(() => {
@@ -111,9 +125,9 @@ const Search = () => {
         await refetch();
       } catch (error) {
         addToast({
-          content: "데이터 호출에 문제가 생겼습니다.다시 시도해주세요.",
+          content: "데이터 호출에 문제가 생겼습니다. 다시 시도해주세요.",
         });
-        console.error("검색 API 호출 중 오류 발생:", error);
+        console.error("검색 API 실패:", error);
       }
     };
 
