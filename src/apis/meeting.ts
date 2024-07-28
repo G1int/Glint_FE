@@ -58,7 +58,7 @@ export const getSearchMeetingAPI = async (
   let url = `/meetings/search`;
 
   if (userId !== null) {
-    url += `&userId=${userId}`;
+    url += `?userId=${userId}`;
   }
 
   const { data } = await ax.get<getSearchMeetingResponse>(url, {
