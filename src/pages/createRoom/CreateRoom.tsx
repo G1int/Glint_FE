@@ -13,6 +13,7 @@ import { PEOPEL_CAPACITY_RADIOS, SELECT_CONDITIONS, SELECT_DATA } from "assets";
 import { usePostCreateRoom } from "services";
 import type { createRoomForm } from "types";
 import * as S from "./CreateRoom.styled";
+import { useToast } from "hooks";
 
 const initForm = {
   peopleCapacity: "2",
@@ -52,7 +53,7 @@ const initForm = {
 };
 
 const CreateRoom = () => {
-  const { mutate: postCreateRoom } = usePostCreateRoom();
+  const { mutate: mutatePostCreateRoom } = usePostCreateRoom();
 
   const { watch, setValue, register, handleSubmit } = useForm<createRoomForm>({
     defaultValues: initForm,
@@ -60,6 +61,8 @@ const CreateRoom = () => {
   });
 
   const myId = sessionStorage.getItem("id");
+
+  const { addToast } = useToast();
 
   const religionData = SELECT_DATA.find(
     (item) => item.title === "종교"
@@ -134,9 +137,14 @@ const CreateRoom = () => {
       },
     };
 
-    postCreateRoom(req, {
+    mutatePostCreateRoom(req, {
       onSuccess: () => {
         console.log("complete"); //TODO: 성공 시 이동하는 페이지에 대해 화면 설계서에 작성 X
+      },
+      onError: () => {
+        addToast({
+          content: "미팅 만들기에 문제가 발생했습니다. 다시 시도해주세요.",
+        });
       },
     });
   };

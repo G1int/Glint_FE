@@ -43,6 +43,9 @@ const Meeting = () => {
 
     outMeetingMutate(req, {
       onSuccess: () => navigate("/main"),
+      onError: () => {
+        addToast({ content: "미팅 나가기에 실패했습니다. 다시 시도해주세요." });
+      },
     });
   };
 
