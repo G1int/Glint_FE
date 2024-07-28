@@ -8,7 +8,7 @@ export const Toast = styled.div`
   min-height: 52px;
   pointer-events: none;
   transform: translateX(-50%);
-  z-index: 100;
+  z-index: 10000000;
 `;
 
 export const ToastItemWrapper = styled.div<{ index: number }>`
