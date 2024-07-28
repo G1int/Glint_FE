@@ -13,18 +13,22 @@ import { usePutProfile } from "services";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { profileState, updatedProfileSelector, userIdSelector } from "atoms";
 import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { PutProfileQuery } from "types";
 
 const MyProfile = () => {
+  const navigate = useNavigate();
+  const [isChange, setIsChange] = useState(false);
+
+  const userId = useRecoilValue(userIdSelector);
+  const updatedProfile = useRecoilValue(updatedProfileSelector);
+  const [changeProfile, setChangeProfile] = useRecoilState(profileState);
+
   const { handleOpenModal, handleCloseModal } = useModal();
   const { addToast } = useToast();
+
   const { userDetail, userProfile } = useUserInfo();
-  const navigate = useNavigate();
-  const userId = useRecoilValue(userIdSelector);
   const { mutate: mutatePutProfile } = usePutProfile(userId!);
-  const [changeProfile, setChangeProfile] = useRecoilState(profileState);
-  const updatedProfile = useRecoilValue(updatedProfileSelector);
 
   // TODO: selectedWork, selectedUniversity 추가 해야함.
   const selectedLocation =
@@ -48,15 +52,17 @@ const MyProfile = () => {
   };
 
   const handleConfirmLocation = (list: string[]) => {
-    if (list.length < 2) {
-      // location City 선택 안했을 때 에러남
-      addToast({ content: "시/군/구도 선택해주세요." });
+    if (list.length === 0) {
+      addToast({ content: "시/도를 선택해주세요." });
+    } else if (list.length < 2) {
+      addToast({ content: "시/군/구를 선택해주세요." });
     } else {
       setChangeProfile((prevProfile) => ({
         ...prevProfile,
         locationState: list[0] || "",
         locationCity: list[1] || "",
       }));
+      setIsChange(true);
       handleCloseModal();
     }
   };
@@ -65,10 +71,10 @@ const MyProfile = () => {
     mutatePutProfile(updatedProfile, {
       onSuccess: () => {
         addToast({ content: "프로필이 저장됐어요." });
+        setIsChange(false);
         navigate("/myInfo");
       },
       onError: () => {
-        // TODO: 문구 체크
         addToast({
           content: "프로필 저장에 문제가 발생했습니다. 다시 시도해주세요.",
         });
@@ -81,6 +87,7 @@ const MyProfile = () => {
       ...prevProfile,
       [key]: value,
     }));
+    setIsChange(true);
   };
 
   // 뒤로가기 처리
@@ -101,24 +108,28 @@ const MyProfile = () => {
   };
 
   useEffect(() => {
-    history.pushState(null, "", "");
+    if (isChange) {
+      history.pushState(null, "", "");
+    }
 
     const handleClickBrowseBack = () => {
-      handleOpenModal(
-        <ConfirmModal
-          content={
-            <>
-              이대로 나가면 작성한 내용이
-              <br />
-              저장되지 않아요. 저장할까요?
-            </>
-          }
-          confirmLabel="확인"
-          cancelLabel="취소"
-          handleCloseClick={handleBackClose}
-          handleConfirmClick={handleBackSave}
-        />
-      );
+      if (isChange) {
+        handleOpenModal(
+          <ConfirmModal
+            content={
+              <>
+                이대로 나가면 작성한 내용이
+                <br />
+                저장되지 않아요. 저장할까요?
+              </>
+            }
+            confirmLabel="확인"
+            cancelLabel="취소"
+            handleCloseClick={handleBackClose}
+            handleConfirmClick={handleBackSave}
+          />
+        );
+      }
     };
 
     window.addEventListener("popstate", handleClickBrowseBack);
@@ -126,7 +137,7 @@ const MyProfile = () => {
     return () => {
       window.removeEventListener("popstate", handleClickBrowseBack);
     };
-  }, []);
+  }, [isChange]);
 
   // TODO: 기능 구현 후 삭제
   const handleDoNotMake = () => {
@@ -162,30 +173,37 @@ const MyProfile = () => {
         <S.Value>{userDetail?.height}</S.Value>
         <LockIcon css={S.rightIcon} />
       </S.Container>
-      {SELECT_DATA.map((item, index) => (
-        <S.DropdownContainer key={index}>
-          <S.DropdownTitle>{item.title}</S.DropdownTitle>
-          <Dropdown
-            options={item.options}
-            handleChange={(selectedLabel) => {
-              const key =
+      {SELECT_DATA.map((item, index) => {
+        const options =
+          item.title === "음주"
+            ? item.options.filter((option) => option.key !== "5")
+            : item.options;
+
+        return (
+          <S.DropdownContainer key={index}>
+            <S.DropdownTitle>{item.title}</S.DropdownTitle>
+            <Dropdown
+              options={options}
+              handleChange={(selectedLabel) => {
+                const key =
+                  item.title === "종교"
+                    ? "religionId"
+                    : item.title === "흡연"
+                    ? "smokingId"
+                    : "drinkingId";
+                handleChange(key, selectedLabel);
+              }}
+              selectedKey={
                 item.title === "종교"
-                  ? "religionId"
+                  ? String(userProfile?.religion?.religionId)
                   : item.title === "흡연"
-                  ? "smokingId"
-                  : "drinkingId";
-              handleChange(key, selectedLabel);
-            }}
-            selectedKey={
-              item.title === "종교"
-                ? String(userProfile?.religion?.religionId)
-                : item.title === "흡연"
-                ? String(userProfile?.smoking?.smokingId)
-                : String(userProfile?.drinking?.drinkingId)
-            }
-          />
-        </S.DropdownContainer>
-      ))}
+                  ? String(userProfile?.smoking?.smokingId)
+                  : String(userProfile?.drinking?.drinkingId)
+              }
+            />
+          </S.DropdownContainer>
+        );
+      })}
       <S.Line />
       <S.InputContainer>
         <S.TitleWrapper>
