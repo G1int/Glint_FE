@@ -26,10 +26,11 @@ export const CreateRoomWrapper = styled.div`
 
 export const formRadioButton = css`
   column-gap: 5px;
+  justify-content: center;
 
   & > label {
     justify-content: center;
-    padding: 15px 39px;
+    padding: 15px 38px;
   }
 `;
 
@@ -176,4 +177,39 @@ export const RequiredBox = styled.div`
 
 export const RequiredContent = styled.div`
   display: flex;
+`;
+
+export const badge = css`
+  column-gap: 4px;
+
+  & > svg {
+    cursor: pointer;
+  }
+`;
+
+export const RangeText = styled.span`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_bold_16};
+    margin-bottom: 16px;
+  `}
+`;
+
+export const LocationWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const LocationBox = styled.div`
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+`;
+
+export const LocationButton = styled.button`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_regular_14};
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+  `}
 `;

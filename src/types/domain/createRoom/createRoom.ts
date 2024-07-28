@@ -1,4 +1,5 @@
 import { SELECT_CONDITIONS } from "assets";
+import type { locationInfo } from "types";
 
 export interface age {
   minAge: number;
@@ -13,7 +14,7 @@ export interface createRoomForm {
   peopleCapacity: string;
   title: string;
   description: string;
-  locationIds: number[] | null;
+  locations: locationInfo[] | null;
   maleConditions: {
     selectConditions: (typeof SELECT_CONDITIONS)[number]["key"][];
     affiliation: string[];

@@ -71,11 +71,11 @@ const Home = ({ data }: HomeProps) => {
             <S.Title>미팅 희망 지역</S.Title>
             <S.Desc>정확한 장소는 함께 정해보세요!</S.Desc>
           </S.TitleWrapper>
-          <div>
+          <S.LocationBox>
             {data?.locations.map((location) => (
               <Badge key={location} variant="mdWhite" label={location} />
             ))}
-          </div>
+          </S.LocationBox>
         </S.Content>
         <S.Content>
           <div>
