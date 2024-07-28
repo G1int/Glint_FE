@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useGetKakaoInfo } from "services/user";
 import * as P from "pages";
+import { useGetKakaoInfo } from "services";
 
 const Auth = () => {
   const navigate = useNavigate();
