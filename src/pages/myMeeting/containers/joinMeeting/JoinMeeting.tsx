@@ -38,11 +38,6 @@ const JoinMeeting = () => {
   const handleMoreMeeting = () => {
     if (data?.meetings && data.meetings.length > 0) {
       setLastMeetingId(data.meetings[data.meetings.length - 1].meetingId);
-    } else if (error) {
-      addToast({
-        content: "데이터 호출에 문제가 생겼습니다. 다시 시도해주세요.",
-      });
-      console.error("메인 미팅 리스트 API 실패:", error);
     }
   };
 
