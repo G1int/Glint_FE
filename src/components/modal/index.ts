@@ -1,6 +1,7 @@
-export * from "./potal";
+export { default as Modal } from "./Modal";
 export * from "./baseModal";
 export * from "./confirmModal";
-export * from "./profileModal";
 export * from "./locationModal";
-export { default as Modal } from "./Modal";
+export * from "./multiLocationModal";
+export * from "./potal";
+export * from "./profileModal";
