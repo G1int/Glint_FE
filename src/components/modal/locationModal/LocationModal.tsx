@@ -104,17 +104,17 @@ const LocationModal = ({
               ))}
             </S.StateList>
             <S.CityList>
-              {cities?.map((item: string) => (
+              {cities?.locations?.map((item) => (
                 <S.LocationItem
-                  key={item}
+                  key={item.locationId}
                   onClick={() => {
-                    handleSelect(item);
-                    setSelectedCity(item);
+                    handleSelect(item.locationCity);
+                    setSelectedCity(item.locationCity);
                   }}
                   isCity={true}
-                  isSelected={item === selectedCity}
+                  isSelected={item.locationCity === selectedCity}
                 >
-                  {item}
+                  {item.locationCity}
                   <CheckIcon css={S.checkIcon} />
                 </S.LocationItem>
               ))}
