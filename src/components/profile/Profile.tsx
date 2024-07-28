@@ -49,7 +49,6 @@ const Profile = ({ className, name, age, img, info }: ProfileProps) => {
           await fetchUserInfo();
         },
         onError: () => {
-          // TODO: 문구확인
           addToast({
             content: "이미지 등록에 문제가 생겼습니다. 다시 시도해주세요.",
           });
