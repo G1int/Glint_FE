@@ -17,3 +17,29 @@ export const More = styled.div`
     cursor: pointer;
   `}
 `;
+
+export const EmptyUserJoinMeetingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  margin-top: 33%; //NOTE: 위치값이 맞지 않아 임의로 %처리함
+`;
+
+export const EmptyUserText = styled.span`
+  ${({ theme }) => css`
+    ${theme.fonts.subTitle_regular_16};
+    color: ${theme.colors.gray900};
+    text-align: center;
+  `}
+`;
+
+export const StickerBox = styled.div`
+  ${({ theme }) => css`
+    margin-bottom: 16px;
+    border-radius: 50%;
+    padding: 24px;
+    background-color: ${theme.colors.gray300};
+  `}
+`;
