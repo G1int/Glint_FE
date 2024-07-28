@@ -143,22 +143,24 @@ const CreateRoom = () => {
             </S.MainContentBox>
           </S.MainContent>
           <S.MainContent>
-            <div>
-              <S.RequiredContent>
-                <S.Title marginBottom={4}>미팅 희망 지역</S.Title>
-                <S.RequiredBox />
-              </S.RequiredContent>
-              <S.Desc marginBottom={8}>정확한 장소는 함께 정해보세요!</S.Desc>
-              <button onClick={handleOpenLocationModal}>
+            <S.LocationWrapper>
+              <div>
+                <S.RequiredContent>
+                  <S.Title marginBottom={4}>미팅 희망 지역</S.Title>
+                  <S.RequiredBox />
+                </S.RequiredContent>
+                <S.Desc marginBottom={8}>정확한 장소는 함께 정해보세요!</S.Desc>
+              </div>
+              <S.LocationButton onClick={handleOpenLocationModal}>
                 선택하기 <SmallChevronRightIcon />
-              </button>
-            </div>
+              </S.LocationButton>
+            </S.LocationWrapper>
             <Controller
               name="locations"
               control={control}
               render={() => {
                 return (
-                  <>
+                  <S.LocationBox>
                     {locations.map((location) => (
                       <Badge
                         css={S.badge}
@@ -174,7 +176,7 @@ const CreateRoom = () => {
                         }
                       />
                     ))}
-                  </>
+                  </S.LocationBox>
                 );
               }}
             />
