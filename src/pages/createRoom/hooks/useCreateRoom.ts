@@ -121,7 +121,7 @@ const useCreateRoom = () => {
 
     postCreateRoom(req, {
       onSuccess: (res) => {
-        navigate(`/meeting/${res.id}`);
+        navigate(`/meeting/${res.id}`, { replace: true });
       },
     });
   };

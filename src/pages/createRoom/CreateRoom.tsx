@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { useRecoilValue } from "recoil";
 
+import { genderSelector } from "atoms";
 import {
   BackLayout,
   Badge,
@@ -24,6 +26,8 @@ import * as S from "./CreateRoom.styled";
 const CreateRoom = () => {
   const [locations, setLocations] = useState<locationInfo[]>([]);
 
+  const { gender } = useRecoilValue(genderSelector);
+
   const {
     watch,
     setValue,
@@ -44,6 +48,12 @@ const CreateRoom = () => {
   const drinkingData = SELECT_DATA.find(
     (item) => item.title === "음주"
   )?.options;
+
+  const currentGender =
+    gender === "MALE" ? "maleConditions" : "femaleConditions";
+
+  const oppositeGender =
+    gender === "MALE" ? "femaleConditions" : "maleConditions";
 
   const handleOpenLocationModal = () => {
     const handleConfirmLocation = (
@@ -163,10 +173,10 @@ const CreateRoom = () => {
                       key={select.key}
                       variant="mdWhite"
                       isSelected={watch(
-                        "maleConditions.selectConditions"
+                        `${oppositeGender}.selectConditions`
                       ).includes(select.key)}
                       handleClick={handleSelectConditions(
-                        "maleConditions",
+                        `${oppositeGender}`,
                         select.key
                       )}
                       label={select.label}
@@ -174,10 +184,10 @@ const CreateRoom = () => {
                   ))}
                 </S.BadgeWrapper>
               </S.SelectContentBox>
-              {!!watch("maleConditions.selectConditions").length && (
+              {!!watch(`${oppositeGender}.selectConditions`).length && (
                 <S.Division />
               )}
-              {watch("maleConditions.selectConditions").includes(
+              {watch(`${oppositeGender}.selectConditions`).includes(
                 "AFFILIATION"
               ) && (
                 <S.SelectContentBox>
@@ -185,25 +195,27 @@ const CreateRoom = () => {
                   <FormInput
                     css={S.formInput}
                     placeholder="키워드 입력 후 엔터를 쳐주세요"
-                    register={register("maleConditions.affiliation")}
+                    register={register(`${oppositeGender}.affiliation`)}
                   />
                 </S.SelectContentBox>
               )}
-              {watch("maleConditions.selectConditions").includes("AGE") && (
+              {watch(`${oppositeGender}.selectConditions`).includes("AGE") && (
                 <S.SelectContentBox>
                   {/* TODO: 수정예정 */}
                   <S.SubTitle>나이</S.SubTitle>
                   <input type="range"></input>
                 </S.SelectContentBox>
               )}
-              {watch("maleConditions.selectConditions").includes("HEIGHT") && (
+              {watch(`${oppositeGender}.selectConditions`).includes(
+                "HEIGHT"
+              ) && (
                 <S.SelectContentBox>
                   {/* TODO: 수정예정 */}
                   <S.SubTitle>키</S.SubTitle>
                   <input type="range"></input>
                 </S.SelectContentBox>
               )}
-              {watch("maleConditions.selectConditions").includes(
+              {watch(`${oppositeGender}.selectConditions`).includes(
                 "RELIGIONS"
               ) && (
                 <S.SelectContentBox>
@@ -212,24 +224,26 @@ const CreateRoom = () => {
                     css={S.selectConditionFormRadioButton}
                     radioList={religionData!}
                     variant="smNavy"
-                    value={watch("maleConditions.religions")}
-                    register={register("maleConditions.religions")}
+                    value={watch(`${oppositeGender}.religions`)}
+                    register={register(`${oppositeGender}.religions`)}
                   />
                 </S.SelectContentBox>
               )}
-              {watch("maleConditions.selectConditions").includes("SMOKING") && (
+              {watch(`${oppositeGender}.selectConditions`).includes(
+                "SMOKING"
+              ) && (
                 <S.SelectContentBox>
                   <S.SubTitle>흡연</S.SubTitle>
                   <FormRadioButton
                     css={S.selectConditionFormRadioButton}
                     radioList={smokingData!}
                     variant="smNavy"
-                    value={watch("maleConditions.smoking")}
-                    register={register("maleConditions.smoking")}
+                    value={watch(`${oppositeGender}.smoking`)}
+                    register={register(`${oppositeGender}.smoking`)}
                   />
                 </S.SelectContentBox>
               )}
-              {watch("maleConditions.selectConditions").includes(
+              {watch(`${oppositeGender}.selectConditions`).includes(
                 "DRINKING"
               ) && (
                 <S.SelectContentBox>
@@ -238,8 +252,8 @@ const CreateRoom = () => {
                     css={S.selectConditionFormRadioButton}
                     radioList={drinkingData!}
                     variant="smNavy"
-                    value={watch("maleConditions.drinking")}
-                    register={register("maleConditions.drinking")}
+                    value={watch(`${oppositeGender}.drinking`)}
+                    register={register(`${oppositeGender}.drinking`)}
                   />
                 </S.SelectContentBox>
               )}
@@ -255,20 +269,20 @@ const CreateRoom = () => {
                     key={select.key}
                     variant="mdWhite"
                     isSelected={watch(
-                      "femaleConditions.selectConditions"
+                      `${currentGender}.selectConditions`
                     ).includes(select.key)}
                     handleClick={handleSelectConditions(
-                      "femaleConditions",
+                      `${currentGender}`,
                       select.key
                     )}
                     label={select.label}
                   />
                 ))}
               </S.BadgeWrapper>
-              {!!watch("femaleConditions.selectConditions").length && (
+              {!!watch(`${currentGender}.selectConditions`).length && (
                 <S.Division />
               )}
-              {watch("femaleConditions.selectConditions").includes(
+              {watch(`${currentGender}.selectConditions`).includes(
                 "AFFILIATION"
               ) && (
                 <S.SelectContentBox>
@@ -276,18 +290,18 @@ const CreateRoom = () => {
                   <FormInput
                     css={S.formInput}
                     placeholder="키워드 입력 후 엔터를 쳐주세요"
-                    register={register("femaleConditions.affiliation")}
+                    register={register(`${currentGender}.affiliation`)}
                   />
                 </S.SelectContentBox>
               )}
-              {watch("femaleConditions.selectConditions").includes("AGE") && (
+              {watch(`${currentGender}.selectConditions`).includes("AGE") && (
                 <S.SelectContentBox>
                   {/* TODO: 수정예정 */}
                   <S.SubTitle>나이</S.SubTitle>
                   <input type="range"></input>
                 </S.SelectContentBox>
               )}
-              {watch("femaleConditions.selectConditions").includes(
+              {watch(`${currentGender}.selectConditions`).includes(
                 "HEIGHT"
               ) && (
                 <S.SelectContentBox>
@@ -296,7 +310,7 @@ const CreateRoom = () => {
                   <input type="range"></input>
                 </S.SelectContentBox>
               )}
-              {watch("femaleConditions.selectConditions").includes(
+              {watch(`${currentGender}.selectConditions`).includes(
                 "RELIGIONS"
               ) && (
                 <S.SelectContentBox>
@@ -305,12 +319,12 @@ const CreateRoom = () => {
                     css={S.selectConditionFormRadioButton}
                     radioList={religionData!}
                     variant="smNavy"
-                    value={watch("femaleConditions.religions")}
-                    register={register("femaleConditions.religions")}
+                    value={watch(`${currentGender}.religions`)}
+                    register={register(`${currentGender}.religions`)}
                   />
                 </S.SelectContentBox>
               )}
-              {watch("femaleConditions.selectConditions").includes(
+              {watch(`${currentGender}.selectConditions`).includes(
                 "SMOKING"
               ) && (
                 <S.SelectContentBox>
@@ -319,12 +333,12 @@ const CreateRoom = () => {
                     css={S.selectConditionFormRadioButton}
                     radioList={smokingData!}
                     variant="smNavy"
-                    value={watch("femaleConditions.smoking")}
-                    register={register("femaleConditions.smoking")}
+                    value={watch(`${currentGender}.smoking`)}
+                    register={register(`${currentGender}.smoking`)}
                   />
                 </S.SelectContentBox>
               )}
-              {watch("femaleConditions.selectConditions").includes(
+              {watch(`${currentGender}.selectConditions`).includes(
                 "DRINKING"
               ) && (
                 <S.SelectContentBox>
@@ -333,8 +347,8 @@ const CreateRoom = () => {
                     css={S.selectConditionFormRadioButton}
                     radioList={drinkingData!}
                     variant="smNavy"
-                    value={watch("femaleConditions.drinking")}
-                    register={register("femaleConditions.drinking")}
+                    value={watch(`${currentGender}.drinking`)}
+                    register={register(`${currentGender}.drinking`)}
                   />
                 </S.SelectContentBox>
               )}

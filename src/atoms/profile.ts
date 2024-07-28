@@ -1,4 +1,6 @@
 import { atom, selector } from "recoil";
+
+import { GENDER_RADIOS } from "assets";
 import { PutProfileQuery, userDetailType, userProfileType } from "types";
 
 export const profileState = atom({
@@ -32,6 +34,24 @@ export const userDetailState = atom<userDetailType | null>({
 export const userProfileState = atom<userProfileType | null>({
   key: "userProfileState",
   default: null,
+});
+
+export const userGenderState = atom<
+  (typeof GENDER_RADIOS)[number]["key"] | null
+>({
+  key: "userGender",
+  default: null,
+});
+
+export const genderSelector = selector({
+  key: "genderSelector",
+  get: ({ get }) => {
+    const userDetail = get(userDetailState);
+
+    return {
+      gender: userDetail?.gender,
+    };
+  },
 });
 
 export const updatedProfileSelector = selector<PutProfileQuery>({
