@@ -24,7 +24,7 @@ const Main = () => {
 
   const limit = 2;
 
-  const { data } = useGetMainNewMeetings(lastMeetingId, limit);
+  const { data, error } = useGetMainNewMeetings(lastMeetingId, limit);
 
   const { addToast } = useToast();
   const userId = useRecoilValue(userIdSelector);
@@ -32,8 +32,13 @@ const Main = () => {
   useEffect(() => {
     if (data?.meetings) {
       setMeetingList((prevMeetings) => [...prevMeetings, ...data.meetings]);
+    } else if (error) {
+      addToast({
+        content: "데이터 호출에 문제가 생겼습니다. 다시 시도해주세요.",
+      });
+      console.error("메인 미팅 리스트 API 실패:", error);
     }
-  }, [data]);
+  }, [data, error]);
 
   const handleMoreMeeting = () => {
     if (data?.meetings && data.meetings.length > 0) {
@@ -56,19 +61,17 @@ const Main = () => {
     }
   };
 
+  // TODO: 기능 구현 후 삭제
+  const handleDoNotMake = () => {
+    addToast({ content: "현재 개발중인 기능이에요. 조금만 기다려주세요:)" });
+  };
+
   return (
     <S.Content>
       <Header css={S.header}>
         <LogoIcon css={S.logoIcon} />
         <S.BellIconWrapper>
-          <Button
-            variant="icon"
-            onClick={() =>
-              addToast({
-                content: "현재 개발중인 기능이에요. 조금만 기다려주세요:)",
-              })
-            }
-          >
+          <Button variant="icon" onClick={handleDoNotMake}>
             <BellIcon />
           </Button>
         </S.BellIconWrapper>
@@ -86,7 +89,7 @@ const Main = () => {
       </S.MainIconContainer>
       <S.TitleWrapper>
         <S.Title>New 미팅</S.Title>
-        <FilterIcon />
+        <FilterIcon onClick={handleDoNotMake} />
       </S.TitleWrapper>
       <MeetingCard meetingList={meetingList} />
       {meetingList.length >= limit &&

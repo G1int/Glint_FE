@@ -74,7 +74,7 @@ const MyInfo = () => {
             주의해주세요!
           </>
         }
-        confirmLabel="탈퇴하기"
+        confirmLabel="회원탈퇴"
         cancelLabel="취소"
         handleCloseClick={handleCloseModal}
         handleConfirmClick={handleDeleteUser}
@@ -91,10 +91,15 @@ const MyInfo = () => {
       },
       onError: (error) => {
         handleCloseModal();
-        addToast({ content: "회원탈퇴에 실패했습니다.다시 시도해주세요." });
+        addToast({ content: "회원 탈퇴에 실패했습니다. 다시 시도해주세요." });
         console.error("회원탈퇴 API 실패:", error);
       },
     });
+  };
+
+  // TODO: 기능 구현 후 삭제
+  const handleDoNotMake = () => {
+    addToast({ content: "현재 개발중인 기능이에요. 조금만 기다려주세요:)" });
   };
 
   return (
@@ -113,11 +118,11 @@ const MyInfo = () => {
         <Button css={S.manageButton} variant="icon" onClick={handleMyProfile}>
           <MyProfileIcon css={S.icon} />내 프로필
         </Button>
-        <Button css={S.manageButton} variant="icon">
+        <Button css={S.manageButton} variant="icon" onClick={handleDoNotMake}>
           <AuthBadgeIcon css={S.icon} />
           인증관리
         </Button>
-        <Button css={S.manageButton} variant="icon">
+        <Button css={S.manageButton} variant="icon" onClick={handleDoNotMake}>
           <FriendsManageIcon css={S.icon} />
           친구관리
         </Button>

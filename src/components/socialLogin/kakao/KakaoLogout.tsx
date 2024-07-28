@@ -37,7 +37,7 @@ const KakaoLogout = ({ className }: KakaoLogoutProps) => {
       },
       onError: (error) => {
         handleCloseModal();
-        addToast({ content: "로그아웃에 실패했습니다.다시 시도해주세요." });
+        addToast({ content: "로그아웃에 실패했습니다. 다시 시도해주세요." });
         console.error("로그아웃 API 실패:", error);
       },
     });

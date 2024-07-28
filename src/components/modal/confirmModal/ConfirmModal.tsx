@@ -28,18 +28,14 @@ const ConfirmModal = ({
       </S.ModalBody>
       <S.ModalFooter>
         {cancelLabel && (
-          <S.ModalButton>
-            <Button css={S.cancelButton} onClick={handleCloseClick}>
-              {cancelLabel}
-            </Button>
-          </S.ModalButton>
+          <Button css={S.cancelButton} onClick={handleCloseClick}>
+            {cancelLabel}
+          </Button>
         )}
         {confirmLabel && (
-          <S.ModalButton>
-            <Button css={S.confirmButton} onClick={handleConfirmClick}>
-              {confirmLabel}
-            </Button>
-          </S.ModalButton>
+          <Button css={S.confirmButton} onClick={handleConfirmClick}>
+            {confirmLabel}
+          </Button>
         )}
       </S.ModalFooter>
     </BaseModal>

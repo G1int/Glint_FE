@@ -15,7 +15,7 @@ const useUserInfo = () => {
         setUserDetail(data.userDetail);
         setUserProfile(data.userProfile);
       } catch (error) {
-        console.error("Error fetching user info:", error);
+        console.error("유저 Info API 실패:", error);
       }
     }
   };

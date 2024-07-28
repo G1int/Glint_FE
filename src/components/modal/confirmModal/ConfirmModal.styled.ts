@@ -52,18 +52,16 @@ export const ModalFooter = styled.div`
   `}
 `;
 
-export const ModalButton = styled.button`
-  border-radius: 0px;
-`;
-
 export const confirmButton = (theme: Theme) => css`
   color: ${theme.colors.pink900};
+  border-radius: 0px;
   border-bottom-right-radius: 16px;
   height: 55px;
 `;
 
 export const cancelButton = (theme: Theme) => css`
   color: ${theme.colors.black};
+  border-radius: 0px;
   border-bottom-left-radius: 16px;
   height: 55px;
 `;
