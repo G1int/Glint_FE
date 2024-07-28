@@ -9,8 +9,8 @@ function ToastItem({ id, content }: Toast) {
 
   const { removeToast } = useToast();
 
-  const DURATION = 3000;
-  const EXPIRE_DURATION = 1000;
+  const DURATION = 1000;
+  const EXPIRE_DURATION = 700;
 
   useEffect(() => {
     const setExistTimeout = setTimeout(() => {

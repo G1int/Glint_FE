@@ -1,56 +1,80 @@
-import * as S from "./LocationModal.styled";
+import { useEffect, useState } from "react";
+
+import { BaseModal, Badge, Button } from "components";
 import {
   CheckIcon,
   CloseIcon,
   ModalRectangleIcon,
   TagCloseWhiteIcon,
 } from "assets";
-import { BaseModal, Badge, Button } from "components";
-import { useState } from "react";
 import { useToast } from "hooks";
 import { useGetCities, useGetStates } from "services";
+import type { GetCitiesResponse, locationInfo } from "types";
+import * as S from "./MultiLocationModal.styled";
 
-interface LocationModalProps {
+interface MultiLocationModalProps {
   className?: string;
   title?: string;
+  locations: locationInfo[];
   description?: string;
   highlight?: string;
   maxLength: number;
   handleCloseClick: () => void;
-  handleConfirmClick: (selectedList: string[]) => void;
+  handleConfirmClick: (selectedList: locationInfo[]) => void;
 }
 
-const LocationModal = ({
+const MultiLocationModal = ({
   className,
   title,
   description,
+  locations,
   highlight,
   maxLength,
   handleCloseClick,
   handleConfirmClick,
-}: LocationModalProps) => {
+}: MultiLocationModalProps) => {
   const { addToast } = useToast();
   const [selectedState, setSelectedState] = useState<string>("");
-  const [selectedCity, setSelectedCity] = useState<string>("");
-  const [selectedList, setSelectedList] = useState<string[]>([]);
-  const { data: states } = useGetStates();
-  const { data: cities } = useGetCities(selectedState);
+  const [reverseCities, setReverseCities] = useState<
+    GetCitiesResponse["locations"] | null
+  >(null);
+  const [selectedList, setSelectedList] = useState<locationInfo[]>(
+    locations ?? []
+  );
 
-  const handleSelect = (item: string) => {
-    if (!selectedList.includes(item)) {
-      if (selectedList.length < maxLength || maxLength === 0) {
-        setSelectedList((prev) => [...prev, item]);
-      } else if (maxLength !== 0 && selectedList.length >= maxLength) {
-        addToast({
-          content: `지역은 최대 ${maxLength}개까지 선택 가능합니다.`,
-        });
-      }
+  const { data: states } = useGetStates();
+  const { data: cities, isSuccess: isSuccessCities } =
+    useGetCities(selectedState);
+
+  const filteredSelectedList = selectedList.map((item) => item.locationName);
+
+  const handleSelect = (id: number, locationName: string) => {
+    if (filteredSelectedList.includes(locationName)) {
+      const filteredSelectedList = selectedList.filter(
+        (selected) => selected.locationName !== locationName
+      );
+
+      return setSelectedList(filteredSelectedList);
+    }
+
+    if (maxLength !== 0 && selectedList.length >= maxLength) {
+      addToast({
+        content: `지역은 최대 ${maxLength}개까지 선택 가능합니다.`,
+      });
+    } else {
+      setSelectedList((prev) => [...prev, { id, locationName }]);
     }
   };
 
   const handleDelete = (index: number) => {
     setSelectedList(selectedList.filter((_, i) => i !== index));
   };
+
+  useEffect(() => {
+    if (!cities) return;
+
+    setReverseCities(cities.locations.reverse());
+  }, [isSuccessCities]);
 
   return (
     <BaseModal className={className} css={S.bottomModal}>
@@ -74,7 +98,7 @@ const LocationModal = ({
               <Badge
                 css={S.badge}
                 key={index}
-                label={tag}
+                label={tag.locationName}
                 variant="mdNavy"
                 icon={<TagCloseWhiteIcon onClick={() => handleDelete(index)} />}
               />
@@ -93,7 +117,6 @@ const LocationModal = ({
                 <S.LocationItem
                   key={item}
                   onClick={() => {
-                    handleSelect(item);
                     setSelectedState(item);
                   }}
                   isCity={false}
@@ -104,20 +127,26 @@ const LocationModal = ({
               ))}
             </S.StateList>
             <S.CityList>
-              {cities?.locations?.map((item) => (
-                <S.LocationItem
-                  key={item.locationId}
-                  onClick={() => {
-                    handleSelect(item.locationCity);
-                    setSelectedCity(item.locationCity);
-                  }}
-                  isCity={true}
-                  isSelected={item.locationCity === selectedCity}
-                >
-                  {item.locationCity}
-                  <CheckIcon css={S.checkIcon} />
-                </S.LocationItem>
-              ))}
+              {reverseCities?.map((item) => {
+                const selected = `${item.locationState} ${item.locationCity}`;
+
+                return (
+                  <S.LocationItem
+                    key={item.locationId}
+                    onClick={() => {
+                      handleSelect(
+                        item.locationId,
+                        `${item.locationState} ${item.locationCity}`
+                      );
+                    }}
+                    isCity={true}
+                    isSelected={filteredSelectedList.includes(selected)}
+                  >
+                    {item.locationCity}
+                    <CheckIcon css={S.checkIcon} />
+                  </S.LocationItem>
+                );
+              })}
             </S.CityList>
           </S.LocationListWrapper>
         </S.LocationContainer>
@@ -134,4 +163,4 @@ const LocationModal = ({
   );
 };
 
-export default LocationModal;
+export default MultiLocationModal;

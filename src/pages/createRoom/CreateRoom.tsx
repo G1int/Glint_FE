@@ -1,6 +1,8 @@
-import React from "react";
-import { useForm } from "react-hook-form";
+import React, { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { Controller } from "react-hook-form";
 
+import { genderSelector } from "atoms";
 import {
   BackLayout,
   Badge,
@@ -8,60 +10,37 @@ import {
   FormInput,
   FormRadioButton,
   Textarea,
+  MultiLocationModal,
+  RangeSlider,
 } from "components";
-import { PEOPEL_CAPACITY_RADIOS, SELECT_CONDITIONS, SELECT_DATA } from "assets";
-import { usePostCreateRoom } from "services";
-import type { createRoomForm } from "types";
+import { useModal, useToast } from "hooks";
+import {
+  SmallChevronRightIcon,
+  PEOPEL_CAPACITY_RADIOS,
+  SELECT_CONDITIONS,
+  SELECT_DATA,
+  TagCloseWhiteIcon,
+} from "assets";
+import type { locationInfo } from "types";
+import { useCreateRoom } from "./hooks";
 import * as S from "./CreateRoom.styled";
-import { useToast } from "hooks";
-
-const initForm = {
-  peopleCapacity: "2",
-  title: "",
-  description: "",
-  locationIds: null,
-  maleConditions: {
-    selectConditions: [],
-    affiliation: [],
-    religions: "",
-    smoking: "",
-    drinking: "",
-    age: {
-      minAge: 19,
-      maxAge: 50,
-    },
-    height: {
-      minHeight: 100,
-      maxHeight: 250,
-    },
-  },
-  femaleConditions: {
-    selectConditions: [],
-    affiliation: [],
-    religions: "",
-    smoking: "",
-    drinking: "",
-    age: {
-      minAge: 0,
-      maxAge: 50,
-    },
-    height: {
-      minHeight: 100,
-      maxHeight: 250,
-    },
-  },
-};
 
 const CreateRoom = () => {
-  const { mutate: mutatePostCreateRoom } = usePostCreateRoom();
+  const [locations, setLocations] = useState<locationInfo[]>([]);
 
-  const { watch, setValue, register, handleSubmit } = useForm<createRoomForm>({
-    defaultValues: initForm,
-    mode: "onTouched",
-  });
+  const { gender } = useRecoilValue(genderSelector);
 
-  const myId = sessionStorage.getItem("id");
-
+  const {
+    watch,
+    setValue,
+    clearErrors,
+    control,
+    register,
+    handleSubmit,
+    handleSelectConditions,
+    handleClickButton,
+  } = useCreateRoom();
+  const { handleOpenModal, handleCloseModal } = useModal();
   const { addToast } = useToast();
 
   const religionData = SELECT_DATA.find(
@@ -74,82 +53,56 @@ const CreateRoom = () => {
     (item) => item.title === "음주"
   )?.options;
 
-  const handleSelectConditions =
-    (
-      name: "maleConditions" | "femaleConditions",
-      value: (typeof SELECT_CONDITIONS)[number]["key"]
-    ) =>
-    (): void => {
-      const currentBadges = watch(`${name}.selectConditions`);
-      const filteredBadges = watch(`${name}.selectConditions`).filter(
-        (item) => item !== value
-      );
+  const currentGender =
+    gender === "MALE" ? "maleConditions" : "femaleConditions";
 
-      if (currentBadges.includes(value)) {
-        setValue(`${name}.selectConditions`, filteredBadges);
+  const oppositeGender =
+    gender === "MALE" ? "femaleConditions" : "maleConditions";
+
+  const handleOpenLocationModal = () => {
+    const handleConfirmLocation = (
+      list: {
+        id: number;
+        locationName: string;
+      }[]
+    ) => {
+      if (!list.length) {
+        addToast({ content: "시/군/구를 선택해주세요." });
       } else {
-        setValue(`${name}.selectConditions`, [...currentBadges, value]);
+        setLocations(list);
+        handleCloseModal();
       }
     };
 
-  const handleClickButton = (data: createRoomForm): void => {
-    const req = {
-      body: {
-        title: data.title,
-        description: data.description,
-        leaderUserId: myId!,
-        locationIds: [1, 2], //TODO: 임시 추가 아이디로 location 불러오는 api 연동 후 수정 예정
-        peopleCapacity: data.peopleCapacity,
-        maleConditions: {
-          selectConditions: data.maleConditions?.selectConditions,
-          affiliation: data.maleConditions?.affiliation,
-          minAge: data.maleConditions?.age.minAge ?? null,
-          maxAge: data.maleConditions?.age.maxAge ?? null,
-          maxHeight: data.maleConditions?.height.maxHeight ?? null,
-          minHeight: data.maleConditions?.height.minHeight ?? null,
-          religionIds: data.maleConditions?.religions
-            ? [+data.maleConditions?.religions]
-            : [],
-          smokingIds: data.maleConditions?.smoking
-            ? [+data.maleConditions?.smoking]
-            : [],
-          drinkingIds: data.maleConditions?.drinking
-            ? [+data.maleConditions?.drinking]
-            : [],
-        },
-        femaleConditions: {
-          selectConditions: data.femaleConditions?.selectConditions,
-          affiliation: data.femaleConditions?.affiliation,
-          minAge: data.femaleConditions?.age.minAge ?? null,
-          maxAge: data.femaleConditions?.age.maxAge ?? null,
-          maxHeight: data.femaleConditions?.height.maxHeight ?? null,
-          minHeight: data.femaleConditions?.height.minHeight ?? null,
-          religionIds: data.femaleConditions?.religions
-            ? [+data.femaleConditions?.religions]
-            : [],
-          smokingIds: data.femaleConditions?.smoking
-            ? [+data.femaleConditions?.smoking]
-            : [],
-          drinkingIds: data.femaleConditions?.drinking
-            ? [+data.femaleConditions?.drinking]
-            : [],
-        },
-      },
-    };
-
-    mutatePostCreateRoom(req, {
-      onSuccess: () => {
-        console.log("complete"); //TODO: 성공 시 이동하는 페이지에 대해 화면 설계서에 작성 X
-      },
-      onError: () => {
-        addToast({
-          content: "미팅 만들기에 문제가 발생했습니다. 다시 시도해주세요.",
-        });
-      },
-    });
+    handleOpenModal(
+      <MultiLocationModal
+        title="어디서 만나는게 편하세요?"
+        highlight="최대 3개"
+        description="까지 선택할 수 있어요."
+        locations={locations}
+        handleCloseClick={handleCloseModal}
+        handleConfirmClick={handleConfirmLocation}
+        maxLength={3}
+      />
+    );
   };
 
-  //TODO: 성별 데이터 받아와서 처리해야함 일단 이성 - male / 동성 - female로 적용함
+  const handleDeleteLocation = (deleteLocation: string) => () => {
+    const filteredLocations = locations.filter(
+      (location) => location.locationName !== deleteLocation
+    );
+
+    return setLocations(filteredLocations);
+  };
+
+  useEffect(() => {
+    setValue("locations", locations);
+
+    if (watch("locations")?.length) {
+      clearErrors("locations");
+    }
+  }, [locations]);
+
   return (
     <BackLayout title="미팅 만들기" hasTopContent>
       <S.CreateRoom>
@@ -190,12 +143,43 @@ const CreateRoom = () => {
             </S.MainContentBox>
           </S.MainContent>
           <S.MainContent>
-            {/* TODO: 수정 필요 */}
-            <S.RequiredContent>
-              <S.Title marginBottom={4}>미팅 희망 지역</S.Title>
-              <S.RequiredBox />
-            </S.RequiredContent>
-            <S.Desc marginBottom={8}>정확한 장소는 함께 정해보세요!</S.Desc>
+            <S.LocationWrapper>
+              <div>
+                <S.RequiredContent>
+                  <S.Title marginBottom={4}>미팅 희망 지역</S.Title>
+                  <S.RequiredBox />
+                </S.RequiredContent>
+                <S.Desc marginBottom={8}>정확한 장소는 함께 정해보세요!</S.Desc>
+              </div>
+              <S.LocationButton onClick={handleOpenLocationModal}>
+                선택하기 <SmallChevronRightIcon />
+              </S.LocationButton>
+            </S.LocationWrapper>
+            <Controller
+              name="locations"
+              control={control}
+              render={() => {
+                return (
+                  <S.LocationBox>
+                    {locations.map((location) => (
+                      <Badge
+                        css={S.badge}
+                        key={location.id}
+                        variant="mdNavy"
+                        label={location.locationName}
+                        icon={
+                          <TagCloseWhiteIcon
+                            onClick={handleDeleteLocation(
+                              location.locationName
+                            )}
+                          />
+                        }
+                      />
+                    ))}
+                  </S.LocationBox>
+                );
+              }}
+            />
           </S.MainContent>
           <S.MainContent>
             <S.SelectContent>
@@ -207,16 +191,15 @@ const CreateRoom = () => {
                   <strong>이성</strong>(최대 2개까지 선택해주세요)
                 </S.Desc>
                 <S.BadgeWrapper>
-                  {/* TODO: variant 수정 예정 */}
                   {SELECT_CONDITIONS.map((select) => (
                     <Badge
                       key={select.key}
                       variant="mdWhite"
                       isSelected={watch(
-                        "maleConditions.selectConditions"
+                        `${oppositeGender}.selectConditions`
                       ).includes(select.key)}
                       handleClick={handleSelectConditions(
-                        "maleConditions",
+                        `${oppositeGender}`,
                         select.key
                       )}
                       label={select.label}
@@ -224,36 +207,83 @@ const CreateRoom = () => {
                   ))}
                 </S.BadgeWrapper>
               </S.SelectContentBox>
-              {!!watch("maleConditions.selectConditions").length && (
+              {!!watch(`${oppositeGender}.selectConditions`).length && (
                 <S.Division />
               )}
-              {watch("maleConditions.selectConditions").includes(
+              {watch(`${oppositeGender}.selectConditions`).includes(
                 "AFFILIATION"
               ) && (
+                // TODO: 서버 데이터 확인하여 처리 필요
                 <S.SelectContentBox>
                   <S.SubTitle>회사 / 학교</S.SubTitle>
                   <FormInput
                     css={S.formInput}
                     placeholder="키워드 입력 후 엔터를 쳐주세요"
-                    register={register("maleConditions.affiliation")}
+                    register={register(`${oppositeGender}.affiliation`)}
                   />
                 </S.SelectContentBox>
               )}
-              {watch("maleConditions.selectConditions").includes("AGE") && (
+              {watch(`${oppositeGender}.selectConditions`).includes("AGE") && (
                 <S.SelectContentBox>
-                  {/* TODO: 수정예정 */}
                   <S.SubTitle>나이</S.SubTitle>
-                  <input type="range"></input>
+                  <S.RangeText>
+                    만 {watch(`${oppositeGender}.age.minAge`)}~
+                    {watch(`${oppositeGender}.age.maxAge`)}세
+                  </S.RangeText>
+                  <Controller
+                    control={control}
+                    name={`${oppositeGender}.age`}
+                    render={() => {
+                      const handleChange = (min: number, max: number) => {
+                        if (!(max - min)) return;
+
+                        setValue(`${oppositeGender}.age.minAge`, min);
+                        setValue(`${oppositeGender}.age.maxAge`, max);
+                      };
+
+                      return (
+                        <RangeSlider
+                          min={19}
+                          max={50}
+                          handleValueChange={handleChange}
+                        />
+                      );
+                    }}
+                  />
                 </S.SelectContentBox>
               )}
-              {watch("maleConditions.selectConditions").includes("HEIGHT") && (
+              {watch(`${oppositeGender}.selectConditions`).includes(
+                "HEIGHT"
+              ) && (
                 <S.SelectContentBox>
-                  {/* TODO: 수정예정 */}
                   <S.SubTitle>키</S.SubTitle>
-                  <input type="range"></input>
+                  <S.RangeText>
+                    {watch(`${oppositeGender}.height.minHeight`)}~
+                    {watch(`${oppositeGender}.height.maxHeight`)}cm
+                  </S.RangeText>
+                  <Controller
+                    control={control}
+                    name={`${oppositeGender}.height`}
+                    render={() => {
+                      const handleChange = (min: number, max: number) => {
+                        if (!(max - min)) return;
+
+                        setValue(`${oppositeGender}.height.minHeight`, min);
+                        setValue(`${oppositeGender}.height.maxHeight`, max);
+                      };
+
+                      return (
+                        <RangeSlider
+                          min={100}
+                          max={250}
+                          handleValueChange={handleChange}
+                        />
+                      );
+                    }}
+                  />
                 </S.SelectContentBox>
               )}
-              {watch("maleConditions.selectConditions").includes(
+              {watch(`${oppositeGender}.selectConditions`).includes(
                 "RELIGIONS"
               ) && (
                 <S.SelectContentBox>
@@ -262,24 +292,26 @@ const CreateRoom = () => {
                     css={S.selectConditionFormRadioButton}
                     radioList={religionData!}
                     variant="smNavy"
-                    value={watch("maleConditions.religions")}
-                    register={register("maleConditions.religions")}
+                    value={watch(`${oppositeGender}.religions`)}
+                    register={register(`${oppositeGender}.religions`)}
                   />
                 </S.SelectContentBox>
               )}
-              {watch("maleConditions.selectConditions").includes("SMOKING") && (
+              {watch(`${oppositeGender}.selectConditions`).includes(
+                "SMOKING"
+              ) && (
                 <S.SelectContentBox>
                   <S.SubTitle>흡연</S.SubTitle>
                   <FormRadioButton
                     css={S.selectConditionFormRadioButton}
                     radioList={smokingData!}
                     variant="smNavy"
-                    value={watch("maleConditions.smoking")}
-                    register={register("maleConditions.smoking")}
+                    value={watch(`${oppositeGender}.smoking`)}
+                    register={register(`${oppositeGender}.smoking`)}
                   />
                 </S.SelectContentBox>
               )}
-              {watch("maleConditions.selectConditions").includes(
+              {watch(`${oppositeGender}.selectConditions`).includes(
                 "DRINKING"
               ) && (
                 <S.SelectContentBox>
@@ -288,8 +320,8 @@ const CreateRoom = () => {
                     css={S.selectConditionFormRadioButton}
                     radioList={drinkingData!}
                     variant="smNavy"
-                    value={watch("maleConditions.drinking")}
-                    register={register("maleConditions.drinking")}
+                    value={watch(`${oppositeGender}.drinking`)}
+                    register={register(`${oppositeGender}.drinking`)}
                   />
                 </S.SelectContentBox>
               )}
@@ -305,48 +337,92 @@ const CreateRoom = () => {
                     key={select.key}
                     variant="mdWhite"
                     isSelected={watch(
-                      "femaleConditions.selectConditions"
+                      `${currentGender}.selectConditions`
                     ).includes(select.key)}
                     handleClick={handleSelectConditions(
-                      "femaleConditions",
+                      `${currentGender}`,
                       select.key
                     )}
                     label={select.label}
                   />
                 ))}
               </S.BadgeWrapper>
-              {!!watch("femaleConditions.selectConditions").length && (
+              {!!watch(`${currentGender}.selectConditions`).length && (
                 <S.Division />
               )}
-              {watch("femaleConditions.selectConditions").includes(
+              {watch(`${currentGender}.selectConditions`).includes(
                 "AFFILIATION"
-              ) && (
+              ) && ( // TODO: 서버 데이터 확인하여 처리 필요
                 <S.SelectContentBox>
                   <S.SubTitle>회사 / 학교</S.SubTitle>
                   <FormInput
                     css={S.formInput}
                     placeholder="키워드 입력 후 엔터를 쳐주세요"
-                    register={register("femaleConditions.affiliation")}
+                    register={register(`${currentGender}.affiliation`)}
                   />
                 </S.SelectContentBox>
               )}
-              {watch("femaleConditions.selectConditions").includes("AGE") && (
+              {watch(`${currentGender}.selectConditions`).includes("AGE") && (
                 <S.SelectContentBox>
-                  {/* TODO: 수정예정 */}
                   <S.SubTitle>나이</S.SubTitle>
-                  <input type="range"></input>
+                  <S.RangeText>
+                    만 {watch(`${currentGender}.age.minAge`)}~
+                    {watch(`${currentGender}.age.maxAge`)}세
+                  </S.RangeText>
+                  <Controller
+                    control={control}
+                    name={`${currentGender}.age`}
+                    render={() => {
+                      const handleChange = (min: number, max: number) => {
+                        if (!(max - min)) return;
+
+                        setValue(`${currentGender}.age.minAge`, min);
+                        setValue(`${currentGender}.age.maxAge`, max);
+                      };
+
+                      return (
+                        <RangeSlider
+                          min={19}
+                          max={50}
+                          handleValueChange={handleChange}
+                        />
+                      );
+                    }}
+                  />
                 </S.SelectContentBox>
               )}
-              {watch("femaleConditions.selectConditions").includes(
+              {watch(`${currentGender}.selectConditions`).includes(
                 "HEIGHT"
               ) && (
                 <S.SelectContentBox>
-                  {/* TODO: 수정예정 */}
                   <S.SubTitle>키</S.SubTitle>
-                  <input type="range"></input>
+                  <S.RangeText>
+                    {watch(`${currentGender}.height.minHeight`)}~
+                    {watch(`${currentGender}.height.maxHeight`)}cm
+                  </S.RangeText>
+                  <Controller
+                    control={control}
+                    name={`${currentGender}.height`}
+                    render={() => {
+                      const handleChange = (min: number, max: number) => {
+                        if (!(max - min)) return;
+
+                        setValue(`${currentGender}.height.minHeight`, min);
+                        setValue(`${currentGender}.height.maxHeight`, max);
+                      };
+
+                      return (
+                        <RangeSlider
+                          min={100}
+                          max={250}
+                          handleValueChange={handleChange}
+                        />
+                      );
+                    }}
+                  />
                 </S.SelectContentBox>
               )}
-              {watch("femaleConditions.selectConditions").includes(
+              {watch(`${currentGender}.selectConditions`).includes(
                 "RELIGIONS"
               ) && (
                 <S.SelectContentBox>
@@ -355,12 +431,12 @@ const CreateRoom = () => {
                     css={S.selectConditionFormRadioButton}
                     radioList={religionData!}
                     variant="smNavy"
-                    value={watch("femaleConditions.religions")}
-                    register={register("femaleConditions.religions")}
+                    value={watch(`${currentGender}.religions`)}
+                    register={register(`${currentGender}.religions`)}
                   />
                 </S.SelectContentBox>
               )}
-              {watch("femaleConditions.selectConditions").includes(
+              {watch(`${currentGender}.selectConditions`).includes(
                 "SMOKING"
               ) && (
                 <S.SelectContentBox>
@@ -369,12 +445,12 @@ const CreateRoom = () => {
                     css={S.selectConditionFormRadioButton}
                     radioList={smokingData!}
                     variant="smNavy"
-                    value={watch("femaleConditions.smoking")}
-                    register={register("femaleConditions.smoking")}
+                    value={watch(`${currentGender}.smoking`)}
+                    register={register(`${currentGender}.smoking`)}
                   />
                 </S.SelectContentBox>
               )}
-              {watch("femaleConditions.selectConditions").includes(
+              {watch(`${currentGender}.selectConditions`).includes(
                 "DRINKING"
               ) && (
                 <S.SelectContentBox>
@@ -383,8 +459,8 @@ const CreateRoom = () => {
                     css={S.selectConditionFormRadioButton}
                     radioList={drinkingData!}
                     variant="smNavy"
-                    value={watch("femaleConditions.drinking")}
-                    register={register("femaleConditions.drinking")}
+                    value={watch(`${currentGender}.drinking`)}
+                    register={register(`${currentGender}.drinking`)}
                   />
                 </S.SelectContentBox>
               )}
