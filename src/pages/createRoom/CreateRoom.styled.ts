@@ -121,6 +121,13 @@ export const selectConditionFormRadioButton = css`
   }
 `;
 
+export const CompanyBadgeWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+`;
+
 export const BadgeWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
