@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 export const Signup = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: 80px;
 `;
 
 export const Title = styled.span<{ hasDesc?: boolean }>`
@@ -109,6 +110,12 @@ export const formRadioButton = css`
   display: flex;
   flex-direction: column;
   row-gap: 8px;
+
+  & > label {
+    align-items: center;
+    width: 100%;
+    height: 48px;
+  }
 `;
 
 export const ProfileContent = styled.div`
