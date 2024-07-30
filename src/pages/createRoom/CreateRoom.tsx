@@ -170,7 +170,7 @@ const CreateRoom = () => {
   }, [locations]);
 
   return (
-    <BackLayout title="미팅 만들기" hasTopContent>
+    <BackLayout css={S.backlayout} title="미팅 만들기" hasTopContent>
       <S.CreateRoom>
         <S.CreateRoomWrapper>
           <S.MainContent>
