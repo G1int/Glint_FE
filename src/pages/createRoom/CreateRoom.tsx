@@ -12,6 +12,7 @@ import {
   Textarea,
   MultiLocationModal,
   RangeSlider,
+  Input,
 } from "components";
 import { useModal, useToast } from "hooks";
 import {
@@ -20,6 +21,7 @@ import {
   SELECT_CONDITIONS,
   SELECT_DATA,
   TagCloseWhiteIcon,
+  CircleCloseIcon,
 } from "assets";
 import type { locationInfo } from "types";
 import { useCreateRoom } from "./hooks";
@@ -27,7 +29,8 @@ import * as S from "./CreateRoom.styled";
 
 const CreateRoom = () => {
   const [locations, setLocations] = useState<locationInfo[]>([]);
-
+  const [oppositeInput, setOppositeInput] = useState("");
+  const [currentInput, setCurrentInput] = useState("");
   const { gender } = useRecoilValue(genderSelector);
 
   const {
@@ -58,6 +61,43 @@ const CreateRoom = () => {
 
   const oppositeGender =
     gender === "MALE" ? "femaleConditions" : "maleConditions";
+
+  const handleChange =
+    (type: "femaleConditions.affiliation" | "maleConditions.affiliation") =>
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      type === `${currentGender}.affiliation`
+        ? setCurrentInput(e.target.value)
+        : setOppositeInput(e.target.value);
+    };
+
+  const handleKeyDown =
+    (type: "femaleConditions.affiliation" | "maleConditions.affiliation") =>
+    (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter" && e.nativeEvent.isComposing === false) {
+        setValue(`${oppositeGender}.affiliation`, [
+          ...watch(`${oppositeGender}.affiliation`),
+          type === `${currentGender}.affiliation`
+            ? currentInput
+            : oppositeInput,
+        ]);
+      }
+      type === `${currentGender}.affiliation`
+        ? setCurrentInput("")
+        : setOppositeInput("");
+    };
+
+  const handleDeleteAffiliation =
+    (
+      type: "femaleConditions.affiliation" | "maleConditions.affiliation",
+      item: string
+    ) =>
+    () => {
+      const filteredAffiliation = watch(type).filter(
+        (affilation) => affilation !== item
+      );
+
+      return setValue(type, filteredAffiliation);
+    };
 
   const handleOpenLocationModal = () => {
     const handleConfirmLocation = (
@@ -216,11 +256,34 @@ const CreateRoom = () => {
                 // TODO: 서버 데이터 확인하여 처리 필요
                 <S.SelectContentBox>
                   <S.SubTitle>회사 / 학교</S.SubTitle>
-                  <FormInput
+                  <Input
                     css={S.formInput}
+                    value={oppositeInput}
                     placeholder="키워드 입력 후 엔터를 쳐주세요"
-                    register={register(`${oppositeGender}.affiliation`)}
+                    maxLength={15}
+                    handleChange={handleChange(`${oppositeGender}.affiliation`)}
+                    handleKeyDown={handleKeyDown(
+                      `${oppositeGender}.affiliation`
+                    )}
                   />
+                  <S.CompanyBadgeWrapper>
+                    {watch(`${oppositeGender}.affiliation`).map((select) => (
+                      <Badge
+                        css={S.badge}
+                        key={select}
+                        variant="mdWhite"
+                        label={select}
+                        icon={
+                          <CircleCloseIcon
+                            onClick={handleDeleteAffiliation(
+                              `${oppositeGender}.affiliation`,
+                              select
+                            )}
+                          />
+                        }
+                      />
+                    ))}
+                  </S.CompanyBadgeWrapper>
                 </S.SelectContentBox>
               )}
               {watch(`${oppositeGender}.selectConditions`).includes("AGE") && (
@@ -355,11 +418,34 @@ const CreateRoom = () => {
               ) && ( // TODO: 서버 데이터 확인하여 처리 필요
                 <S.SelectContentBox>
                   <S.SubTitle>회사 / 학교</S.SubTitle>
-                  <FormInput
+                  <Input
                     css={S.formInput}
+                    value={oppositeInput}
                     placeholder="키워드 입력 후 엔터를 쳐주세요"
-                    register={register(`${currentGender}.affiliation`)}
+                    maxLength={15}
+                    handleChange={handleChange(`${currentGender}.affiliation`)}
+                    handleKeyDown={handleKeyDown(
+                      `${currentGender}.affiliation`
+                    )}
                   />
+                  <S.CompanyBadgeWrapper>
+                    {watch(`${currentGender}.affiliation`).map((select) => (
+                      <Badge
+                        css={S.badge}
+                        key={select}
+                        variant="mdWhite"
+                        label={select}
+                        icon={
+                          <CircleCloseIcon
+                            onClick={handleDeleteAffiliation(
+                              `${currentGender}.affiliation`,
+                              select
+                            )}
+                          />
+                        }
+                      />
+                    ))}
+                  </S.CompanyBadgeWrapper>
                 </S.SelectContentBox>
               )}
               {watch(`${currentGender}.selectConditions`).includes("AGE") && (
