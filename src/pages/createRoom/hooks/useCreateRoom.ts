@@ -1,8 +1,11 @@
 import { useForm } from "react-hook-form";
+import { useRecoilValue } from "recoil";
 import { useNavigate } from "react-router-dom";
 
-import { SELECT_CONDITIONS } from "assets";
+import { genderSelector } from "atoms";
+import { useToast } from "hooks";
 import { usePostCreateRoom } from "services";
+import { SELECT_CONDITIONS } from "assets";
 import type { createRoomForm } from "types";
 
 const initForm = {
@@ -45,15 +48,18 @@ const initForm = {
 const useCreateRoom = () => {
   const navigate = useNavigate();
 
+  const { gender } = useRecoilValue(genderSelector);
+
+  const { mutate: postCreateRoom } = usePostCreateRoom();
+
   const { watch, setValue, clearErrors, register, control, handleSubmit } =
     useForm<createRoomForm>({
       defaultValues: initForm,
       mode: "onTouched",
     });
+  const { addToast } = useToast();
 
   const myId = sessionStorage.getItem("id");
-
-  const { mutate: postCreateRoom } = usePostCreateRoom();
 
   const handleSelectConditions =
     (
@@ -68,7 +74,26 @@ const useCreateRoom = () => {
 
       if (currentBadges.includes(value)) {
         setValue(`${name}.selectConditions`, filteredBadges);
+
+        if (value === "AFFILIATION") {
+          setValue(`${name}.affiliation`, []);
+        } else if (value === "RELIGIONS") {
+          setValue(`${name}.religions`, "");
+        } else if (value === "SMOKING") {
+          setValue(`${name}.smoking`, "");
+        } else if (value === "DRINKING") {
+          setValue(`${name}.drinking`, "");
+        }
       } else {
+        const oppositeGender =
+          gender === "MALE" ? "femaleConditions" : "maleConditions";
+
+        if (
+          name === oppositeGender &&
+          watch(`${name}.selectConditions`).length >= 2
+        ) {
+          return addToast({ content: "최대 2개까지 선택해주세요" });
+        }
         setValue(`${name}.selectConditions`, [...currentBadges, value]);
       }
     };
