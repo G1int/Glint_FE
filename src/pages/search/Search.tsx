@@ -103,17 +103,12 @@ const Search = () => {
   };
 
   const handleOpenLocationModal = () => {
-    const handleConfirmLocation = (
-      list: {
-        id: number;
-        locationName: string;
-      }[]
-    ) => {
+    const handleConfirmLocation = (list: locationInfo[]) => {
       if (!list.length) {
         addToast({ content: "시/군/구를 선택해주세요." });
       } else {
         setLocations(list);
-        const locationIdsArr: number[] = list.map((item) => item.id);
+        const locationIdsArr = list.map((item) => item.id);
         setLocationIds(locationIdsArr);
         handleCloseModal();
       }
