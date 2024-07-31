@@ -37,12 +37,7 @@ const MeetingCard = ({ meetingList }: MeetingCardProps) => {
             <S.MeetingTitle>{item.title}</S.MeetingTitle>
             <S.MeetingInfoWrapper>
               <S.ImgWrapper>
-                {/* TODO : 이미지 추가 시 수정 필요 */}
-                {index === 0 || index % 2 === 0 ? (
-                  <img src={meetingImage[0]} css={S.Img} key={index} />
-                ) : (
-                  <img src={meetingImage[1]} css={S.Img} key={index} />
-                )}
+                <img src={meetingImage[index % 4]} css={S.Img} key={index} />
                 {item.peopleCapacity === item.maleCount &&
                   item.peopleCapacity === item.femaleCount && (
                     <S.Close>마감</S.Close>
