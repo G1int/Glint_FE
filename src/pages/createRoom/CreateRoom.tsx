@@ -74,16 +74,42 @@ const CreateRoom = () => {
     (type: "femaleConditions.affiliation" | "maleConditions.affiliation") =>
     (e: React.KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter" && e.nativeEvent.isComposing === false) {
-        setValue(`${oppositeGender}.affiliation`, [
-          ...watch(`${oppositeGender}.affiliation`),
-          type === `${currentGender}.affiliation`
-            ? currentInput
-            : oppositeInput,
-        ]);
+        if (
+          type === `${oppositeGender}.affiliation` &&
+          watch(`${oppositeGender}.affiliation`).length >= 10
+        ) {
+          return addToast({ content: "10개 이내로 작성해주세요" }); //NOTE: 임시 문구
+        }
+
+        if (
+          type === `${currentGender}.affiliation` &&
+          watch(`${currentGender}.affiliation`).length >= 10
+        ) {
+          return addToast({ content: "10개 이내로 작성해주세요" }); //NOTE: 임시 문구
+        }
+
+        if (type === `${oppositeGender}.affiliation`) {
+          if (!oppositeInput.trim())
+            return addToast({ content: "내용을 입력해주세요" }); //NOTE: 임시 문구
+
+          setValue(`${oppositeGender}.affiliation`, [
+            ...watch(`${oppositeGender}.affiliation`),
+            oppositeInput,
+          ]);
+
+          setOppositeInput("");
+        } else if (type === `${currentGender}.affiliation`) {
+          if (!currentInput.trim())
+            return addToast({ content: "내용을 입력해주세요" }); //NOTE: 임시 문구
+
+          setValue(`${currentGender}.affiliation`, [
+            ...watch(`${currentGender}.affiliation`),
+            currentInput,
+          ]);
+
+          setCurrentInput("");
+        }
       }
-      type === `${currentGender}.affiliation`
-        ? setCurrentInput("")
-        : setOppositeInput("");
     };
 
   const handleDeleteAffiliation =
@@ -144,7 +170,7 @@ const CreateRoom = () => {
   }, [locations]);
 
   return (
-    <BackLayout title="미팅 만들기" hasTopContent>
+    <BackLayout css={S.backlayout} title="미팅 만들기" hasTopContent>
       <S.CreateRoom>
         <S.CreateRoomWrapper>
           <S.MainContent>
@@ -267,10 +293,10 @@ const CreateRoom = () => {
                     )}
                   />
                   <S.CompanyBadgeWrapper>
-                    {watch(`${oppositeGender}.affiliation`).map((select) => (
+                    {watch(`${oppositeGender}.affiliation`).map((select, i) => (
                       <Badge
                         css={S.badge}
-                        key={select}
+                        key={select + i}
                         variant="mdWhite"
                         label={select}
                         icon={
@@ -420,7 +446,7 @@ const CreateRoom = () => {
                   <S.SubTitle>회사 / 학교</S.SubTitle>
                   <Input
                     css={S.formInput}
-                    value={oppositeInput}
+                    value={currentInput}
                     placeholder="키워드 입력 후 엔터를 쳐주세요"
                     maxLength={15}
                     handleChange={handleChange(`${currentGender}.affiliation`)}

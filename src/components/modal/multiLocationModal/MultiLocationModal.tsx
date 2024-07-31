@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { BaseModal, Badge, Button } from "components";
 import {
@@ -9,7 +9,7 @@ import {
 } from "assets";
 import { useToast } from "hooks";
 import { useGetCities, useGetStates } from "services";
-import type { GetCitiesResponse, locationInfo } from "types";
+import type { locationInfo } from "types";
 import * as S from "./MultiLocationModal.styled";
 
 interface MultiLocationModalProps {
@@ -35,16 +35,13 @@ const MultiLocationModal = ({
 }: MultiLocationModalProps) => {
   const { addToast } = useToast();
   const [selectedState, setSelectedState] = useState<string>("");
-  const [reverseCities, setReverseCities] = useState<
-    GetCitiesResponse["locations"] | null
-  >(null);
+
   const [selectedList, setSelectedList] = useState<locationInfo[]>(
     locations ?? []
   );
 
   const { data: states } = useGetStates();
-  const { data: cities, isSuccess: isSuccessCities } =
-    useGetCities(selectedState);
+  const { data: cities } = useGetCities(selectedState);
 
   const filteredSelectedList = selectedList.map((item) => item.locationName);
 
@@ -69,12 +66,6 @@ const MultiLocationModal = ({
   const handleDelete = (index: number) => {
     setSelectedList(selectedList.filter((_, i) => i !== index));
   };
-
-  useEffect(() => {
-    if (!cities) return;
-
-    setReverseCities([...cities.locations].reverse());
-  }, [isSuccessCities, selectedState]);
 
   return (
     <BaseModal className={className} css={S.bottomModal}>
@@ -127,7 +118,7 @@ const MultiLocationModal = ({
               ))}
             </S.StateList>
             <S.CityList>
-              {reverseCities?.map((item) => {
+              {cities?.locations.map((item) => {
                 const selected = `${item.locationState} ${item.locationCity}`;
 
                 return (

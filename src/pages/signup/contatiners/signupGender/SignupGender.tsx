@@ -20,6 +20,7 @@ const SignupGender = ({ watch, register }: SignupGenderProps) => {
       </S.Title>
       <FormRadioButton
         css={S.formRadioButton}
+        isChecked
         radioList={GENDER_RADIOS}
         value={watch("gender") ?? ""}
         register={register("gender")}

@@ -1,10 +1,17 @@
 import { css, Theme } from "@emotion/react";
 import styled from "@emotion/styled";
 
+export const backlayout = css`
+  & > div:first-of-type {
+    padding-left: 16px;
+  }
+`;
+
 export const CreateRoom = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  align-items: center;
   margin-top: 80px;
 `;
 
@@ -158,7 +165,7 @@ export const formInput = (theme: Theme) => css`
 `;
 
 export const button = css`
-  min-width: 360px;
+  min-width: 320px;
 `;
 
 export const ButtonWrapper = styled.div`
@@ -174,6 +181,7 @@ export const RequiredBox = styled.div`
   ${({ theme }) => css`
     display: flex;
     align-items: flex-start;
+    justify-content: center;
     width: 5px;
     height: 5px;
     border-radius: 50%;
