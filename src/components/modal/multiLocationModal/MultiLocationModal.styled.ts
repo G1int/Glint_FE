@@ -28,6 +28,7 @@ export const rectangleIcon = css`
 export const closeIcon = css`
   margin-left: 120px;
   margin-top: 12px;
+  cursor: pointer;
 `;
 
 export const ContentContainer = styled.div`
