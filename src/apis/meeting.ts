@@ -44,9 +44,15 @@ export const getSearchMeetingAPI = async (
   keyword: string,
   limit: number,
   lastMeetingId: number | null,
-  userId: string
+  userId: string,
+  locationIds: number[]
 ) => {
-  const params: { keyword: string; limit: number; lastMeetingId?: number } = {
+  const params: {
+    keyword: string;
+    limit: number;
+    lastMeetingId?: number;
+    locationIds?: number[];
+  } = {
     keyword: keyword,
     limit: limit,
   };
@@ -55,15 +61,33 @@ export const getSearchMeetingAPI = async (
     params.lastMeetingId = lastMeetingId;
   }
 
+  if (locationIds.length > 0) {
+    params.locationIds = locationIds;
+  }
+
   let url = `/meetings/search`;
 
   if (userId !== null) {
     url += `?userId=${userId}`;
   }
 
-  const { data } = await ax.get<getSearchMeetingResponse>(url, {
-    params: params,
-  });
+  // 파라미터 수동 직렬화
+  const queryString = Object.keys(params)
+    .map((key) => {
+      const value = params[key as keyof typeof params];
+      if (Array.isArray(value)) {
+        return value
+          .map((item) => `${key}=${encodeURIComponent(item)}`)
+          .join("&");
+      }
+      return `${key}=${encodeURIComponent(value as string | number)}`;
+    })
+    .join("&");
+
+  // 완성된 URL
+  url += `&${queryString}`;
+
+  const { data } = await ax.get<getSearchMeetingResponse>(url);
 
   return data;
 };

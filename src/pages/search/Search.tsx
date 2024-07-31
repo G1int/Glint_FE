@@ -35,6 +35,7 @@ const Search = () => {
   const [meetingList, setMeetingList] = useState<meetingListItem[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [locations, setLocations] = useState<locationInfo[]>([]);
+  const [locationIds, setLocationIds] = useState<number[]>([]);
 
   const limit = 3;
   const userId = useRecoilValue(userIdSelector);
@@ -43,7 +44,8 @@ const Search = () => {
     keyword,
     limit,
     lastMeetingId,
-    userId!
+    userId!,
+    locationIds
   );
   const { data: searchKeyword, refetch: searchKeywordRefetch } =
     useGetCurrentSearchKeyword(userId!, null);
@@ -111,6 +113,8 @@ const Search = () => {
         addToast({ content: "시/군/구를 선택해주세요." });
       } else {
         setLocations(list);
+        const locationIdsArr: number[] = list.map((item) => item.id);
+        setLocationIds(locationIdsArr);
         handleCloseModal();
       }
     };
@@ -131,6 +135,8 @@ const Search = () => {
   useEffect(() => {
     if (data && data.meetings) {
       setMeetingList((prevMeetings) => [...prevMeetings, ...data.meetings]);
+    } else {
+      setMeetingList([]);
     }
   }, [data]);
 
@@ -154,10 +160,12 @@ const Search = () => {
       }
     };
 
-    if ((isSearching && keyword) || lastMeetingId) {
+    if ((isSearching && keyword) || lastMeetingId || locationIds.length > 0) {
       fetchData();
     }
-  }, [isSearching, keyword, lastMeetingId]);
+  }, [isSearching, keyword, lastMeetingId, locationIds]);
+
+  console.log("data", data);
 
   return isSearching ? (
     <>

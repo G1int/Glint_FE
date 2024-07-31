@@ -53,11 +53,20 @@ export const useGetSearchMeeting = (
   keyword: string,
   limit: number,
   lastMeetingId: number | null,
-  userId: string
+  userId: string,
+  locationIds: number[]
 ) => {
   return useQuery<getSearchMeetingResponse>({
-    queryKey: ["searchMeeting", keyword, limit, lastMeetingId, userId],
-    queryFn: () => getSearchMeetingAPI(keyword, limit, lastMeetingId, userId),
+    queryKey: [
+      "searchMeeting",
+      keyword,
+      limit,
+      lastMeetingId,
+      userId,
+      locationIds,
+    ],
+    queryFn: () =>
+      getSearchMeetingAPI(keyword, limit, lastMeetingId, userId, locationIds),
     enabled: false,
   });
 };
