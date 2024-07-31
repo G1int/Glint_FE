@@ -165,8 +165,6 @@ const Search = () => {
     }
   }, [isSearching, keyword, lastMeetingId, locationIds]);
 
-  console.log("data", data);
-
   return isSearching ? (
     <>
       <S.SearchContainer>
