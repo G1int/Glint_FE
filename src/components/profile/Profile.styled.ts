@@ -4,10 +4,6 @@ import styled from "@emotion/styled";
 export const Profile = styled.div`
   display: flex;
   column-gap: 29px;
-
-  span {
-    font-size: 12px;
-  }
 `;
 export const ImgContent = styled.div`
   position: relative;
@@ -57,11 +53,14 @@ export const MainInfoContent = styled.div`
 `;
 
 export const Name = styled.span`
-  font-size: 18px !important;
+  ${({ theme }) => css`
+    ${theme.fonts.headline_semibold_18};
+  `}
 `;
 
 export const InfoContent = styled.div`
   ${({ theme }) => css`
+    ${theme.fonts.caption_regular_12};
     display: flex;
     justify-content: flex-start;
     column-gap: 4px;

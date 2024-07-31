@@ -2,6 +2,7 @@ import { Badge } from "components/badge";
 import * as S from "./MeetingCard.styled";
 import { meetingListItem } from "types";
 import { useNavigate } from "react-router-dom";
+import { meetingImage } from "assets";
 
 interface MeetingCardProps {
   meetingList: meetingListItem[];
@@ -36,7 +37,12 @@ const MeetingCard = ({ meetingList }: MeetingCardProps) => {
             <S.MeetingTitle>{item.title}</S.MeetingTitle>
             <S.MeetingInfoWrapper>
               <S.ImgWrapper>
-                <img src={item.meetingImage} css={S.Img} />
+                {/* TODO : 이미지 추가 시 수정 필요 */}
+                {index === 0 || index % 2 === 0 ? (
+                  <img src={meetingImage[0]} css={S.Img} key={index} />
+                ) : (
+                  <img src={meetingImage[1]} css={S.Img} key={index} />
+                )}
                 {item.peopleCapacity === item.maleCount &&
                   item.peopleCapacity === item.femaleCount && (
                     <S.Close>마감</S.Close>
