@@ -2,13 +2,21 @@ import { useEffect, useState } from "react";
 import * as S from "./RangeSlider.styled";
 
 interface RangeSliderProps {
+  currentMinValue?: number;
+  currentMaxValue?: number;
   min: number;
   max: number;
   handleValueChange?: (minValue: number, maxValue: number) => void;
 }
-const RangeSlider = ({ min, max, handleValueChange }: RangeSliderProps) => {
-  const [minValue, setMinValue] = useState(min);
-  const [maxValue, setMaxValue] = useState(max);
+const RangeSlider = ({
+  currentMinValue,
+  currentMaxValue,
+  min,
+  max,
+  handleValueChange,
+}: RangeSliderProps) => {
+  const [minValue, setMinValue] = useState(currentMinValue ?? min);
+  const [maxValue, setMaxValue] = useState(currentMaxValue ?? max);
   const [minPercent, setMinPercent] = useState(0);
   const [maxPercent, setMaxPercent] = useState(100);
   const step = 1;
