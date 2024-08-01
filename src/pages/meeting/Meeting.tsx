@@ -13,7 +13,7 @@ const Meeting = () => {
 
   const userId = sessionStorage.getItem("id")!;
 
-  const { data } = useGetMeeting(meetingId!);
+  const { data, refetch } = useGetMeeting(meetingId!);
   const { mutate: outMeetingMutate } = useOutMeeting();
 
   const { addToast } = useToast();
@@ -22,7 +22,11 @@ const Meeting = () => {
   const isJoined = !!data?.users.find((user) => `${user.id}` === userId);
 
   const tabs = [
-    { label: "홈", query: "home", component: <Home data={data} /> },
+    {
+      label: "홈",
+      query: "home",
+      component: <Home data={data} refetch={refetch} />,
+    },
     {
       label: "채팅",
       query: "chatting",
