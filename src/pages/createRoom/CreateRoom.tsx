@@ -15,6 +15,7 @@ import {
   Input,
 } from "components";
 import { useModal, useToast } from "hooks";
+import { getLocationsAPI } from "apis";
 import {
   SmallChevronRightIcon,
   PEOPEL_CAPACITY_RADIOS,
@@ -23,14 +24,19 @@ import {
   TagCloseWhiteIcon,
   CircleCloseIcon,
 } from "assets";
-import type { locationInfo } from "types";
+import type { locationInfo, GetMeetingResponse } from "types";
 import { useCreateRoom } from "./hooks";
 import * as S from "./CreateRoom.styled";
 
-const CreateRoom = () => {
+interface CreateRoomProps {
+  data?: GetMeetingResponse;
+}
+
+const CreateRoom = ({ data }: CreateRoomProps) => {
   const [locations, setLocations] = useState<locationInfo[]>([]);
   const [oppositeInput, setOppositeInput] = useState("");
   const [currentInput, setCurrentInput] = useState("");
+
   const { gender } = useRecoilValue(genderSelector);
 
   const {
@@ -42,7 +48,8 @@ const CreateRoom = () => {
     handleSubmit,
     handleSelectConditions,
     handleClickButton,
-  } = useCreateRoom();
+    handleClickEditButton,
+  } = useCreateRoom(data);
   const { handleOpenModal, handleCloseModal } = useModal();
   const { addToast } = useToast();
 
@@ -162,6 +169,37 @@ const CreateRoom = () => {
   };
 
   useEffect(() => {
+    //TODO: 배열 -> api 호출해서 location 데이터 뽑아와야함 -> useQuery로 작성하다가 이슈가 발생해서 임시로 api 가져와서 사용
+    if (!data) return;
+
+    const currentLocation = data.locations.map((item) => {
+      const splitLocation = item.split(" ");
+      return { state: splitLocation[0], city: splitLocation[1] };
+    });
+    const fetchData = async () => {
+      try {
+        const locationPromises = currentLocation.map((location) => {
+          return getLocationsAPI({ query: location });
+        });
+
+        const results = await Promise.all(locationPromises);
+
+        console.log(results);
+        const currentResults = results.map((item) => ({
+          id: item.locationId,
+          locationName: `${item.locationState} ${item.locationCity}`,
+        }));
+
+        setLocations(currentResults);
+        setValue("locations", currentResults);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+    fetchData();
+  }, [data]);
+
+  useEffect(() => {
     setValue("locations", locations);
 
     if (watch("locations")?.length) {
@@ -227,7 +265,7 @@ const CreateRoom = () => {
               render={() => {
                 return (
                   <S.LocationBox>
-                    {locations.map((location) => (
+                    {watch("locations")?.map((location) => (
                       <Badge
                         css={S.badge}
                         key={location.id}
@@ -332,6 +370,12 @@ const CreateRoom = () => {
 
                       return (
                         <RangeSlider
+                          currentMaxValue={watch(
+                            `${oppositeGender}.age.maxAge`
+                          )}
+                          currentMinValue={watch(
+                            `${oppositeGender}.age.minAge`
+                          )}
                           min={19}
                           max={50}
                           handleValueChange={handleChange}
@@ -363,6 +407,12 @@ const CreateRoom = () => {
 
                       return (
                         <RangeSlider
+                          currentMaxValue={watch(
+                            `${oppositeGender}.height.maxHeight`
+                          )}
+                          currentMinValue={watch(
+                            `${oppositeGender}.height.minHeight`
+                          )}
                           min={100}
                           max={250}
                           handleValueChange={handleChange}
@@ -494,6 +544,8 @@ const CreateRoom = () => {
 
                       return (
                         <RangeSlider
+                          currentMaxValue={watch(`${currentGender}.age.maxAge`)}
+                          currentMinValue={watch(`${currentGender}.age.minAge`)}
                           min={19}
                           max={50}
                           handleValueChange={handleChange}
@@ -525,6 +577,12 @@ const CreateRoom = () => {
 
                       return (
                         <RangeSlider
+                          currentMaxValue={watch(
+                            `${currentGender}.height.maxHeight`
+                          )}
+                          currentMinValue={watch(
+                            `${currentGender}.height.minHeight`
+                          )}
                           min={100}
                           max={250}
                           handleValueChange={handleChange}
@@ -583,7 +641,9 @@ const CreateRoom = () => {
           <Button
             css={S.button}
             variant="lgPink"
-            onClick={handleSubmit(handleClickButton)}
+            onClick={handleSubmit(
+              data ? handleClickEditButton : handleClickButton
+            )}
           >
             등록
           </Button>

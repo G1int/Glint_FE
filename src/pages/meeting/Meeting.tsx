@@ -69,6 +69,10 @@ const Meeting = () => {
     );
   };
 
+  const handleClickEdit = () => {
+    navigate(`/meeting/edit/${meetingId}`);
+  };
+
   return (
     <BackLayout
       isMeeting
@@ -76,6 +80,7 @@ const Meeting = () => {
       hasTopContent
       handleClickShare={handleClickShare}
       handleClickExit={handleOpenModalExit}
+      handleClickEdit={handleClickEdit}
     >
       <Tab
         css={S.tab}

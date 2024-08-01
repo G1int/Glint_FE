@@ -1,6 +1,6 @@
-import { SELECT_CONDITIONS } from "assets";
 import type { locationInfo } from "types";
 
+//TODO: 타입 오류 발생해서 일단 리터럴 타입 삭제함
 export interface age {
   minAge: number;
   maxAge: number;
@@ -16,7 +16,7 @@ export interface createRoomForm {
   description: string;
   locations: locationInfo[] | null;
   maleConditions: {
-    selectConditions: (typeof SELECT_CONDITIONS)[number]["key"][];
+    selectConditions: string[];
     affiliation: string[];
     religions: string;
     smoking: string;
@@ -25,7 +25,7 @@ export interface createRoomForm {
     height: height;
   };
   femaleConditions: {
-    selectConditions: (typeof SELECT_CONDITIONS)[number]["key"][];
+    selectConditions: string[];
     affiliation: string[];
     religions: string;
     smoking: string;
@@ -43,7 +43,7 @@ export interface postCreateRoomQuery {
     leaderUserId: string;
     locationIds: number[];
     maleConditions: {
-      selectConditions: (typeof SELECT_CONDITIONS)[number]["key"][];
+      selectConditions: string[];
       affiliation: string[];
       religionIds: number[];
       smokingIds: number[];
@@ -54,7 +54,7 @@ export interface postCreateRoomQuery {
       maxHeight: number;
     };
     femaleConditions: {
-      selectConditions: (typeof SELECT_CONDITIONS)[number]["key"][];
+      selectConditions: string[];
       affiliation: string[];
       religionIds: number[];
       smokingIds: number[];
@@ -65,4 +65,8 @@ export interface postCreateRoomQuery {
       maxHeight: number;
     };
   };
+}
+
+export interface putEditRoomQuery extends postCreateRoomQuery {
+  meetingId: string;
 }
