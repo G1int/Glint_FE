@@ -56,6 +56,7 @@ const Meeting = () => {
       hasTopContent
       handleClickShare={handleClickShare}
       handleClickExit={handleClickExit}
+      css={S.backLayout}
     >
       <Tab
         css={S.tab}

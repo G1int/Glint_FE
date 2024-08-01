@@ -1,8 +1,9 @@
 import { css } from "@emotion/react";
 
 export const backLayout = css`
-  display: flex;
-  justify-content: center;
+  & > div:first-of-type {
+    padding: 32px 16px 8px 16px;
+  }
 `;
 
 export const tab = css`
