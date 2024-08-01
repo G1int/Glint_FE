@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { BackLayout, Tab } from "components";
-import { useToast } from "hooks";
+import { BackLayout, ConfirmModal, Tab } from "components";
+import { useModal, useToast } from "hooks";
 import { useGetMeeting, useOutMeeting } from "services";
 import { Join, Chatting, Home } from "./containers";
 import * as S from "./Meeting.styled";
@@ -17,6 +17,7 @@ const Meeting = () => {
   const { mutate: outMeetingMutate } = useOutMeeting();
 
   const { addToast } = useToast();
+  const { handleOpenModal, handleCloseModal } = useModal();
 
   const isOwner = `${data?.leaderUserId}` === userId;
   const isJoined = !!data?.users.find((user) => `${user.id}` === userId);
@@ -46,11 +47,26 @@ const Meeting = () => {
     };
 
     outMeetingMutate(req, {
-      onSuccess: () => navigate("/main"),
+      onSuccess: () => {
+        navigate("/main");
+        handleCloseModal();
+      },
       onError: () => {
         addToast({ content: "미팅 나가기에 실패했습니다. 다시 시도해주세요." });
       },
     });
+  };
+
+  const handleOpenModalExit = () => {
+    handleOpenModal(
+      <ConfirmModal
+        content="이 미팅방에서 나가시겠어요?"
+        confirmLabel="나가기"
+        cancelLabel="취소"
+        handleCloseClick={handleCloseModal}
+        handleConfirmClick={handleClickExit}
+      />
+    );
   };
 
   return (
@@ -59,7 +75,7 @@ const Meeting = () => {
       isOwner
       hasTopContent
       handleClickShare={handleClickShare}
-      handleClickExit={handleClickExit}
+      handleClickExit={handleOpenModalExit}
     >
       <Tab
         css={S.tab}
