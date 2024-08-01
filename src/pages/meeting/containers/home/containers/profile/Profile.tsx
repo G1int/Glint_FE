@@ -5,6 +5,10 @@ import { userIdSelector } from "atoms";
 import { CircleStartIcon, InfoIcon, MeetingWaitingIcon } from "assets";
 import type { GetMeetingResponse } from "types";
 import * as S from "./Profile.styled";
+import { useModal, useToast } from "hooks";
+import { useGetUserInfo } from "services";
+import { ProfileModal } from "components";
+import { useNavigate } from "react-router-dom";
 
 interface ProfileProps {
   leaderId?: string;
@@ -13,9 +17,66 @@ interface ProfileProps {
 }
 
 const Profile = ({ leaderId, peopleCapacity, users }: ProfileProps) => {
+  const navigate = useNavigate();
   const [isBlur, setIsBlur] = useState(false);
+  const [clickUserId, setClickUserId] = useState<string | null>(null);
+
+  const { handleOpenModal, handleCloseModal } = useModal();
+  const { addToast } = useToast();
+
+  const { data: profile } = useGetUserInfo(clickUserId!);
 
   const userId = useRecoilValue(userIdSelector);
+
+  const introduceInfo = {
+    introduce: profile?.userProfile?.selfIntroduction ?? null,
+    basicInfo: [
+      profile?.userProfile?.location?.locationState ?? null,
+      profile?.userProfile?.location?.locationCity ?? null,
+      `${profile?.userDetail?.height}cm` ?? null,
+      profile?.userProfile?.smoking?.smokingName ?? null,
+      profile?.userProfile?.religion?.religionName ?? null,
+      profile?.userProfile?.drinking?.drinkingName ?? null,
+    ],
+    keywords: profile?.userProfile?.hashtags ?? [],
+  };
+
+  const handleClose = () => {
+    handleCloseModal();
+    setClickUserId(null);
+  };
+
+  const handleClickProfile = () => {
+    if (userId && profile) {
+      handleOpenModal(
+        <ProfileModal
+          img={profile.userDetail?.profileImage}
+          name={profile.userDetail?.nickname}
+          age={profile.userDetail?.age}
+          work={profile.userProfile?.work?.workName ?? null}
+          university={
+            profile.userProfile?.university
+              ? `${profile.userProfile.university.universityName ?? ""} ${
+                  profile.userProfile.university.universityDepartment ?? ""
+                }`
+              : null
+          }
+          clickUserId={profile.userId.toString()}
+          introduceInfo={introduceInfo}
+          handleCloseClick={handleClose}
+        />
+      );
+    } else {
+      addToast({ content: "로그인이 필요한 서비스 입니다." });
+      navigate("/");
+    }
+  };
+
+  useEffect(() => {
+    if (clickUserId && profile) {
+      handleClickProfile();
+    }
+  }, [clickUserId, profile]);
 
   useEffect(() => {
     if (!userId) {
@@ -28,7 +89,10 @@ const Profile = ({ leaderId, peopleCapacity, users }: ProfileProps) => {
   return (
     <S.ProfileWrapper>
       {users.map((user) => (
-        <S.Profile key={user.id}>
+        <S.Profile
+          key={user.id}
+          onClick={() => setClickUserId(user.id.toString())}
+        >
           <S.ImgContainer isBlur={isBlur}>
             <S.Img src={user.profileImage} alt={user.nickname} />
           </S.ImgContainer>
