@@ -2,7 +2,6 @@ import { Badge, BaseModal, Button } from "components";
 import * as S from "./ProfileModal.styled";
 import { CloseIcon, CompanyIcon, ModalRectangleIcon, SchoolIcon } from "assets";
 import { useNavigate } from "react-router-dom";
-import { useModal } from "hooks";
 
 interface ProfileModalProps {
   className?: string;
@@ -11,11 +10,13 @@ interface ProfileModalProps {
   age?: string;
   work?: string | null;
   university?: string | null;
+  clickUserId?: string;
   introduceInfo?: {
-    introduce: string;
-    basicInfo: string[];
+    introduce: string | null;
+    basicInfo: (string | null)[];
     keywords: string[];
   };
+  handleCloseClick?: () => void;
 }
 
 const ProfileModal = ({
@@ -26,11 +27,13 @@ const ProfileModal = ({
   age,
   work,
   university,
+  clickUserId,
+  handleCloseClick,
 }: ProfileModalProps) => {
   const navigate = useNavigate();
-  const { handleCloseModal } = useModal();
+
   const handleProfile = () => {
-    handleCloseModal();
+    handleCloseClick && handleCloseClick();
     navigate("/myProfile");
   };
 
@@ -38,7 +41,7 @@ const ProfileModal = ({
     <BaseModal className={className} css={S.bottomModal}>
       <S.StaticContainer>
         <ModalRectangleIcon css={S.rectangleIcon} />
-        <CloseIcon css={S.closeIcon} onClick={handleCloseModal} />
+        <CloseIcon css={S.closeIcon} onClick={handleCloseClick} />
       </S.StaticContainer>
       <S.ScrollContainer>
         <S.ImageContainer>
@@ -86,14 +89,17 @@ const ProfileModal = ({
               <S.Title>기본정보</S.Title>
               <S.IntroduceContent>
                 {introduceInfo.basicInfo.length > 0 ? (
-                  introduceInfo.basicInfo.map((item, index) => (
-                    <Badge
-                      key={index}
-                      css={S.badge}
-                      label={`#${item}`}
-                      variant="mdWhite"
-                    />
-                  ))
+                  introduceInfo.basicInfo.map(
+                    (item, index) =>
+                      item && (
+                        <Badge
+                          key={index}
+                          css={S.badge}
+                          label={`#${item}`}
+                          variant="mdWhite"
+                        />
+                      )
+                  )
                 ) : (
                   <S.NoContent>입력 내용이 없어요</S.NoContent>
                 )}
@@ -118,11 +124,17 @@ const ProfileModal = ({
             </S.InfoWrapper>
           </S.ContentWrapper>
         )}
-        <S.ButtonWrapper>
-          <Button variant="lgPink" onClick={handleProfile} css={S.modifyButton}>
-            프로필 수정
-          </Button>
-        </S.ButtonWrapper>
+        {!clickUserId && (
+          <S.ButtonWrapper>
+            <Button
+              variant="lgPink"
+              onClick={handleProfile}
+              css={S.modifyButton}
+            >
+              프로필 수정
+            </Button>
+          </S.ButtonWrapper>
+        )}
       </S.ScrollContainer>
     </BaseModal>
   );
