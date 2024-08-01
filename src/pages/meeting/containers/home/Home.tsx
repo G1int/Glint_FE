@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Badge, Button } from "components";
@@ -11,19 +11,26 @@ import * as S from "./Home.styled";
 
 interface HomeProps {
   data?: GetMeetingResponse;
+  refetch?: () => void;
 }
 
-const Home = ({ data }: HomeProps) => {
+const Home = ({ data, refetch }: HomeProps) => {
   const { meetingId } = useParams();
   const userId = sessionStorage.getItem("id")!;
   const navigate = useNavigate();
 
-  const { mutate: mutatePostAttendMeetingRoom } = usePostAttendMeetingRoom();
+  const {
+    mutate: mutatePostAttendMeetingRoom,
+    isSuccess: isSuccessPostAttend,
+  } = usePostAttendMeetingRoom();
 
   const { addToast } = useToast();
 
   const maleUsers = data?.users.filter((user) => user.gender === "MALE");
   const femaleUsers = data?.users.filter((user) => user.gender === "FEMALE");
+
+  const isJoined = !!data?.users.find(({ id }) => id === +userId);
+  const isRequestJoined = data?.joinRequestUserIds.includes(+userId);
 
   const checkRequired = (
     gender: "maleCondition" | "femaleCondition",
@@ -49,6 +56,11 @@ const Home = ({ data }: HomeProps) => {
       navigate("/");
     }
   };
+
+  useEffect(() => {
+    if (!refetch) return;
+    refetch();
+  }, [isSuccessPostAttend]);
 
   return (
     <S.HomeWrapper>
@@ -233,7 +245,12 @@ const Home = ({ data }: HomeProps) => {
         </S.Content>
       </S.ContentWrapper>
       <S.ButtonWrapper>
-        <Button css={S.button} variant="lgPink" onClick={handleAttendClick}>
+        <Button
+          css={S.button}
+          variant="lgPink"
+          disabled={isJoined || isRequestJoined}
+          onClick={handleAttendClick}
+        >
           참가 신청
         </Button>
       </S.ButtonWrapper>

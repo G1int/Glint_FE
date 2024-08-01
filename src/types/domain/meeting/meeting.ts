@@ -38,6 +38,7 @@ interface Conditions {
 }
 
 export interface GetMeetingResponse {
+  joinRequestUserIds: number[];
   id: number;
   leaderUserId: number;
   title: string;

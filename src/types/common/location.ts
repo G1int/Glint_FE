@@ -9,3 +9,10 @@ export interface GetCitiesResponse {
 }
 
 export type locationInfo = { id: number; locationName: string };
+
+export interface GetLocationsQuery {
+  query: {
+    state: string;
+    city: string;
+  };
+}
