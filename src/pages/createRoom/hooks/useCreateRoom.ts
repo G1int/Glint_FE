@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { genderSelector } from "atoms";
 import { useToast } from "hooks";
 import { usePostCreateRoom, usePutEditRoom } from "services";
-import { SELECT_CONDITIONS } from "assets";
+import { GENDER_RADIOS, SELECT_CONDITIONS } from "assets";
 import type { createRoomForm, GetMeetingResponse } from "types";
 
 const initForm = {
@@ -46,11 +46,12 @@ const initForm = {
   },
 };
 
-const useCreateRoom = (data?: GetMeetingResponse) => {
+const useCreateRoom = (
+  data?: GetMeetingResponse,
+  gender?: (typeof GENDER_RADIOS)[number]["key"]
+) => {
   const navigate = useNavigate();
   const { meetingId } = useParams();
-
-  const { gender } = useRecoilValue(genderSelector);
 
   const { mutate: postCreateRoom } = usePostCreateRoom();
   const { mutate: putEditRoom } = usePutEditRoom();
