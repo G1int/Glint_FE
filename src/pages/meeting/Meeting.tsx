@@ -78,6 +78,7 @@ const Meeting = () => {
       isMeeting
       isOwner
       hasTopContent
+      isBack
       handleClickShare={handleClickShare}
       handleClickExit={handleOpenModalExit}
       handleClickEdit={handleClickEdit}

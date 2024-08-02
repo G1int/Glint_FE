@@ -208,7 +208,7 @@ const CreateRoom = ({ data }: CreateRoomProps) => {
   }, [locations]);
 
   return (
-    <BackLayout css={S.backlayout} title="미팅 만들기" hasTopContent>
+    <BackLayout css={S.backlayout} title="미팅 만들기" hasTopContent isBack>
       <S.CreateRoom>
         <S.CreateRoomWrapper>
           <S.MainContent>

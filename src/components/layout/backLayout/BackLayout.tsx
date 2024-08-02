@@ -7,6 +7,7 @@ import * as S from "./BackLayout.styled";
 interface BackLayoutProps {
   className?: string;
   title?: string;
+  isBack?: boolean;
   isMeeting?: boolean;
   isOwner?: boolean;
   isAlert?: boolean; //TODO: 알림 아이콘으로 추가 예정
@@ -21,6 +22,7 @@ interface BackLayoutProps {
 const BackLayout = ({
   className,
   title,
+  isBack,
   isMeeting,
   isOwner,
   isAlert,
@@ -41,10 +43,13 @@ const BackLayout = ({
     <S.BackLayout className={className}>
       <S.Header>
         <S.RightHeaderContainer>
-          <button onClick={handleClickBack ?? onClickBack}>
-            {/* TODO: button 컴포넌트는 컬러로 인해 사용이 불가능하여 임시로 button 사용 추후 수정 필요 */}
-            <BackIcon />
-          </button>
+          {isBack && (
+            <button onClick={handleClickBack ?? onClickBack}>
+              {/* TODO: button 컴포넌트는 컬러로 인해 사용이 불가능하여 임시로 button 사용 추후 수정 필요 */}
+              <BackIcon />
+            </button>
+          )}
+
           {title && <S.Title>{title}</S.Title>}
         </S.RightHeaderContainer>
         {isMeeting && (
