@@ -4,7 +4,8 @@ import styled from "@emotion/styled";
 export const MeetingContainer = styled.div`
   flex: 1;
   overflow: auto;
-  padding-bottom: 64px;
+  padding-top: 78px;
+  padding-bottom: 80px;
 `;
 
 export const More = styled.div`
@@ -42,4 +43,11 @@ export const StickerBox = styled.div`
     padding: 24px;
     background-color: ${theme.colors.gray300};
   `}
+`;
+
+export const SpinnerWrapper = styled.div`
+  display: flex;
+  height: 550px;
+  align-items: center;
+  justify-content: center;
 `;

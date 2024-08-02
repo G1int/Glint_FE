@@ -5,6 +5,7 @@ import {
   Input,
   MeetingCard,
   MultiLocationModal,
+  Spinner,
 } from "components";
 import {
   BigSearchIcon,
@@ -36,6 +37,7 @@ const Search = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [locations, setLocations] = useState<locationInfo[]>([]);
   const [locationIds, setLocationIds] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const limit = 3;
   const userId = useRecoilValue(userIdSelector);
@@ -58,6 +60,7 @@ const Search = () => {
     if (!keyword) {
       addToast({ content: "검색어를 입력해주세요." });
     } else {
+      setIsLoading(true);
       setIsSearching(true);
       setLastMeetingId(null);
     }
@@ -72,6 +75,7 @@ const Search = () => {
   };
 
   const handleCurrentKeyword = (currentKeyword: string) => {
+    setIsLoading(true);
     setKeyword(currentKeyword);
     setIsSearching(true);
     setMeetingList([]);
@@ -130,8 +134,7 @@ const Search = () => {
   useEffect(() => {
     if (data && data.meetings) {
       setMeetingList((prevMeetings) => [...prevMeetings, ...data.meetings]);
-    } else {
-      setMeetingList([]);
+      setIsLoading(false);
     }
   }, [data]);
 
@@ -140,6 +143,7 @@ const Search = () => {
     if (state) {
       setKeyword(state);
       setIsSearching(true);
+      setIsLoading(true);
     }
   }, [state]);
 
@@ -147,6 +151,7 @@ const Search = () => {
     const fetchData = async () => {
       try {
         await refetch();
+        setIsLoading(false);
       } catch (error) {
         addToast({
           content: "데이터 호출에 문제가 생겼습니다. 다시 시도해주세요.",
@@ -190,17 +195,29 @@ const Search = () => {
       <S.SearchResultContainer>
         {meetingList.length === 0 ? (
           <S.NoSearchMeeting>
-            <BigSearchIcon />
-            <div>검색된 미팅이 없어요.</div>
+            {!isLoading ? (
+              <>
+                <BigSearchIcon />
+                <div>검색된 미팅이 없어요.</div>
+              </>
+            ) : (
+              <Spinner />
+            )}
           </S.NoSearchMeeting>
+        ) : meetingList && !isLoading ? (
+          <>
+            <MeetingCard meetingList={meetingList} />
+            {data && data.totalCount > meetingList.length && (
+              <S.More onClick={handleMoreMeeting}>
+                더보기
+                <MoreIcon />
+              </S.More>
+            )}
+          </>
         ) : (
-          <MeetingCard meetingList={meetingList} />
-        )}
-        {data && data.totalCount > meetingList.length && (
-          <S.More onClick={handleMoreMeeting}>
-            더보기
-            <MoreIcon />
-          </S.More>
+          <S.SpinnerWrapper>
+            <Spinner />
+          </S.SpinnerWrapper>
         )}
       </S.SearchResultContainer>
     </>

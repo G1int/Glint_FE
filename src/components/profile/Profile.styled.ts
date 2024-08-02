@@ -72,3 +72,10 @@ export const InfoContent = styled.div`
     }
   `}
 `;
+
+export const SpinnerWrapper = styled.div`
+  width: 72px;
+  height: 72px;
+  display: flex;
+  place-content: center;
+`;

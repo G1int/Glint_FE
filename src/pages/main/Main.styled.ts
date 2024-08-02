@@ -89,3 +89,10 @@ export const More = styled.div`
     cursor: pointer;
   `}
 `;
+
+export const MeetingWrapper = styled.div`
+  display: flex;
+  height: 340px;
+  align-items: center;
+  justify-content: center;
+`;

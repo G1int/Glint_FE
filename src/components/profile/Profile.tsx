@@ -6,6 +6,7 @@ import { usePutProfileImage } from "services";
 import { useToast, useUserInfo } from "hooks";
 import { userIdSelector } from "atoms";
 import { useRecoilValue } from "recoil";
+import { Spinner } from "components/spinner";
 
 interface ProfileProps {
   className?: string;
@@ -20,16 +21,21 @@ interface ProfileProps {
 }
 
 const Profile = ({ className, name, age, img, info }: ProfileProps) => {
-  const { addToast } = useToast();
-  const { fetchUserInfo } = useUserInfo();
-  const userId = useRecoilValue(userIdSelector);
-  const { mutate: mutateImage } = usePutProfileImage(userId!);
-  const [profileImg, setProfileImg] = useState(img ?? "");
   const fileInput = React.useRef<HTMLInputElement>(null);
+  const [profileImg, setProfileImg] = useState(img ?? "");
+  const [isLoading, setIsLoading] = useState(false);
+
+  const userId = useRecoilValue(userIdSelector);
+  const { addToast } = useToast();
+
+  const { fetchUserInfo } = useUserInfo();
+  const { mutate: mutateImage } = usePutProfileImage(userId!);
 
   useEffect(() => {
+    setIsLoading(true);
     if (img) {
       setProfileImg(img);
+      setIsLoading(false);
     }
   }, [img]);
 
@@ -60,15 +66,23 @@ const Profile = ({ className, name, age, img, info }: ProfileProps) => {
   return (
     <S.Profile className={className}>
       <S.ImgContent>
-        <S.Img src={profileImg} />
-        <S.IconContent onClick={handleInputClick}>
-          <S.InputFile
-            type="file"
-            ref={fileInput}
-            onChange={handleUploadImage}
-          />
-          <ProfileCameraIcon />
-        </S.IconContent>
+        {profileImg && isLoading === false ? (
+          <>
+            <S.Img src={profileImg} />
+            <S.IconContent onClick={handleInputClick}>
+              <S.InputFile
+                type="file"
+                ref={fileInput}
+                onChange={handleUploadImage}
+              />
+              <ProfileCameraIcon />
+            </S.IconContent>
+          </>
+        ) : (
+          <S.SpinnerWrapper>
+            <Spinner />
+          </S.SpinnerWrapper>
+        )}
       </S.ImgContent>
       <S.InfoWrapper>
         <S.MainInfoContent>
