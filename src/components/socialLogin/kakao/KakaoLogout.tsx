@@ -34,6 +34,7 @@ const KakaoLogout = ({ className }: KakaoLogoutProps) => {
         handleCloseModal();
         sessionStorage.clear();
         navigate("/");
+        window.location.reload();
       },
       onError: (error) => {
         handleCloseModal();
