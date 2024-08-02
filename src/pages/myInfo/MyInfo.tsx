@@ -45,9 +45,23 @@ const MyInfo = () => {
     }`,
   };
 
+  const introduceInfo = {
+    introduce: userProfile?.selfIntroduction ?? null,
+    basicInfo: [
+      userProfile?.location?.locationState ?? null,
+      userProfile?.location?.locationCity ?? null,
+      `${userDetail?.height}cm` ?? null,
+      userProfile?.smoking?.smokingName ?? null,
+      userProfile?.religion?.religionName ?? null,
+      userProfile?.drinking?.drinkingName ?? null,
+    ],
+    keywords: userProfile?.hashtags ?? [],
+  };
+
   const handleMyProfile = () => {
     return handleOpenModal(
       <ProfileModal
+        handleCloseClick={handleCloseModal}
         img={userDetail?.profileImage}
         name={userDetail?.nickname}
         age={userDetail?.age}
@@ -59,6 +73,7 @@ const MyInfo = () => {
               }`
             : null
         }
+        introduceInfo={introduceInfo}
       />
     );
   };

@@ -25,6 +25,7 @@ export const closeIcon = css`
   position: absolute;
   left: 318px;
   bottom: 608px;
+  cursor: pointer;
 `;
 
 export const ScrollContainer = styled.div`
@@ -106,6 +107,8 @@ export const InfoWrapper = styled.div`
 export const Title = styled.div`
   ${({ theme }) => css`
     ${theme.fonts.subTitle_bold_16};
+    height: 22px;
+    align-content: center;
     text-align: left;
   `}
 `;

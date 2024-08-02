@@ -28,6 +28,7 @@ export const Profile = styled.div`
     ${theme.fonts.caption_regular_12};
     position: relative;
     background-color: ${theme.colors.gray400};
+    cursor: pointer;
   `}
 `;
 

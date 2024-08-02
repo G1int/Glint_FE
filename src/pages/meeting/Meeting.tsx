@@ -81,6 +81,7 @@ const Meeting = () => {
       handleClickShare={handleClickShare}
       handleClickExit={handleOpenModalExit}
       handleClickEdit={handleClickEdit}
+      css={S.backLayout}
     >
       <Tab
         css={S.tab}
