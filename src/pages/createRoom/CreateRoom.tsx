@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
 import { Controller } from "react-hook-form";
 
-import { genderSelector } from "atoms";
 import {
   BackLayout,
   Badge,
@@ -15,6 +13,7 @@ import {
   Input,
 } from "components";
 import { useModal, useToast } from "hooks";
+import { useGetUserInfo } from "services";
 import { getLocationsAPI } from "apis";
 import {
   SmallChevronRightIcon,
@@ -23,6 +22,7 @@ import {
   SELECT_DATA,
   TagCloseWhiteIcon,
   CircleCloseIcon,
+  GENDER_RADIOS,
 } from "assets";
 import type { locationInfo, GetMeetingResponse } from "types";
 import { useCreateRoom } from "./hooks";
@@ -37,7 +37,12 @@ const CreateRoom = ({ data }: CreateRoomProps) => {
   const [oppositeInput, setOppositeInput] = useState("");
   const [currentInput, setCurrentInput] = useState("");
 
-  const { gender } = useRecoilValue(genderSelector);
+  const userId = sessionStorage.getItem("id");
+
+  const { data: user } = useGetUserInfo(userId!);
+
+  const gender = user?.userDetail
+    .gender as (typeof GENDER_RADIOS)[number]["key"];
 
   const {
     watch,
@@ -49,7 +54,7 @@ const CreateRoom = ({ data }: CreateRoomProps) => {
     handleSelectConditions,
     handleClickButton,
     handleClickEditButton,
-  } = useCreateRoom(data);
+  } = useCreateRoom(data, gender);
   const { handleOpenModal, handleCloseModal } = useModal();
   const { addToast } = useToast();
 
