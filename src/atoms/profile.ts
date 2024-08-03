@@ -44,10 +44,10 @@ export const userGenderState = atom<
 });
 
 export const genderSelector = selector({
+  //TODO: 수정필요
   key: "genderSelector",
   get: ({ get }) => {
     const userDetail = get(userDetailState);
-
     return {
       gender: userDetail?.gender,
     };
