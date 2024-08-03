@@ -11,7 +11,7 @@ import { useToast } from "hooks";
 const JoinMeeting = () => {
   const [lastMeetingId, setLastMeetingId] = useState<number | null>(null);
   const [meetingList, setMeetingList] = useState<meetingListItem[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { addToast } = useToast();
   const userId = useRecoilValue(userIdSelector);
@@ -26,7 +26,6 @@ const JoinMeeting = () => {
   );
 
   useEffect(() => {
-    setIsLoading(true);
     if (data?.meetings) {
       setMeetingList((prevMeetings) => [...prevMeetings, ...data.meetings]);
       setIsLoading(false);
