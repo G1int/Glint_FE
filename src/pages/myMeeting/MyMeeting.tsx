@@ -1,4 +1,4 @@
-import { BackLayout, Tab } from "components";
+import { Header, Tab } from "components";
 import * as S from "./MyMeeting.styled";
 import { JoinMeeting, WaitMeeting } from "./containers";
 
@@ -10,9 +10,8 @@ const MyMeeting = () => {
 
   return (
     <>
-      <BackLayout css={S.backLayout} title="내미팅" hasTopContent>
-        <Tab tabList={["참가 미팅", "대기 미팅"]} tabs={tabs} />
-      </BackLayout>
+      <Header css={S.header}>내미팅</Header>
+      <Tab tabList={["참가 미팅", "대기 미팅"]} tabs={tabs} />
     </>
   );
 };
