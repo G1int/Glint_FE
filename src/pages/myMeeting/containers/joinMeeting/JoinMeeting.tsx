@@ -18,7 +18,7 @@ const JoinMeeting = () => {
 
   const limit = 3;
 
-  const { data, error } = useGetMyMeeting(
+  const { data, error, isFetchedAfterMount } = useGetMyMeeting(
     "ACCEPTED",
     userId!,
     lastMeetingId,
@@ -26,8 +26,14 @@ const JoinMeeting = () => {
   );
 
   useEffect(() => {
-    if (data?.meetings) {
-      setMeetingList((prevMeetings) => [...prevMeetings, ...data.meetings]);
+    if (data?.meetings && isFetchedAfterMount) {
+      setMeetingList((prevMeetings) => {
+        const newMeetings = data.meetings.filter(
+          (meeting) =>
+            !prevMeetings.some((prev) => prev.meetingId === meeting.meetingId)
+        );
+        return [...prevMeetings, ...newMeetings];
+      });
       setIsLoading(false);
     } else if (error) {
       addToast({
@@ -36,7 +42,7 @@ const JoinMeeting = () => {
       console.error("참여 미팅 리스트 API 실패:", error);
       setIsLoading(false);
     }
-  }, [data, error]);
+  }, [data, error, isFetchedAfterMount]);
 
   const handleMoreMeeting = () => {
     if (data?.meetings && data.meetings.length > 0) {
