@@ -4,20 +4,21 @@ import { userIdSelector } from "atoms";
 import { useGetMyMeeting } from "services";
 import { useEffect, useState } from "react";
 import { meetingListItem } from "types";
-import { MeetingCard } from "components";
+import { MeetingCard, Spinner } from "components";
 import { MoreIcon, StickerIcon } from "assets";
 import { useToast } from "hooks";
 
 const WaitMeeting = () => {
   const [lastMeetingId, setLastMeetingId] = useState<number | null>(null);
   const [meetingList, setMeetingList] = useState<meetingListItem[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { addToast } = useToast();
   const userId = useRecoilValue(userIdSelector);
 
   const limit = 3;
 
-  const { data, error } = useGetMyMeeting(
+  const { data, error, isFetchedAfterMount } = useGetMyMeeting(
     "WAITING",
     userId!,
     lastMeetingId,
@@ -25,15 +26,23 @@ const WaitMeeting = () => {
   );
 
   useEffect(() => {
-    if (data?.meetings) {
-      setMeetingList((prevMeetings) => [...prevMeetings, ...data.meetings]);
+    if (data?.meetings && isFetchedAfterMount) {
+      setMeetingList((prevMeetings) => {
+        const newMeetings = data.meetings.filter(
+          (meeting) =>
+            !prevMeetings.some((prev) => prev.meetingId === meeting.meetingId)
+        );
+        return [...prevMeetings, ...newMeetings];
+      });
+      setIsLoading(false);
     } else if (error) {
       addToast({
         content: "데이터 호출에 문제가 생겼습니다. 다시 시도해주세요.",
       });
       console.error("대기 미팅 리스트 API 실패:", error);
+      setIsLoading(false);
     }
-  }, [data, error]);
+  }, [data, error, isFetchedAfterMount]);
 
   const handleMoreMeeting = () => {
     if (data?.meetings && data.meetings.length > 0) {
@@ -43,7 +52,7 @@ const WaitMeeting = () => {
 
   return (
     <>
-      {meetingList.length > 0 ? (
+      {meetingList.length > 0 && !isLoading ? (
         <S.MeetingContainer>
           <MeetingCard meetingList={meetingList} />
           {meetingList.length >= limit &&
@@ -55,17 +64,27 @@ const WaitMeeting = () => {
               </S.More>
             )}
         </S.MeetingContainer>
+      ) : meetingList.length === 0 ? (
+        !isLoading ? (
+          <S.EmptyUserJoinMeetingWrapper>
+            <S.StickerBox>
+              <StickerIcon />
+            </S.StickerBox>
+            <S.EmptyUserText>
+              미팅 참가
+              <br />
+              신청 목록이 없어요.
+            </S.EmptyUserText>
+          </S.EmptyUserJoinMeetingWrapper>
+        ) : (
+          <S.SpinnerWrapper>
+            <Spinner />
+          </S.SpinnerWrapper>
+        )
       ) : (
-        <S.EmptyUserJoinMeetingWrapper>
-          <S.StickerBox>
-            <StickerIcon />
-          </S.StickerBox>
-          <S.EmptyUserText>
-            미팅 참가
-            <br />
-            신청 목록이 없어요.
-          </S.EmptyUserText>
-        </S.EmptyUserJoinMeetingWrapper>
+        <S.SpinnerWrapper>
+          <Spinner />
+        </S.SpinnerWrapper>
       )}
     </>
   );

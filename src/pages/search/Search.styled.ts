@@ -157,3 +157,10 @@ export const More = styled.div`
     cursor: pointer;
   `}
 `;
+
+export const SpinnerWrapper = styled.div`
+  display: flex;
+  height: 550px;
+  align-items: center;
+  justify-content: center;
+`;
