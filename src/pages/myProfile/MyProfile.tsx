@@ -195,10 +195,18 @@ const MyProfile = () => {
               }}
               selectedKey={
                 item.title === "종교"
-                  ? String(userProfile?.religion?.religionId)
+                  ? String(
+                      changeProfile.religionId ||
+                        userProfile?.religion?.religionId
+                    )
                   : item.title === "흡연"
-                  ? String(userProfile?.smoking?.smokingId)
-                  : String(userProfile?.drinking?.drinkingId)
+                  ? String(
+                      changeProfile.smokingId || userProfile?.smoking?.smokingId
+                    )
+                  : String(
+                      changeProfile.drinkingId ||
+                        userProfile?.drinking?.drinkingId
+                    )
               }
             />
           </S.DropdownContainer>
