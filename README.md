@@ -59,5 +59,5 @@
 
 |        |                MEMBER                 |               MEMBER                |
 | ------ | :-----------------------------------: | :---------------------------------: |
-| NAME   |                김유래                 |               이현진                |
+| NAME   |                이나래                 |               이현진                |
 | GITHUB | [narae](https://github.com/dlskfo306) | [zinnli](https://github.com/zinnli) |
