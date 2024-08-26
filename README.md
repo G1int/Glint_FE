@@ -1,7 +1,7 @@
 # ✨ Glint
 
 <strong>'소개팅 앱은 있는데 왜 미팅 앱은 없는 거지?'</strong><br/>
-라는 단순한 아이디어에서 시작 저희 서비스 ✨<strong>Glint</strong>✨는 2030 싱글남녀를 타깃으로<br/>
+라는 단순한 아이디어에서 시작된 저희 서비스 ✨<strong>Glint</strong>✨는 2030 싱글남녀를 타깃으로<br/>
 자신과 비슷한 직군, 업계, 학교 등과 미팅을 할 수 있도록 연결해 주는 서비스입니다.
 
 <img width="1200" alt="banner" src="src/assets/OG_img.svg">
