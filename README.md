@@ -36,6 +36,7 @@
 <img src="https://img.shields.io/badge/Recoil-3578E6?style=flat-square&logo=Recoil&logoColor=white"/>&nbsp;
 <img src="https://img.shields.io/badge/emotion-609926?style=flat-square&logoColor=white"/>&nbsp;
 <img src="https://img.shields.io/badge/React%20Hook%20Form-EC5990?style=flat-square&logo=React%20Hook%20Form&logoColor=white" alt="React Hook Form"/>&nbsp;
+<img src="https://img.shields.io/badge/Storybook-FF4785?style=flat-square&logo=Storybook&logoColor=white"/>&nbsp;
 
 ### 📖 페이지 별 기능
 
