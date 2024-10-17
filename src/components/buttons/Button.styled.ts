@@ -24,7 +24,7 @@ export const Button = styled.button<{ variant?: buttonVariant }>`
     `1px solid ${theme.colors.gray600}`};
     width: ${variant === "lgPink"
       ? "320px"
-      : variant === "mdPink" || variant === "mdWhite" || variant === "xsWhite"
+      : variant === "mdPink" || variant === "mdWhite"
       ? "140px"
       : variant === "smPink"
       ? "59px"
